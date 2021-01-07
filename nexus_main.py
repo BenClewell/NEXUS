@@ -6,7 +6,7 @@ import pyfiglet
 import pyfiglet.fonts
 
 # more specific for pyinstaller
-import message_random as msg
+
 from random import sample, shuffle, choice
 
 from random import randint
@@ -19,9 +19,9 @@ from asciimatics.exceptions import ResizeScreenError
 
 import keyboard  # f11press
 
-import sfx
-import hacking_minigame
-
+from my_modules import sfx
+from my_modules import hacking_minigame
+from my_modules import message_random as msg
 # audio
 
 sfx.play_mp3("art_of_silence.mp3")
