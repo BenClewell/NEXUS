@@ -5,154 +5,12 @@ import os
 import pyfiglet
 import pyfiglet.fonts
 
-# more specific for pyinstaller
-
 from random import sample, shuffle, choice
-
 from random import randint
-from asciimatics.screen import Screen
-from asciimatics.renderers import Plasma, Rainbow, FigletText
-from asciimatics.scene import Scene
-from asciimatics.effects import Print
-from asciimatics.exceptions import ResizeScreenError
 
-
-import keyboard  # f11press
-
+from my_modules import message_random as msg
 from my_modules import sfx
 from my_modules import hacking_minigame
-from my_modules import message_random as msg
-
-# audio
-
-sfx.play_mp3("art_of_silence.mp3")
-num_denials = 3
-
-
-class PlasmaScene(Scene):
-    """play the title card"""
-
-    _comments = ["THE NEXUS", "PRESS Q"]
-
-    def __init__(self, screen):
-        self._screen = screen
-        effects = [
-            Print(
-                screen,
-                Plasma(screen.height, screen.width, screen.colours),
-                0,
-                speed=1,
-                transparent=False,
-            ),
-        ]
-        super(PlasmaScene, self).__init__(effects, 200, clear=False)
-
-    def add_comment(self):
-
-        msg = FigletText(("NEXUS"), font="big")
-        creator = FigletText(("A game by Benjamin Clewell"), font="rectangles")
-        self._effects.append(
-            Print(
-                self._screen,
-                msg,
-                (self._screen.height // 2) - 4,
-                x=(self._screen.width - msg.max_width) // 2 + 1,
-                colour=Screen.COLOUR_WHITE,
-                stop_frame=30,
-                speed=1,
-            )
-        )
-
-        self._effects.append(
-            Print(
-                self._screen,
-                creator,
-                (self._screen.height // 2) + 5,
-                x=(self._screen.width - msg.max_width) // 2 - 35,
-                colour=Screen.COLOUR_WHITE,
-                start_frame=5,
-                stop_frame=30,
-                speed=1,
-            )
-        )
-
-        # Changes text to rainbow...
-
-        self._effects.append(
-            Print(
-                self._screen,
-                Rainbow(self._screen, msg),
-                (self._screen.height // 2) - 4,
-                x=(self._screen.width - msg.max_width) // 2,
-                colour=Screen.COLOUR_BLACK,
-                stop_frame=30,
-                speed=1,
-            )
-        )
-
-        # START INSTRUCTIONS
-
-        msg = FigletText(
-            ("PRESS   Q"),
-            font="big",
-        )
-        self._effects.append(
-            Print(
-                self._screen,
-                msg,
-                (self._screen.height // 2) - 4,
-                x=(self._screen.width - msg.max_width) // 2 + 1,
-                colour=Screen.COLOUR_WHITE,
-                start_frame=30,
-                speed=1,
-            )
-        )
-
-        # Changes text to rainbow...
-
-        self._effects.append(
-            Print(
-                self._screen,
-                Rainbow(self._screen, msg),
-                (self._screen.height // 2) - 4,
-                x=(self._screen.width - msg.max_width) // 2,
-                colour=Screen.COLOUR_BLACK,
-                start_frame=30,
-                speed=1,
-            )
-        )
-
-    def reset(self, old_scene=None, screen=None):
-        super(PlasmaScene, self).reset(old_scene, screen)
-
-        # Make sure that we only have the initial Effect and add a new cheesy
-        # comment.
-        self._effects = [self._effects[0]]
-        self.add_comment()
-
-
-def intro_plasma(screen):
-
-    screen.play(
-        [PlasmaScene(screen)],
-        stop_on_resize=True,
-    )
-
-
-if __name__ == "__main__":
-    while True:
-        try:
-            Screen.wrapper(intro_plasma)
-            sfx.click.play()
-            sfx.startup.play()
-            # force fullscreen keyboard.press_and_release('F11')
-            break
-        except ResizeScreenError:
-            pass
-
-
-ascii_nexus = pyfiglet.figlet_format("THE    NEXUS")
-print(ascii_nexus)
 
 
 def make_guess():
@@ -164,8 +22,9 @@ def make_guess():
         make_guess()
 
 
-def minigame_hack():
+def search_for_key():
     global guess
+    global hack_success
     barrier_low = random.randint(25, 50)
     barrier_high = random.randint(50, 75)
     # sets the low and high defense paramters
@@ -190,9 +49,9 @@ def minigame_hack():
 
     # print("lol it's " + str(entry_key))
     """the above is for playtesting only"""
-    # chances are 5 or 3
-    chance_options = [5]
-    chances = random.choice(chance_options)
+
+    chances = 5
+    # five chances total
     firstchance = True
     # is this their first time?
     extra_chance = True
@@ -211,39 +70,16 @@ def minigame_hack():
 
     ascii_sonar_status = pyfiglet.figlet_format("SONAR", font="digital")
 
-    time.sleep(1)
+    time.sleep(2)
     print("The NEXUS KEY is encrypted between node 1 and 100.")
-    print(
-        "Type in any number in this range, and I'll hack that node to look for the NEXUS KEY."
-    )
 
-    time.sleep(1)
+    time.sleep(2)
     ascii_jam_online = pyfiglet.figlet_format("JAMMER   ONLINE", font="bubble")
     print(ascii_jam_online)
-    print(
-        "DEFENSE RANGE ESTABLISHED.\nSELECTING A NODE WITHIN THE DEFENSE RANGE WILL TRIGGER THE JAMMER."
-    )
 
     if chances == 5:
         sonar = False
         time.sleep(1)
-        print(random.choice(msg.chances5))
-        print(
-            "I would choose either a low node, or a high node to start with."
-        )
-
-    print(
-        "\nWe have a maximum of 5 chances to locate the key. We can do this."
-    )
-    print(
-        "You can select a node on either side of the NEXUS KEY only 3 times before the AI finds you, so be careful.\n(Do not be consistently high or low.)"
-    )
-
-    time.sleep(0.5)
-    print(
-        "\n\nTo view your hacking history in this system, enter '0' at any point."
-    )
-    time.sleep(0.5)
 
     print(
         "----------------------------------------------\nENTER A NODE (between 1 and 100):\n"
@@ -345,14 +181,21 @@ def minigame_hack():
             # play sfx
             time.sleep(1)
             sfx.hack_node()
-            minigame_chance = randint(1, 2)
-            if minigame_chance == 1:
-                hacking_minigame.node_hacking_minigame()
-            if minigame_chance == 2:
-                print("NO FIREWALL DETECTED.")
             # play hacking sound
             print(random.choice(msg.hacking_lines))
             time.sleep(2)
+
+            minigame_chance = randint(1, 2)
+            if minigame_chance == 1:
+                hacking_minigame.node_hacking_minigame()
+                time.sleep(2)
+                if hack_success == False:
+                    print("HACK FAILED.")
+                if hack_success == True:
+                    print("HACK SUCCEEDED")
+
+            if minigame_chance == 2:
+                print("NO FIREWALL DETECTED.")
             print(random.choice(msg.hacked_lines))
 
             if guess == entry_key:
@@ -410,9 +253,12 @@ def minigame_hack():
                     high_keys -= 1
                     if high_keys != 0:
                         print(
-                            "LOW NODE ENTRY DETECTED: "
+                            "LOW ENTRY\n"
+                            + "REMAINING CHANCES: "
                             + str(high_keys)
-                            + " LOW ENTRIES UNTIL SYSTEM LOCK"
+                            + " LOW, "
+                            + str(low_keys)
+                            + "HIGH"
                         )
                         time.sleep(0.5)
                         if high_keys == 1:
@@ -428,9 +274,12 @@ def minigame_hack():
                     low_keys -= 1
                     if low_keys != 0:
                         print(
-                            "HIGH NODE ENTRY DETECTED: "
+                            "HIGH ENTRY\n"
+                            + "REMAINING CHANCES: "
                             + str(low_keys)
-                            + " HIGH ENTRIES UNTIL SYSTEM LOCK"
+                            + " LOW, "
+                            + str(high_keys)
+                            + "HIGH"
                         )
                         time.sleep(0.5)
                         if low_keys == 1:
@@ -619,313 +468,3 @@ def minigame_hack():
         print("THANK YOU FOR VISITING.")
         time.sleep(1000)
         sys.exit()
-
-
-def decode_key():
-
-    digits = 3
-    attempts = 10
-    print("I can't believe it. We found the Nexus Key's node.")
-    print(
-        "Our work is almost done, but we still need to decrypt the key before the system finds out we're here."
-    )
-
-    print(
-        "The Nexus Key is encrypted behind a ",
-        digits,
-        "- digit code. Each digit in this code is known as an ACCESS TOKEN.",
-    )
-    print("I'm going to help you find and align these access tokens...")
-    print(
-        "The system will return the following messages as we try cracking the encryption...\n"
-    )
-    print("When the system returns:        That means:\n")
-    print(
-        "MISALIGNED ACCESS TOKEN         An access token is correct, but positioned wrong."
-    )
-    print(
-        "ALIGNED ACCESS TOKEN            An access token is correct and positioned right."
-    )
-    print(
-        "NO ACCESS TOKENS                None of the access tokens entered are in the key."
-    )
-    print("\nThere are no repeated ACCESS TOKENS in the key.")
-
-    # Create a random number.
-
-    letters = sample("0123456789", digits)
-
-    if letters[0] == "0":
-        letters.reverse()
-
-    number = "".join(letters)
-    # print(str(number))
-    """for play testing purposes"""
-
-    print(
-        "The system just established its encryption made up of three single-number ACCESS TOKENS.\n"
-    )
-    print(
-        "We have",
-        attempts,
-        " attempts before the system finds us and all our work is for nothing...",
-    )
-    print(
-        "\nRegarding any clues the system might give through its messages:\nthey don't reflect the order of the ACCESS TOKENS in the KEY.\nIt looks like the messages can apply to any position."
-    )
-
-    counter = 1
-
-    while True:
-        print("\nATTEMPT #" + str(counter) + "\n" + "-" * 20 + "\n\n")
-        input_crack = input()
-
-        if len(input_crack) != digits:
-            time.sleep(1)
-            print("That's not the right number of ACCESS TOKENS in the key...")
-            continue
-
-        # Create the clues.
-
-        clues = []
-
-        for index in range(digits):
-            if input_crack[index] == number[index]:
-                clues.append("ALIGNED ACCESS TOKEN DETECTED\n")
-            elif input_crack[index] in number:
-                clues.append("MISALIGNED ACCESS TOKEN DETECTED\n")
-
-        shuffle(clues)
-
-        if len(clues) == 0:
-            print("NO ACCESS TOKENS DETECTED")
-        else:
-            print(" ".join(clues))
-
-        counter += 1
-
-        if counter == 4:
-            ascii_fw_online = pyfiglet.figlet_format(
-                "FIREWALL   ONLINE", font="bubble"
-            )
-            print(ascii_fw_online)
-            print("The system has found out we're in the Nexus Key's node.")
-            time.sleep(1)
-            print(
-                "From here on out, you're going to have to bypass FIREWALL CHECKS."
-            )
-            time.sleep(1)
-            print(
-                'When the system tells you to "RESPOND", you need to press the "ENTER" key as quickly as possible.\nIf you are too slow, the system is going to LOCK THE SYSTEM before we can decode the Nexus Key.\n\nThe firewall will get MORE DIFFICULT TO BYPASS as time goes on.'
-            )
-        if counter == 5 or counter == 6:
-            key_monitor = True
-            print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
-            time.sleep(4)
-            print("PREPARE TO RESPOND")
-            time.sleep(3)
-            print("<<<TEST BEGINNING SOON>>>")
-            time.sleep(random.randint(2, 5))
-            ascii_respond = pyfiglet.figlet_format("RESPOND")
-            print(ascii_respond)
-            tic = time.perf_counter()
-            a = input()
-            toc = time.perf_counter()
-            cheat_check = input(
-                "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
-            )
-            timeSpent = toc - tic
-            if timeSpent > 0.5 or "submit" not in cheat_check.lower():
-                time.sleep(2)
-                if "submit" not in cheat_check:
-                    print(
-                        "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
-                    )
-                if timeSpent > 0.5:
-                    print(
-                        "RESPONSE TIME TOO SLOW. ("
-                        + str(timeSpent)
-                        + ") \nLOCKING SYSTEM."
-                    )
-                ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-                print(ascii_locked)
-                print("THANK YOU FOR VISITING.")
-                time.sleep(1000)
-                sys.exit()
-            if timeSpent < 0.5 and "submit" in cheat_check.lower():
-                time.sleep(2)
-                print(
-                    "RESPONSE TIME SATISFACTORY. ("
-                    + str(timeSpent)
-                    + ") \nYOU MAY PROCEED"
-                )
-        if counter == 7 or counter == 8:
-            key_monitor = True
-            print("FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)")
-            time.sleep(4)
-            print("PREPARE TO RESPOND")
-            time.sleep(3)
-            print("<<<TEST BEGINNING SOON>>>")
-            time.sleep(random.randint(2, 5))
-            ascii_respond = pyfiglet.figlet_format("RESPOND")
-            print(ascii_respond)
-            tic = time.perf_counter()
-            a = input()
-            toc = time.perf_counter()
-            cheat_check = input(
-                "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
-            )
-            timeSpent = toc - tic
-            if timeSpent > 0.4 or "submit" not in cheat_check.lower():
-                time.sleep(2)
-                if "submit" not in cheat_check:
-                    print(
-                        "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
-                    )
-                if timeSpent > 0.4:
-                    print(
-                        "RESPONSE TIME TOO SLOW. ("
-                        + str(timeSpent)
-                        + ") \nLOCKING SYSTEM."
-                    )
-                ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-                print(ascii_locked)
-                print("THANK YOU FOR VISITING.")
-                time.sleep(1000)
-                sys.exit()
-            if timeSpent < 0.4 and "submit" in cheat_check.lower():
-                time.sleep(2)
-                print(
-                    "RESPONSE TIME SATISFACTORY. ("
-                    + str(timeSpent)
-                    + ") \nYOU MAY PROCEED"
-                )
-        if counter == 9:
-            key_monitor = True
-            print("FIREWALL CHECK ENGAGED: HARD (.35 SECOND RESPONSE)")
-            time.sleep(4)
-            print("PREPARE TO RESPOND")
-            time.sleep(3)
-            print("<<<TEST BEGINNING SOON>>>")
-            time.sleep(random.randint(2, 5))
-            ascii_respond = pyfiglet.figlet_format("RESPOND")
-            print(ascii_respond)
-            tic = time.perf_counter()
-            a = input()
-            toc = time.perf_counter()
-            cheat_check = input(
-                "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
-            )
-            timeSpent = toc - tic
-            if timeSpent > 0.35 or "submit" not in cheat_check.lower():
-                time.sleep(2)
-                if "submit" not in cheat_check:
-                    print(
-                        "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
-                    )
-                if timeSpent > 0.35:
-                    print(
-                        "RESPONSE TIME TOO SLOW. ("
-                        + str(timeSpent)
-                        + ") \nLOCKING SYSTEM."
-                    )
-                ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-                print(ascii_locked)
-                print("THANK YOU FOR VISITING.")
-                time.sleep(1000)
-                sys.exit()
-            if timeSpent < 0.35 and "submit" in cheat_check.lower():
-                time.sleep(2)
-                print(
-                    "RESPONSE TIME SATISFACTORY. ("
-                    + str(timeSpent)
-                    + ") \nYOU MAY PROCEED"
-                )
-        if counter == 10 or counter == 11:
-            key_monitor = True
-            print("FIREWALL CHECK ENGAGED: VERY HARD (.3 SECOND RESPONSE)")
-            time.sleep(4)
-            print("PREPARE TO RESPOND")
-            time.sleep(3)
-            print("<<<TEST BEGINNING SOON>>>")
-            time.sleep(random.randint(2, 5))
-            ascii_respond = pyfiglet.figlet_format("RESPOND")
-            print(ascii_respond)
-            tic = time.perf_counter()
-            a = input()
-            toc = time.perf_counter()
-            cheat_check = input(
-                "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
-            )
-            timeSpent = toc - tic
-            if timeSpent > 0.30 or "submit" not in cheat_check.lower():
-                time.sleep(2)
-                if "submit" not in cheat_check:
-                    print(
-                        "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
-                    )
-                if timeSpent > 0.3:
-                    print(
-                        "RESPONSE TIME TOO SLOW. ("
-                        + str(timeSpent)
-                        + ") \nLOCKING SYSTEM."
-                    )
-                ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-                print(ascii_locked)
-                print("THANK YOU FOR VISITING.")
-                time.sleep(1000)
-                sys.exit()
-            if timeSpent < 0.30 and "submit" in cheat_check.lower():
-                time.sleep(2)
-                print(
-                    "RESPONSE TIME SATISFACTORY. ("
-                    + str(timeSpent)
-                    + ") \nYOU MAY PROCEED"
-                )
-
-        if input_crack == number:
-            print("Wait a second...")
-            time.sleep(1)
-            print("The NEXUS KEY is decrypting!")
-            time.sleep(2)
-            ascii_win = pyfiglet.figlet_format("KEY DECODED: YOU WIN")
-            print(ascii_win)
-            time.sleep(2)
-            print("Welcome... to the Nexus.")
-            print("CONGRATULATIONS")
-            time.sleep(5)
-
-            def success_asciimatic(screen):
-                """victory screen via asciimatics"""
-                while True:
-                    screen.print_at(
-                        "Welcome to the NEXUS",
-                        randint(0, screen.width),
-                        randint(0, screen.height),
-                        colour=randint(0, screen.colours - 1),
-                        bg=randint(0, screen.colours - 1),
-                    )
-                    ev = screen.get_key()
-                    if ev in (ord("Q"), ord("q")):
-                        return
-                    screen.refresh()
-
-            Screen.wrapper(success_asciimatic)
-            sys.exit()
-
-        if counter > attempts:
-            print(
-                "Ugh... it looks like we ran out of attempts in the system... I can see now that the NEXUS KEY had an access token composition of "
-                + number
-                + ", but that doesn't help us now..."
-            )
-            time.sleep(5)
-            ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-            print(ascii_locked)
-            print("THANK YOU FOR VISITING.")
-            time.sleep(1000)
-            sys.exit()
-            break
-
-
-minigame_hack()

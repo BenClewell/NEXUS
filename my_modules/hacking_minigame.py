@@ -9,11 +9,11 @@ import pygame
 from pygame import mixer
 
 
-num_denials = 3
 # placeholder
 def node_hacking_minigame():
+    global hack_success
+    # default true success
 
-    # how many times alarm can sound
     def get_equation():
         """
         Returns a math equation string as well as the answer
@@ -54,6 +54,8 @@ def node_hacking_minigame():
             )
 
     def play(stdscr):
+        global hack_success
+        # report back a true or false if the hack succeeded
         """
         Play function
         """
@@ -184,17 +186,15 @@ def node_hacking_minigame():
             title = "NODE ENTRY GAINED"
             subtitle = "Press any key to unlock contents."
             pygame.mixer.stop()
+            hack_success = True
             curses.endwin()
 
         else:
             title = "NODE ENTRY DENIED"
-            subtitle = (
-                "You may be denied "
-                + str(num_denials)
-                + " more time(s) before you are locked out."
-            )
+            subtitle = "Press any key to return to hacking interface."
             # nexus_main.num_denials -=1
             pygame.mixer.stop()
+            hack_success = False
             curses.endwin()
 
         height, width = stdscr.getmaxyx()
