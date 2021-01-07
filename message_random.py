@@ -1,0 +1,12 @@
+lowermessage = ["I'm not getting enough power to break through. Let's try a higher key...", "Nope, the signal is too weak. Let's try something higher.", "There's no way something this weak will cut it. Let's bump up the power a bit.", "We need a higher key.", "No way. This key is too low.", "Good try, but the firewall is too strong. Let's use a higher key.", "Don't be shy. We need a bigger key, here."]
+
+highermessage = ["You're going to overclock the system... Use less power.", "The AI will find us if you use numbers that are too high-- which that guess certainly was.", "Yeah, we're going to need to dial things down. Go lower.", "We need a lower key than that.", "Go lower than that.", "We need something lower. This is too high.", "I felt good about that one. But you need a lower key than that.", "The signal is overloaded. You need a lower key."]
+
+chances3 = ["Wow, it looks like the Nexus has some tight security right now. Luckily, I have something to help you out.", "Ugh, this is going to be a hard one to crack. Let me see if I can turn on the proximity sonar.", "I have the perfect tool for the job to break through this tight security.", "This thing uses a lot of power, but I'm turning on the sonar systems now.", "I think it might be a good idea to flip on the sonar system now.", "You know what? I think we could use some proximity sensing. I'm going to engage the sonar. "]
+
+chances5 = ["I'm going to take care of the jammer. If I were you, I would be careful until it's disabled.", "Working on disabling the jammer. Don't land inside of the defense range in the meantime.", "The jammer protects the defense range when we first enter the system. I'm working on disabling it.", "We don't know the defense range right now. Picking a number in the middle will be risky.", "Be careful not to trigger the jammer. Stay out of the defense range.", "If you pick a node in the defense range, we'll be in trouble."]
+
+knockout = ["Their JAMMER software didn't stand a chance.", "I just disabled the system's JAMMER defenses.", "I expected better from the Nexus' JAMMER.", "Wow, they really aren't well-prepared. I knocked out their JAMMER."]
+
+hacking_lines = ["Looking for node vulnerabilities now...", "Gaining access to this node...", "Decrypting this node...", "Looking through this node...", "Analyzing node contents...","Examining node infrastructure..."]
+hacked_lines = ["I'm in.", "Piece of cake.", "Access granted.", "Node decrypted.", "Node unlocked.", "Node contents accessed.", "Hackerman."]
