@@ -24,7 +24,6 @@ def make_guess():
 
 def search_for_key():
     global guess
-    global hack_success
     barrier_low = random.randint(25, 50)
     barrier_high = random.randint(50, 75)
     # sets the low and high defense paramters
@@ -44,11 +43,8 @@ def search_for_key():
             entry_key = random.randint(barrier_high, 100)
             # it's higher, between one and the high thres
 
-    # view entry key, and the two defense ranges by enabling below
     # print(str(entry_key) + " " + str(barrier_low) + " " + str(barrier_high))
-
-    # print("lol it's " + str(entry_key))
-    """the above is for playtesting only"""
+    """view entry key, and the two defense ranges by enabling"""
 
     chances = 5
     # five chances total
@@ -87,7 +83,6 @@ def search_for_key():
 
     while chances != 0:
         make_guess()
-
         if guess != 0:
             guess_list.append(guess)
         # Compare the user entered number

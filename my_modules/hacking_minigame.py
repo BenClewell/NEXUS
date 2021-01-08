@@ -11,9 +11,6 @@ from pygame import mixer
 
 # placeholder
 def node_hacking_minigame():
-    global hack_success
-    # default true success
-
     def get_equation():
         """
         Returns a math equation string as well as the answer
