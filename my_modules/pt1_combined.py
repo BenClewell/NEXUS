@@ -53,6 +53,7 @@ class P1:
     #
     #
     # ESTABLISHING THE DEFENSE RANGE, and LOCATION OF THE NEXUS KEY
+    jam_reveal = False  # jammer has not been revealed
     barrier_low = random.randint(1, 50)
     barrier_high = random.randint(50, 100)
     # sets the low and high defense range parameters.
@@ -140,9 +141,9 @@ class P1:
                 print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
 
                 print("\nJAMMER Information:")
-                if P1.firstchance == True:
+                if P1.jam_reveal == False:
                     print("JAMMER RANGE UNKNOWN. PROCEED WITH CAUTION.")
-                if P1.firstchance == False:
+                if P1.firstchance == True:
                     print(
                         "JAMMER RANGE: "
                         + str(P1.barrier_low)
@@ -521,6 +522,7 @@ class P1:
             print(ascii_jam_offline)
             time.sleep(1)
             sfx.appear_blip()
+            P1.jam_reveal = True  # update jammer coordinates in hacker history
             print(
                 "The JAMMER RANGE is covering "
                 + str(P1.barrier_low)
@@ -703,8 +705,6 @@ class P1:
                 print("Let's finish this...")
                 P1.make_guess()
                 pygame.mixer.stop()
-
-
 
         if P1.chances == 0:
             """kill the game if guesses run out"""
