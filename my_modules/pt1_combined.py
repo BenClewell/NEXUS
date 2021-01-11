@@ -11,7 +11,7 @@ from pygame import mixer
 from random import sample, shuffle, choice
 from random import randint
 
-import sfx
+from my_modules import sfx
 
 
 class P1:
@@ -226,7 +226,7 @@ class P1:
             sfx.alarm_loop(6)
             # Get window height & width
             height, width = stdscr.getmaxyx()
-            title = "INTERMEDIATE COUNTERMEASURES IN PROGRESS"
+            title = "COUNTERMEASURES IN PROGRESS"
 
             # get various x,y coordinates according to user's window size
             start_x_title = int(
@@ -325,7 +325,7 @@ class P1:
                             sfx.bad_sound_hack.play()
 
                             if alarm_limit == 1:
-                                sfx.alarm_loop(random.randint(1, 5))
+                                sfx.alarm_loop(random.randint(5, 5))
                                 alarm_limit += 1
 
                     elif key == 127:  # user presses backspace
@@ -573,7 +573,7 @@ class P1:
                 )
                 if P1.sonar == True and (
                     ((P1.guess - 10) <= P1.entry_key <= (P1.guess + 10))
-                    and (0 < guess < 101)
+                    and (0 < P1.guess < 101)
                 ):
                     P1.sonar10 = True
                     time.sleep(1)
@@ -597,7 +597,8 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        while P1.chances != 0:
+        print(P1.entry_key)
+        while P1.chances != 0 and P1.guess != P1.entry_key:
             P1.tripwire = False
             # make sure the tripwire starts with a false status, only started by failing hack
             P1.make_guess()
@@ -613,24 +614,26 @@ class P1:
                 #
                 #
                 # do hacker minigame if you're in defense range
-                if P1.barrier_low < P1.guess < P1.barrier_high:
-                    ascii_jammer = pyfiglet.figlet_format(
-                        "JAMMER TRIGGERED", font="bubble"
-                    )
-                    print(ascii_jammer)
-                    print(
-                        "\n\nENTRY DETECTED IN JAMMER RANGE. ENGAGING COUNTERMEASURES\n\n"
-                    )
-                    sfx.hack_node()
-                    time.sleep(3)
-                    P1.node_hacking_minigame()
-                    if P1.hack_success == False:
-                        # reduce hack chances by one.
-                        print(
-                            "NODE INFORMATION JAMMED." + str(P1.hack_chances)
+                if P1.guess != P1.entry_key:
+                    if P1.barrier_low < P1.guess < P1.barrier_high:
+                        ascii_jammer = pyfiglet.figlet_format(
+                            "JAMMER TRIGGERED", font="bubble"
                         )
-                else:
-                    print("JAMMER NOT ACTIVE ON THIS NODE")
+                        print(ascii_jammer)
+                        print(
+                            "\n\nENTRY DETECTED IN JAMMER RANGE. ENGAGING COUNTERMEASURES\n\n"
+                        )
+                        sfx.hack_node()
+                        time.sleep(3)
+                        P1.node_hacking_minigame()
+                        if P1.hack_success == False:
+                            # reduce hack chances by one.
+                            print(
+                                "NODE INFORMATION JAMMED."
+                                + str(P1.hack_chances)
+                            )
+                    else:
+                        print("JAMMER NOT ACTIVE ON THIS NODE")
 
                 # CONDITIONAL EVENTS BASED ON WHAT CHANCE YOU ARE AT
                 # for testing, distable tripwire
@@ -639,6 +642,54 @@ class P1:
                 # reduce chances, or apply jammer stuff
                 P1.sonar_alerts()
                 # run sonar and assess chances
+        #
+        #
+        # END GAME CONDITIONS
 
+        if P1.extra_chance == True:
+            if P1.chances == 0 and (
+                (P1.guess - 2) <= P1.entry_key <= (P1.guess + 2)
+            ):
+                print(
+                    "The system is falling apart... but it seems like you're so close to the NEXUS KEY that the system is hesitating to kick you out-- It must not want to delete the NEXUS KEY's node by accident.\nIt looks like we have time for one more chance!"
+                )
+                print("SYSTEM LOCK DELAYED. RECALIBRATING...")
+                sfx.alarm_loop(4)
+                time.sleep(1)
+                print(P1.ascii_sonar_status)
+                print("NEXUS KEY WITHIN 2 NODES")
+                P1.sonar_list.append("KEY WITHIN 2 NODES OF " + str(P1.guess))
+                time.sleep(1)
+                print("Let's finish this...")
+                P1.make_guess()
+                pygame.mixer.stop()
 
-P1.game()
+        if P1.guess == P1.entry_key:
+            print("NEXUS KEY LOCATED.")
+            time.sleep(2)
+            print("EXTRACTING DATA")
+            time.sleep(1)
+            ascii_win = pyfiglet.figlet_format("KEY ACQUIRED")
+            print(ascii_win)
+            time.sleep(5)
+            print("Excellent job.")
+            time.sleep(2)
+
+        if P1.chances == 0:
+            """kill the game if guesses run out"""
+            if P1.high_keys == 0:
+                print("LOCKING SYSTEM: LOW ENTRY OVERLOAD")
+            if P1.low_keys == 0:
+                print("LOCKING SYSTEM: HIGH ENTRY OVERLOAD")
+            if P1.chances == 0:
+                print("MAXIMUM NODE ENTRIES REACHED")
+            print(
+                "\n\n Denying Nexus entry.\n\nRELEASING KEY CODE: ",
+                P1.entry_key,
+            )
+            time.sleep(6)
+            ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+            print(ascii_locked)
+            print("THANK YOU FOR VISITING.")
+            time.sleep(1000)
+            sys.exit()

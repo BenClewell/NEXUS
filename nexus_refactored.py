@@ -30,17 +30,15 @@ from my_modules import hacker_info as info
 # store important information about the user during gameplay, track health, etc.
 from my_modules import message_random as msg
 
-from my_modules import pt1_find_key as pt1
+from my_modules import pt1_combined as pt1
 
 # random quotes and stuff for gameplay
 from my_modules import pt2_code_cracker as pt2
 
-# import the second half of the game, decrypting nexus key!
+# import the second half of the game, decrypting nexus key!q
 
 sfx.play_mp3("art_of_silence.mp3")
 # background music for gameplay
-global hack_success
-hack_success = True
 
 title_screen.title_screen_show()
 # display the title screen, calling from title_screen.py module
@@ -49,7 +47,7 @@ ascii_nexus = pyfiglet.figlet_format("THE    NEXUS")
 print(ascii_nexus)
 
 
-pt1.search_for_key()
+pt1.P1.game()
 ######PART 2: CRACKING THE NEXUS KEY#######################
 sfx.play_mp3("ErrorInTheCodeFULL.mp3")
 # transition to the second part of the game, with new music

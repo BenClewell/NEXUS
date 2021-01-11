@@ -156,7 +156,7 @@ def node_hacking_minigame():
                         sfx.bad_sound_hack.play()
 
                         if alarm_limit == 1:
-                            sfx.alarm_loop(random.randint(1, 5))
+                            sfx.alarm_loop(random.randint(5))
                             alarm_limit += 1
 
                 elif key == 127:  # user presses backspace

@@ -7,7 +7,6 @@ import pyfiglet.fonts
 
 import time
 
-
 from my_modules import title_screen
 
 
@@ -299,4 +298,3 @@ def decode_key():
             print("THANK YOU FOR VISITING.")
             time.sleep(1000)
             sys.exit()
-            break
