@@ -674,6 +674,8 @@ class P1:
             time.sleep(5)
             print("Excellent job.")
             time.sleep(2)
+            return True
+            # move forward
 
         if P1.chances == 0:
             """kill the game if guesses run out"""
@@ -691,5 +693,6 @@ class P1:
             ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
             print(ascii_locked)
             print("THANK YOU FOR VISITING.")
-            time.sleep(1000)
-            sys.exit()
+            time.sleep(4)
+            return False
+            # go back to title screen

@@ -385,7 +385,7 @@ def minigame_hack():
                 )
                 print(ascii_jammer)
                 print(
-                    "\n\nENTRY DETECTED IN DEFENSE RANGE. SCRAMBLING DATA\n\n"
+                    "\n\nENTRY DETECTED IN JAMMER RANGE. SCRAMBLING DATA\n\n"
                 )
                 time.sleep(3)
                 print(
