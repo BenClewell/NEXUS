@@ -20,8 +20,8 @@ class P1:
     hack_chances = 3
     fw_difficulty = 2000
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
-    #
-    #
+    fw_level = 0
+    # inform the user what level firewall the AI is using.
     #
     # Player Chances to find the nexus key
     chances = 5  # you have five chances to enter nodes
@@ -53,8 +53,8 @@ class P1:
     #
     #
     # ESTABLISHING THE DEFENSE RANGE, and LOCATION OF THE NEXUS KEY
-    barrier_low = random.randint(25, 50)
-    barrier_high = random.randint(50, 75)
+    barrier_low = random.randint(1, 50)
+    barrier_high = random.randint(50, 100)
     # sets the low and high defense range parameters.
     barrier_inside = random.randint(1, 2)
     # sets 50-50 chance for whether number is in thres or outside
@@ -102,55 +102,6 @@ class P1:
         if P1.guess == 0:
             P1.hacker_history()
 
-    def reduce_chance():
-        P1.chances -= 1
-        print("\n----------------------------------------------\n")
-
-        if P1.tripwire == False:
-            if P1.guess < P1.entry_key:
-                """if guess is lower than the nexus key"""
-                P1.high_keys -= 1
-                if P1.high_keys != 0:
-                    print(
-                        "LOW NODE ENTRY DETECTED: "
-                        + str(P1.high_keys)
-                        + " LOW ENTRIES UNTIL SYSTEM LOCK"
-                    )
-                    time.sleep(0.5)
-                    if P1.high_keys == 1:
-                        print(
-                            "APPROACHING LOW NODE OVERLOAD. ONE MORE LOW NODE WILL ENGAGE SYSTEM LOCK."
-                        )
-                    time.sleep(1)
-                    P1.guess_list.append("(LOW)")
-
-            else:
-                """if guess is higher than the nexus key"""
-                P1.low_keys -= 1
-                if P1.low_keys != 0:
-                    print(
-                        "HIGH NODE ENTRY DETECTED: "
-                        + str(P1.low_keys)
-                        + " HIGH ENTRIES UNTIL SYSTEM LOCK"
-                    )
-                    time.sleep(0.5)
-                    if P1.low_keys == 1:
-                        print(
-                            "APPROACHING HIGH NODE OVERLOAD. ONE MORE HIGH NODE WILL ENGAGE SYSTEM LOCK."
-                        )
-                    time.sleep(1)
-                    P1.guess_list.append("(HIGH)")
-
-        if P1.tripwire == True:
-            """punishment for landing in defense range"""
-            P1.high_keys -= 1
-            P1.low_keys -= 1
-            print("JAMMED: NO NODE INFORMATION POSSIBLE")
-            print("LOW NODE GUESSES REDUCED BY 1")
-            print("HIGH NODE GUESSES REDUCED BY 1")
-            P1.guess_list.append("(JAMMED)")
-            P1.tripwire = False
-
     #
     #
     #
@@ -185,21 +136,21 @@ class P1:
 
                 print("\nJAMMER Information:")
                 if P1.firstchance == True:
-                    print("DEFENSE RANGE UNKNOWN. PROCEED WITH CAUTION.")
+                    print("JAMMER RANGE UNKNOWN. PROCEED WITH CAUTION.")
                 if P1.firstchance == False:
                     print(
-                        "DEFENSE RANGE: "
-                        + str(barrier_low)
+                        "JAMMER RANGE: "
+                        + str(P1.barrier_low)
                         + " to "
-                        + str(barrier_high)
+                        + str(P1.barrier_high)
                     )
                 if P1.chances <= 2 and P1.barrier_inside == 2:
-                    print("The NEXUS KEY is INSIDE the defense range.")
+                    print("The NEXUS KEY is INSIDE the jammer range.")
                 elif P1.chances <= 2 and P1.barrier_inside == 1:
-                    print("The NEXUS KEY is OUTSIDE the defense range.")
+                    print("The NEXUS KEY is OUTSIDE the jammer range.")
                 else:
                     print(
-                        "We do not know if the NEXUS KEY is in the defense range."
+                        "We do not know if the NEXUS KEY is in the jammer range."
                     )
 
                 print("\nSonar Information:")
@@ -216,7 +167,7 @@ class P1:
                 if P1.sonar_list == []:
                     print("NO SONAR HISTORY")
                 if P1.sonar_list != []:
-                    print("SONAR HISTORY: " + str(sonar_list))
+                    print("SONAR HISTORY: " + str(P1.sonar_list))
 
                 time.sleep(2)
                 print("\nReturning to hacking interface...")
@@ -267,17 +218,15 @@ class P1:
                 )
 
         def play(stdscr):
-            global hack_success
             # report back a true or false if the hack succeeded
             """
             Play function
             """
-
             stdscr.clear()
             sfx.alarm_loop(6)
             # Get window height & width
             height, width = stdscr.getmaxyx()
-            title = "NODE COUNTERMEASURES IN PROGRESS"
+            title = "INTERMEDIATE COUNTERMEASURES IN PROGRESS"
 
             # get various x,y coordinates according to user's window size
             start_x_title = int(
@@ -401,17 +350,26 @@ class P1:
 
             if winner == True:
                 title = "NODE ENTRY GAINED"
-                subtitle = "Press any key to unlock contents."
+                subtitle = "[System] Security has been HEIGHTENED."
                 pygame.mixer.stop()
                 P1.hack_success = True
+                P1.fw_difficulty -= 500
+                # make the enemy move faster
+                P1.fw_level += 1
+                # increase the 'level difficulty' by one
                 curses.endwin()
 
             else:
                 title = "NODE ENTRY DENIED"
-                subtitle = "Press any key to return to hacking interface."
+                subtitle = "[System] Security has been LOWERED."
                 # nexus_main.num_denials -=1
                 pygame.mixer.stop()
                 P1.hack_success = False
+                P1.fw_difficulty += 1000
+                # make the enemy move slower
+                P1.fw_level -= 2
+                # reduce the 'level difficulty' by one
+                P1.tripwire = True
                 curses.endwin()
 
             height, width = stdscr.getmaxyx()
@@ -450,7 +408,20 @@ class P1:
 
                 # Decorate main menu
                 title = "FIREWALL DETECTED"
-                subtitle1 = ""
+                if P1.fw_level > 2:
+                    subtitle1 = "INCREDIBLY HIGH SECURITY"
+                if P1.fw_level == 2:
+                    subtitle1 = "VERY HIGH SECURITY"
+                if P1.fw_level == 1:
+                    subtitle1 = "HIGH SECURITY"
+                if P1.fw_level == 0:
+                    subtitle1 = "INTERMEDIATE SECURITY"
+                if P1.fw_level == -1:
+                    subtitle1 = "LOW SECURITY"
+                if P1.fw_level == -2:
+                    subtitle1 = "VERY LOW SECURITY"
+                if P1.fw_level < -2:
+                    subtitle1 = "INCREDIBLY LOW SECURITY"
                 subtitle2 = "PRESS Q TO BEGIN HACK."
                 pygame.mixer.unpause()
 
@@ -475,6 +446,7 @@ class P1:
         curses.wrapper(main)
 
     def assess_guess():
+        P1.chances -= 1
         if P1.tripwire == False:
             if P1.guess < P1.entry_key:
                 """if guess is lower than the nexus key"""
@@ -486,7 +458,7 @@ class P1:
                         + str(P1.high_keys)
                         + " LOW, "
                         + str(P1.low_keys)
-                        + "HIGH"
+                        + " HIGH"
                     )
                     time.sleep(0.5)
                     if P1.high_keys == 1:
@@ -496,7 +468,7 @@ class P1:
                     time.sleep(1)
                     P1.guess_list.append("(LOW)")
 
-            else:
+            if P1.guess > P1.entry_key:
                 """if guess is higher than the nexus key"""
                 P1.low_keys -= 1
                 if P1.low_keys != 0:
@@ -506,7 +478,7 @@ class P1:
                         + str(P1.low_keys)
                         + " LOW, "
                         + str(P1.high_keys)
-                        + "HIGH"
+                        + " HIGH"
                     )
                     time.sleep(0.5)
                     if P1.low_keys == 1:
@@ -527,58 +499,146 @@ class P1:
             P1.tripwire = False
 
         # Increase the value of chance by 1
-        if P1.firstchance == True and P1.chances == 5:
+        if P1.chances == 3:
             """disable defense protocol, tripmine"""
             time.sleep(1)
             ascii_jam_offline = pyfiglet.figlet_format(
-                "JAMMER   OFFLINE", font="bubble"
+                "JAMMER   REVEALED", font="bubble"
             )
             print(ascii_jam_offline)
             time.sleep(1)
             print(
-                "The DEFENSE RANGE was covering "
+                "The JAMMER RANGE is covering "
                 + str(P1.barrier_low)
                 + " to "
                 + str(P1.barrier_high)
-                + ".\nYou should safely be able to access this range of nodes now.\nThere is a 50% chance that the NEXUS KEY is contained within this DEFENSE RANGE."
+                + ".\nThere is a 50% chance that the NEXUS KEY has appeared within this range."
             )
 
-        P1.chances -= 1
-        P1.firstchance = False
+    def sonar_alerts():
+        """provide sonar, and end game if too many low or high chances"""
+        if P1.chances == 3:
+            P1.sonar = True
+            if P1.sonar == True and (
+                ((P1.guess - 30) <= P1.entry_key <= (P1.guess + 30))
+                and (0 < P1.guess < 101)
+            ):
+                time.sleep(1)
+                print(" ")
+                print(P1.ascii_sonar_status)
+                print("NEXUS KEY WITHIN 30 NODES")
+                P1.sonar_list.append("KEY WITHIN 30 NODES OF " + str(P1.guess))
+            else:
+                time.sleep(1)
+                print(" ")
+                print(P1.ascii_sonar_status)
+                print("NEXUS KEY FURTHER THAN 30 NODES AWAY")
+                P1.sonar_list.append(
+                    "KEY MORE THAN 30 NODES FROM  " + str(P1.guess)
+                )
+
+        if P1.chances == 2:
+            if P1.sonar == True and (
+                ((P1.guess - 20) <= P1.entry_key <= (P1.guess + 20))
+                and (0 < P1.guess < 101)
+            ):
+                time.sleep(1)
+                print(" ")
+                print(P1.ascii_sonar_status)
+                print("NEXUS KEY WITHIN 20 NODES")
+                P1.sonar_list.append("KEY WITHIN 20 NODES OF " + str(P1.guess))
+            else:
+                time.sleep(1)
+                print(" ")
+                print(P1.ascii_sonar_status)
+                print("NEXUS KEY FURTHER THAN 20 NODES AWAY")
+                P1.sonar_list.append(
+                    "KEY MORE THAN 20 NODES FROM " + str(P1.guess)
+                )
+
+        if P1.chances == 2:
+            if P1.low_keys != 0 and P1.high_keys != 0:
+                time.sleep(1)
+                print("\n\nI just confirmed where the NEXUS KEY is situated.")
+                time.sleep(1)
+                if P1.barrier_inside == 2:
+                    print("It's inside the JAMMER RANGE!")
+                if P1.barrier_inside == 1:
+                    print("It's outside the JAMMER RANGE!")
+
+        if P1.chances == 1:
+            if P1.low_keys != 0 and P1.high_keys != 0:
+                print(
+                    "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
+                )
+                if P1.sonar == True and (
+                    ((P1.guess - 10) <= P1.entry_key <= (P1.guess + 10))
+                    and (0 < guess < 101)
+                ):
+                    P1.sonar10 = True
+                    time.sleep(1)
+                    print(" ")
+                    print(P1.ascii_sonar_status)
+                    print("NEXUS KEY WITHIN 10 NODES")
+                    P1.sonar_list.append(
+                        "KEY WITHIN 10 NODES OF " + str(P1.guess)
+                    )
+                else:
+                    time.sleep(1)
+                    print(" ")
+                    print(P1.ascii_sonar_status)
+                    print("NEXUS KEY FURTHER THAN 10 NODES AWAY")
+                    P1.sonar_list.append(
+                        "KEY MORE THAN 10 NODES FROM " + str(P1.guess)
+                    )
+
+        if P1.high_keys == 0 or P1.low_keys == 0:
+            P1.chances = 0
 
     def game():
         """the only called function, manages all other methods"""
         while P1.chances != 0:
-            P1.make_guess()
-            if P1.guess != 0:
-                P1.guess_list.append(P1.guess)
-            # Compare the user entered number
-            # with the number to be guessed
-
-            sfx.click.play()
-            # play sfx
-            sfx.hack_node()
-            minigame_chance = randint(1, 2)
-            #
-            #
-            if minigame_chance == 1:
-                P1.node_hacking_minigame()
-                if P1.hack_success == False:
-                    P1.hack_chances -= 1
-                    # reduce hack chances by one.
-                    print(
-                        "It looks like you failed your hack. Your hack chances are at "
-                        + str(P1.hack_chances)
-                    )
-            if minigame_chance == 2:
-                print("NO FIREWALL DETECTED.")
-
-            # CONDITIONAL EVENTS BASED ON WHAT CHANCE YOU ARE AT
             P1.tripwire = False
-            # for testing, distable tripwire
-            P1.assess_guess()
-            # is the guess high or low?
-            P1.reduce_chance()
+            # make sure the tripwire starts with a false status, only started by failing hack
+            P1.make_guess()
+            # user input, and then add to guess list
+            if P1.guess != 0:
+                # only run if you aren't doing hacker history
+                P1.guess_list.append(P1.guess)
+                # Compare the user entered number
+                # with the number to be guessed
+
+                sfx.click.play()
+                # play sfx
+                #
+                #
+                # do hacker minigame if you're in defense range
+                if P1.barrier_low < P1.guess < P1.barrier_high:
+                    ascii_jammer = pyfiglet.figlet_format(
+                        "JAMMER TRIGGERED", font="bubble"
+                    )
+                    print(ascii_jammer)
+                    print(
+                        "\n\nENTRY DETECTED IN JAMMER RANGE. ENGAGING COUNTERMEASURES\n\n"
+                    )
+                    sfx.hack_node()
+                    time.sleep(3)
+                    P1.node_hacking_minigame()
+                    if P1.hack_success == False:
+                        # reduce hack chances by one.
+                        print(
+                            "NODE INFORMATION JAMMED." + str(P1.hack_chances)
+                        )
+                else:
+                    print("JAMMER NOT ACTIVE ON THIS NODE")
+
+                # CONDITIONAL EVENTS BASED ON WHAT CHANCE YOU ARE AT
+                # for testing, distable tripwire
+                P1.assess_guess()
+                # is the guess high or low?
+                # reduce chances, or apply jammer stuff
+                P1.sonar_alerts()
+                # run sonar and assess chances
 
 
 P1.game()
