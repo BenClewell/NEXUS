@@ -26,6 +26,11 @@ startup = pygame.mixer.Sound("sounds/audio_16_bit/PM_CSPH_Loading_9.wav")
 
 bad_sound_hack = pygame.mixer.Sound("sounds/bad_sounds/bad_sound.wav")
 
+sonar = pygame.mixer.Sound("sounds/alarms/sonar.wav")
+
+# for part 2...
+enable_firewall = pygame.mixer.Sound("sounds/appear_blips/enable.wav")
+
 
 def hack_node():
     """ access all calculation sounds, and pick one randomly using random module"""
@@ -59,3 +64,13 @@ def alarm_loop(alarm_type):
         "sounds/alarms/PM_CSPH_Alarms_" + str(alarm_type) + ".wav"
     )
     alarm_sound.play(-1)
+
+
+def appear_blip():
+    """ pick one of ten burst sounds """
+    sound_number = random.randint(1, 10)
+    # how many variations of burst_sounds that there are
+    appear_sound = pygame.mixer.Sound(
+        "sounds/appear_blips/appear_blip_" + str(sound_number) + ".wav"
+    )
+    appear_sound.play()

@@ -8,12 +8,14 @@ import pyfiglet.fonts
 import time
 
 from my_modules import title_screen
+from my_modules import sfx
 
 
 def decode_key():
 
     digits = 3
     attempts = 10
+    sfx.appear_blip()
     print("I can't believe it. We found the Nexus Key's node.")
     print(
         "Our work is almost done, but we still need to decrypt the key before the system finds out we're here."
@@ -64,14 +66,16 @@ def decode_key():
     )
 
     counter = 1
-    print(number)
+    # print(number)
 
     while True:
+        sfx.appear_blip()
         print("\nATTEMPT #" + str(counter) + "\n" + "-" * 20 + "\n\n")
         input_crack = input()
 
         if len(input_crack) != digits:
             time.sleep(1)
+            sfx.appear_blip()
             print("That's not the right number of ACCESS TOKENS in the key...")
             continue
 
@@ -88,8 +92,10 @@ def decode_key():
         shuffle(clues)
 
         if len(clues) == 0:
+            sfx.appear_blip()
             print("NO ACCESS TOKENS DETECTED")
         else:
+            sfx.appear_blip()
             print(" ".join(clues))
 
         counter += 1
@@ -98,13 +104,17 @@ def decode_key():
             ascii_fw_online = pyfiglet.figlet_format(
                 "FIREWALL   ONLINE", font="bubble"
             )
+            sfx.enable_firewall.play()
             print(ascii_fw_online)
+            sfx.appear_blip()
             print("The system has found out we're in the Nexus Key's node.")
             time.sleep(1)
+            sfx.appear_blip()
             print(
                 "From here on out, you're going to have to bypass FIREWALL CHECKS."
             )
             time.sleep(1)
+            sfx.appear_blip()
             print(
                 'When the system tells you to "RESPOND", you need to press the "ENTER" key as quickly as possible.\nIf you are too slow, the system is going to LOCK THE SYSTEM before we can decode the Nexus Key.\n\nThe firewall will get MORE DIFFICULT TO BYPASS as time goes on.'
             )
@@ -140,8 +150,8 @@ def decode_key():
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                 print(ascii_locked)
                 print("THANK YOU FOR VISITING.")
-                time.sleep(1000)
-                sys.exit()
+                time.sleep(8)
+                return False
             if timeSpent < 0.5 and "submit" in cheat_check.lower():
                 time.sleep(2)
                 print(
@@ -181,8 +191,8 @@ def decode_key():
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                 print(ascii_locked)
                 print("THANK YOU FOR VISITING.")
-                time.sleep(1000)
-                sys.exit()
+                time.sleep(8)
+                return False
             if timeSpent < 0.4 and "submit" in cheat_check.lower():
                 time.sleep(2)
                 print(
@@ -222,8 +232,9 @@ def decode_key():
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                 print(ascii_locked)
                 print("THANK YOU FOR VISITING.")
-                time.sleep(1000)
-                sys.exit()
+                time.sleep(8)
+                return False
+
             if timeSpent < 0.35 and "submit" in cheat_check.lower():
                 time.sleep(2)
                 print(
@@ -263,8 +274,8 @@ def decode_key():
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                 print(ascii_locked)
                 print("THANK YOU FOR VISITING.")
-                time.sleep(1000)
-                sys.exit()
+                time.sleep(8)
+                return False
             if timeSpent < 0.30 and "submit" in cheat_check.lower():
                 time.sleep(2)
                 print(
@@ -296,5 +307,5 @@ def decode_key():
             ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
             print(ascii_locked)
             print("THANK YOU FOR VISITING.")
-            time.sleep(1000)
-            sys.exit()
+            time.sleep(8)
+            return False

@@ -18,7 +18,7 @@ import keyboard  # f11press
 # import all dependent modules
 from my_modules import sfx
 
-# sound effects for system
+# sound effects forq system
 from my_modules import hacking_minigame
 
 # race game that can trigger when hacking a node
@@ -47,6 +47,7 @@ def run_game():
     # display the title screen, calling from title_screen.py module
 
     ascii_nexus = pyfiglet.figlet_format("THE    NEXUS")
+    sfx.appear_blip()
     print(ascii_nexus)
 
     if pt1.P1.game():
@@ -54,15 +55,21 @@ def run_game():
         # clear the output in the terminal
         pass
     else:
-        run_game()
         os.system("cls" if os.name == "nt" else "clear")
+        run_game()
         # clear the output in the terminal
         # back to title
 
     ######PART 2: CRACKING THE NEXUS KEY#######################
     sfx.play_mp3("ErrorInTheCodeFULL.mp3")
     # transition to the second part of the game, with new music
-    pt2.decode_key()
+    if pt2.decode_key():
+        pass
+    else:
+        os.system("cls" if os.name == "nt" else "clear")
+        run_game()
+        # clear the output in the terminal
+        # back to title
 
 
 run_game()

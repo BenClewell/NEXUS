@@ -12,7 +12,7 @@ def convertAllFilesInDirectoryTo16Bit(directory):
             data, samplerate = soundfile.read(directory + file)
 
             soundfile.write(
-                "/Users/GCTJZ/OneDrive - Monsanto/Migrated from My PC/Desktop/ARG/sounds/alarms/"
+                "/Users/GCTJZ/OneDrive - Monsanto/Migrated from My PC/Desktop/NEXUS/sounds/appear_blips/"
                 + nameSolo
                 + ".wav",
                 data,
@@ -23,5 +23,5 @@ def convertAllFilesInDirectoryTo16Bit(directory):
 
 
 convertAllFilesInDirectoryTo16Bit(
-    "/Users/GCTJZ/OneDrive - Monsanto/Migrated from My PC/Desktop/ARG/sounds/"
+    "/Users/GCTJZ/OneDrive - Monsanto/Migrated from My PC/Desktop/NEXUS/sounds/"
 )
