@@ -18,7 +18,7 @@ class P1:
     # hacking minigame
     hack_success = True
     hack_chances = 3
-    fw_difficulty = 3000
+    fw_difficulty = 2500
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
     fw_level = 0
     # inform the user what level firewall the AI is using.
@@ -103,6 +103,7 @@ class P1:
             print(ascii_nodeguess)
         if P1.guess == 0:
             P1.hacker_history()
+            P1.make_guess()
 
     #
     #
@@ -131,10 +132,7 @@ class P1:
                 print("NO ENTRIES COMMITTED YET")
             if P1.guess_list != []:
                 print("ENTRIES SO FAR: " + str(P1.guess_list))
-            print(
-                "MAXIMUM ENTRIES REMAINING UNTIL SYSTEM LOCK: "
-                + str(P1.chances)
-            )
+            print("\nENTRIES REMAINING UNTIL SYSTEM LOCK: ")
             print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
             print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
 
@@ -176,7 +174,7 @@ class P1:
             time.sleep(2)
             print("\nReturning to hacking interface...")
             time.sleep(1)
-            status_splash +=1
+            status_splash += 1
 
     def node_hacking_minigame():
         """triggered when hacking a node"""
@@ -185,8 +183,8 @@ class P1:
             """
             Returns a math equation string as well as the answer
             """
-
-            operator = random.randint(1, 4)
+            global operator
+            operator = random.randint(1, 5)
 
             if operator == 1:
                 # addition
@@ -207,6 +205,39 @@ class P1:
                 second_number = random.randint(3, 12)
                 answer = first_number * second_number
                 return "{} * {} =".format(first_number, second_number), answer
+            elif operator == 4:
+                # multiplication
+                hack_verb = random.choice(
+                    (
+                        "PREVENT",
+                        "EXECUTE",
+                        "ANALYZE",
+                        "CIRCUMVENT",
+                        "TROUBLESHOOT",
+                        "DESTABILIZE",
+                        "PROTECT",
+                    )
+                )
+                hack_noun = random.choice(
+                    (
+                        "DDOS",
+                        "FIREWALL",
+                        "VPN",
+                        "DOMAIN",
+                        "IP ADDRESS",
+                        "EXPLOIT",
+                        "MALWARE",
+                        "ROOTKIT",
+                        "ENCRYPTION",
+                    )
+                )
+                answer = str(hack_verb + " " + hack_noun)
+                return (
+                    "SYSTEM// ISSUE COMMAND: '{} {}':".format(
+                        hack_verb, hack_noun
+                    ),
+                    answer,
+                )
             else:
                 # addition with three numbers
                 first_number = random.randint(1, 9)
@@ -214,7 +245,7 @@ class P1:
                 third_number = random.randint(1, 9)
                 answer = first_number + second_number + third_number
                 return (
-                    "{} + {} + {} =".format(
+                    "{} + {} + {} = ".format(
                         first_number, second_number, third_number
                     ),
                     answer,
@@ -292,28 +323,30 @@ class P1:
 
                     stdscr.refresh()
 
-                    if key == 10:  # user presses enter
+                    if key == 10:  # user presses enter, 10 is the enter button
                         if user_answer == str(actual_answer):  # correct answer
                             sfx.burst_sound()
                             # sound
                             stdscr.addstr(y, x, ">" * 25)
                             x = x + 25
                             stdscr.addstr(y, x, ">[~~]>")  # moves user forward
-
+                            # TEN SPACES: "          "
                             (
                                 problem,
                                 actual_answer,
                             ) = get_equation()  # get new equation
                             stdscr.addstr(
-                                start_y_problem, start_x_problem, "          "
+                                start_y_problem,
+                                start_x_problem,
+                                "                                                            ",
                             )
                             stdscr.addstr(
                                 start_y_problem, start_x_problem, problem
                             )  # overwrite old equation
                             stdscr.addstr(
                                 start_y_problem,
-                                start_x_problem + 10,
-                                "          ",
+                                start_x_problem + 60,
+                                "                                                            ",
                             )
                             user_answer = ""
 
@@ -321,8 +354,8 @@ class P1:
                             user_answer = ""
                             stdscr.addstr(
                                 start_y_problem,
-                                start_x_problem + 10,
-                                "          ",
+                                start_x_problem + 11,
+                                "                                                            ",
                             )
                             enemy_x = enemy_x + 5
                             sfx.bad_sound_hack.play()
@@ -331,18 +364,27 @@ class P1:
                                 sfx.alarm_loop(random.randint(5, 5))
                                 alarm_limit += 1
 
-                    elif key == 127:  # user presses backspace
+                    elif (
+                        key == 127 or key == 8 or key == 263
+                    ):  # user presses backspace
                         user_answer = user_answer[:-1]
                         stdscr.addstr(
-                            start_y_problem, start_x_problem + 10, "          "
+                            start_y_problem,
+                            start_x_problem + 11,
+                            "                                                            ",
                         )
 
                     elif key != -1:  # user adds character to their answer
                         user_answer = user_answer + str(chr(key))
-
-                    stdscr.addstr(
-                        start_y_problem, start_x_problem + 10, user_answer
-                    )  # update user answer
+                        # number shows user input start
+                    if operator == 4:
+                        stdscr.addstr(
+                            start_y_problem, start_x_problem + 60, user_answer
+                        )  # update user answer
+                    else:
+                        stdscr.addstr(
+                            start_y_problem, start_x_problem + 11, user_answer
+                        )  # update user answer
 
                 finished = True
 
@@ -516,13 +558,13 @@ class P1:
                 P1.high_keys -= 1
                 print("LOW NODE GUESSES REDUCED BY 1")
             if P1.high_keys == P1.low_keys:
-                print('HIGH AND LOW NODES ARE EQUAL. DECIDING RANDOMLY...')
+                print("HIGH AND LOW NODES ARE EQUAL. DECIDING RANDOMLY...")
                 time.sleep(1)
-                coin_flip = random.randint(1,2) 
-                if coin_flip ==1:
+                coin_flip = random.randint(1, 2)
+                if coin_flip == 1:
                     P1.high_keys -= 1
                     print("LOW NODE GUESSES REDUCED BY 1")
-                if coin_flip ==2:
+                if coin_flip == 2:
                     P1.low_keys -= 1
                     print("HIGH NODE GUESSES REDUCED BY 1")
             P1.guess_list.append("(JAMMED)")
@@ -634,8 +676,6 @@ class P1:
 
         if P1.high_keys == 0 or P1.low_keys == 0:
             P1.chances = 0
-    
-
 
     def game():
         """the only called function, manages all other methods"""
@@ -707,8 +747,11 @@ class P1:
             # move forward
 
         if P1.extra_chance == True:
-            if P1.chances == 0 and (
-                (P1.guess - 2) <= P1.entry_key <= (P1.guess + 2) ) and (P1.guess != P1.entry_key):
+            if (
+                P1.chances == 0
+                and ((P1.guess - 2) <= P1.entry_key <= (P1.guess + 2))
+                and (P1.guess != P1.entry_key)
+            ):
                 sfx.appear_blip()
                 print(
                     "The system is falling apart... but it seems like you're so close to the NEXUS KEY that the system is hesitating to kick you out-- It must not want to delete the NEXUS KEY's node by accident.\nIt looks like we have time for one more chance!"
@@ -717,7 +760,6 @@ class P1:
                 sfx.alarm_loop(4)
                 time.sleep(1)
                 print(P1.ascii_sonar_status)
-                sfx.sonar.play()
                 print("NEXUS KEY WITHIN 2 NODES")
                 P1.sonar_list.append("KEY WITHIN 2 NODES OF " + str(P1.guess))
                 time.sleep(1)
@@ -725,8 +767,22 @@ class P1:
                 P1.make_guess()
                 pygame.mixer.stop()
 
+        if P1.guess == P1.entry_key:
+            sfx.appear_blip()
+            print("NEXUS KEY LOCATED.")
+            time.sleep(2)
+            sfx.gentle_ui()
+            print("EXTRACTING DATA")
+            time.sleep(1)
+            sfx.gentle_ui()
+            ascii_win = pyfiglet.figlet_format("KEY ACQUIRED")
+            print(ascii_win)
+            time.sleep(5)
+            print("Excellent job.")
+            time.sleep(2)
+            return True
+            # move forward
 
-    
         if (P1.chances == 0) and (P1.guess != P1.entry_key):
             """kill the game if guesses run out"""
             if P1.high_keys == 0:

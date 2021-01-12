@@ -74,7 +74,8 @@ def run_game():
         # clear the output in the terminal
         # back to title
 
+
 if __name__ == "__main__":
-    keyboard.press_and_release('F11')
+    keyboard.press_and_release("F11")
     time.sleep(1)
     run_game()
