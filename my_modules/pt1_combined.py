@@ -18,7 +18,7 @@ class P1:
     # hacking minigame
     hack_success = True
     hack_chances = 3
-    fw_difficulty = 2000
+    fw_difficulty = 2500
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
     fw_level = 0
     # inform the user what level firewall the AI is using.
