@@ -119,7 +119,9 @@ def decode_key():
             print(
                 'When the system tells you to "RESPOND", you need to press the "ENTER" key as quickly as possible.\nIf you are too slow, the system is going to LOCK THE SYSTEM before we can decode the Nexus Key.\n\nThe firewall will get MORE DIFFICULT TO BYPASS as time goes on.'
             )
-            print('ENSURE THAT DURING THESE CHECKS, YOU ONLY PRESS ENTER ONE TIME, OR YOU WILL BE LOCKED OUT.')
+            print(
+                "ENSURE THAT DURING THESE CHECKS, YOU ONLY PRESS ENTER ONE TIME, OR YOU WILL BE LOCKED OUT."
+            )
         if counter == 5 or counter == 6:
             key_monitor = True
             print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
@@ -142,7 +144,7 @@ def decode_key():
             timeSpent = toc - tic
             if timeSpent > 0.5 or "submit" not in cheat_check.lower():
                 time.sleep(2)
-                if "submit" not in cheat_check:
+                if "submit" not in cheat_check.lower():
                     print(
                         "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
                     )

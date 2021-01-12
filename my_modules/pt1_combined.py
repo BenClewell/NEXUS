@@ -238,16 +238,18 @@ class P1:
                         "DARK WEB",
                         "NETWORK",
                         "METADATA",
-                        "SECURITY KEY" "BACKDOOR",
+                        "SECURITY KEY",
+                        "BACKDOOR",
                         "TIP CALCULATOR",
                         "SAFETY NET",
-                        "HACKING SUNGLASSES",
+                        "INDOOR SUNGLASSES",
                         "COOL ONE-LINER",
                         "COMPUTER JARGON",
                         "MICROSOFT WORD",
                         "LIGHT SHOW",
                         "DRONE ARMY",
-                        "TOE FUNGUS" "BOTNET",
+                        "TOE FUNGUS",
+                        "BOTNET",
                         "VERIFICATION",
                         "NODE PASSWORD",
                         "HTTPS",
@@ -535,7 +537,7 @@ class P1:
                 # Wait for next input
                 k = stdscr.getch()
 
-            if k == ord("q"):
+            if k == ord("q") or ord("Q"):
                 play(stdscr)
 
         curses.wrapper(main)
@@ -599,10 +601,10 @@ class P1:
             if P1.high_keys < P1.low_keys:
                 P1.low_keys -= 1
                 print("HIGH NODE GUESSES REDUCED BY 1")
-            if P1.high_keys > P1.low_keys:
+            elif P1.high_keys > P1.low_keys:
                 P1.high_keys -= 1
                 print("LOW NODE GUESSES REDUCED BY 1")
-            if P1.high_keys == P1.low_keys:
+            elif P1.high_keys == P1.low_keys:
                 print("HIGH AND LOW NODES ARE EQUAL. DECIDING RANDOMLY...")
                 time.sleep(1)
                 coin_flip = random.randint(1, 2)
