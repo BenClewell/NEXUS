@@ -509,10 +509,10 @@ class P1:
             print("JAMMED: NO NODE INFORMATION POSSIBLE")
             print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
             time.sleep(3)
-            if P1.high_keys > P1.low_keys:
+            if P1.high_keys < P1.low_keys:
                 P1.low_keys -= 1
                 print("HIGH NODE GUESSES REDUCED BY 1")
-            if P1.high_keys < P1.low_keys:
+            if P1.high_keys > P1.low_keys:
                 P1.high_keys -= 1
                 print("LOW NODE GUESSES REDUCED BY 1")
             if P1.high_keys == P1.low_keys:
@@ -639,7 +639,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        print(P1.entry_key)
+        # print(P1.entry_key)
         while P1.chances != 0 and P1.guess != P1.entry_key:
             P1.tripwire = False
             # make sure the tripwire starts with a false status, only started by failing hack
