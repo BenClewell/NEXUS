@@ -18,7 +18,7 @@ class P1:
     # hacking minigame
     hack_success = True
     hack_chances = 3
-    fw_difficulty = 2500
+    fw_difficulty = 2000
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
     fw_level = 0
     # inform the user what level firewall the AI is using.
@@ -352,12 +352,20 @@ class P1:
 
                         else:  # incorrect answer
                             user_answer = ""
-                            stdscr.addstr(
-                                start_y_problem,
-                                start_x_problem + 11,
-                                "                                                            ",
-                            )
-                            enemy_x = enemy_x + 5
+                            if operator == 4:
+                                stdscr.addstr(
+                                    start_y_problem,
+                                    start_x_problem + 60,
+                                    "                                                            ",
+                                )
+                            else:
+                                stdscr.addstr(
+                                    start_y_problem,
+                                    start_x_problem + 11,
+                                    "           ",
+                                )
+                                enemy_x = enemy_x + 5
+
                             sfx.bad_sound_hack.play()
 
                             if alarm_limit == 1:
@@ -368,11 +376,18 @@ class P1:
                         key == 127 or key == 8 or key == 263
                     ):  # user presses backspace
                         user_answer = user_answer[:-1]
-                        stdscr.addstr(
-                            start_y_problem,
-                            start_x_problem + 11,
-                            "                                                            ",
-                        )
+                        if operator == 4:
+                            stdscr.addstr(
+                                start_y_problem,
+                                start_x_problem + 60,
+                                "                                                            ",
+                            )
+                        else:
+                            stdscr.addstr(
+                                start_y_problem,
+                                start_x_problem + 11,
+                                "           ",
+                            )
 
                     elif key != -1:  # user adds character to their answer
                         user_answer = user_answer + str(chr(key))
