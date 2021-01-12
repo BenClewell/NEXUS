@@ -40,7 +40,7 @@ from my_modules import pt2_code_cracker as pt2
 
 def run_game():
     """run nexus, and move modules between each other"""
-    sfx.play_mp3("art_of_silence.mp3")
+    sfx.play_p1_bgm()
     # background music for gameplay
 
     title_screen.title_screen_show()
@@ -61,8 +61,11 @@ def run_game():
         # back to title
 
     ######PART 2: CRACKING THE NEXUS KEY#######################
-    sfx.play_mp3("ErrorInTheCodeFULL.mp3")
+    sfx.play_p2_bgm()
     # transition to the second part of the game, with new music
+    ascii_nexus = pyfiglet.figlet_format("DECRYPT THE KEY")
+    sfx.appear_blip()
+    print(ascii_nexus)
     if pt2.decode_key():
         pass
     else:
@@ -71,5 +74,7 @@ def run_game():
         # clear the output in the terminal
         # back to title
 
-
-run_game()
+if __name__ == "__main__":
+    keyboard.press_and_release('F11')
+    time.sleep(1)
+    run_game()

@@ -30,7 +30,7 @@ def title_screen_show():
                     transparent=False,
                 ),
             ]
-            super(PlasmaScene, self).__init__(effects, 200, clear=False)
+            super(PlasmaScene, self).__init__(effects, 500, clear=False)
 
         def add_comment(self):
 

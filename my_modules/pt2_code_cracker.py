@@ -15,7 +15,8 @@ def decode_key():
 
     digits = 3
     attempts = 10
-    sfx.appear_blip()
+    sfx.gentle_ui()
+    sfx.success()
     print("I can't believe it. We found the Nexus Key's node.")
     print(
         "Our work is almost done, but we still need to decrypt the key before the system finds out we're here."
@@ -69,13 +70,13 @@ def decode_key():
     # print(number)
 
     while True:
-        sfx.appear_blip()
+        sfx.gentle_ui()
         print("\nATTEMPT #" + str(counter) + "\n" + "-" * 20 + "\n\n")
         input_crack = input()
 
         if len(input_crack) != digits:
             time.sleep(1)
-            sfx.appear_blip()
+            sfx.gentle_ui()
             print("That's not the right number of ACCESS TOKENS in the key...")
             continue
 
@@ -118,19 +119,23 @@ def decode_key():
             print(
                 'When the system tells you to "RESPOND", you need to press the "ENTER" key as quickly as possible.\nIf you are too slow, the system is going to LOCK THE SYSTEM before we can decode the Nexus Key.\n\nThe firewall will get MORE DIFFICULT TO BYPASS as time goes on.'
             )
+            print('ENSURE THAT DURING THESE CHECKS, YOU ONLY PRESS ENTER ONE TIME, OR YOU WILL BE LOCKED OUT.')
         if counter == 5 or counter == 6:
             key_monitor = True
             print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
+            sfx.sonar.play()
             time.sleep(4)
             print("PREPARE TO RESPOND")
             time.sleep(3)
             print("<<<TEST BEGINNING SOON>>>")
             time.sleep(random.randint(2, 5))
             ascii_respond = pyfiglet.figlet_format("RESPOND")
+            sfx.burst_sound()
             print(ascii_respond)
             tic = time.perf_counter()
             a = input()
             toc = time.perf_counter()
+            sfx.gentle_ui()
             cheat_check = input(
                 "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
             )
@@ -148,6 +153,7 @@ def decode_key():
                         + ") \nLOCKING SYSTEM."
                     )
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                sfx.fail_corrupt()
                 print(ascii_locked)
                 print("THANK YOU FOR VISITING.")
                 time.sleep(8)
@@ -162,16 +168,19 @@ def decode_key():
         if counter == 7 or counter == 8:
             key_monitor = True
             print("FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)")
+            sfx.sonar.play()
             time.sleep(4)
             print("PREPARE TO RESPOND")
             time.sleep(3)
             print("<<<TEST BEGINNING SOON>>>")
             time.sleep(random.randint(2, 5))
+            sfx.burst_sound()
             ascii_respond = pyfiglet.figlet_format("RESPOND")
             print(ascii_respond)
             tic = time.perf_counter()
             a = input()
             toc = time.perf_counter()
+            sfx.gentle_ui()
             cheat_check = input(
                 "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
             )
@@ -189,6 +198,7 @@ def decode_key():
                         + ") \nLOCKING SYSTEM."
                     )
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                sfx.fail_corrupt()
                 print(ascii_locked)
                 print("THANK YOU FOR VISITING.")
                 time.sleep(8)
@@ -203,16 +213,19 @@ def decode_key():
         if counter == 9:
             key_monitor = True
             print("FIREWALL CHECK ENGAGED: HARD (.35 SECOND RESPONSE)")
+            sfx.sonar.play()
             time.sleep(4)
             print("PREPARE TO RESPOND")
             time.sleep(3)
             print("<<<TEST BEGINNING SOON>>>")
             time.sleep(random.randint(2, 5))
             ascii_respond = pyfiglet.figlet_format("RESPOND")
+            sfx.burst_sound()
             print(ascii_respond)
             tic = time.perf_counter()
             a = input()
             toc = time.perf_counter()
+            sfx.gentle_ui()
             cheat_check = input(
                 "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
             )
@@ -230,6 +243,7 @@ def decode_key():
                         + ") \nLOCKING SYSTEM."
                     )
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                sfx.fail_corrupt()
                 print(ascii_locked)
                 print("THANK YOU FOR VISITING.")
                 time.sleep(8)
@@ -245,16 +259,19 @@ def decode_key():
         if counter == 10 or counter == 11:
             key_monitor = True
             print("FIREWALL CHECK ENGAGED: VERY HARD (.3 SECOND RESPONSE)")
+            sfx.sonar.play()
             time.sleep(4)
             print("PREPARE TO RESPOND")
             time.sleep(3)
             print("<<<TEST BEGINNING SOON>>>")
             time.sleep(random.randint(2, 5))
             ascii_respond = pyfiglet.figlet_format("RESPOND")
+            sfx.burst_sound()
             print(ascii_respond)
             tic = time.perf_counter()
             a = input()
             toc = time.perf_counter()
+            sfx.gentle_ui()
             cheat_check = input(
                 "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
             )
@@ -273,6 +290,7 @@ def decode_key():
                     )
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                 print(ascii_locked)
+                sfx.fail_corrupt()
                 print("THANK YOU FOR VISITING.")
                 time.sleep(8)
                 return False
@@ -286,15 +304,19 @@ def decode_key():
 
         if input_crack == number:
             print("Wait a second...")
+            sfx.gentle_ui()
             time.sleep(1)
             print("The NEXUS KEY is decrypting!")
+            sfx.gentle_ui()
             time.sleep(2)
             ascii_win = pyfiglet.figlet_format("KEY DECODED: YOU WIN")
             print(ascii_win)
+            sfx.gentle_ui()
             time.sleep(2)
             print("Welcome... to the Nexus.")
             print("CONGRATULATIONS")
             time.sleep(5)
+            sfx.success()
             title_screen.show_victory()
 
         if counter > attempts:

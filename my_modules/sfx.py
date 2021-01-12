@@ -55,9 +55,41 @@ def burst_sound():
     )
     burst_sound.play()
 
+def gentle_ui():
+    """ pick one of ten burst sounds """
+    sound_number = random.randint(1, 20)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/gentle_ui_sounds/gentle_ui ("
+        + str(sound_number)
+        + ").wav"
+    )
+    burst_sound.play()
+
+
+def fail_corrupt():
+    """ pick one of ten burst sounds """
+    sound_number = random.randint(1, 4)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/hack_sounds/fail ("
+        + str(sound_number)
+        + ").wav"
+    )
+    burst_sound.play()
+
+def success():
+    """ pick one of ten burst sounds """
+    sound_number = random.randint(1, 3)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/hack_sounds/win ("
+        + str(sound_number)
+        + ").wav"
+    )
+    burst_sound.play()
 
 def alarm_loop(alarm_type):
-    global alarm_sound
     """global variable to stop looping"""
     """ pick one of 5 cyberphere alarms"""
     alarm_sound = pygame.mixer.Sound(
@@ -74,3 +106,26 @@ def appear_blip():
         "sounds/appear_blips/appear_blip_" + str(sound_number) + ".wav"
     )
     appear_sound.play()
+
+
+    """ pick one of ten burst sounds """
+    sound_number = random.randint(1, 10)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/burst_noise/PM_AG_"
+        + str(sound_number)
+        + "_1_ABSTRACT_GUNS.wav"
+    )
+    burst_sound.play()
+
+def play_p1_bgm():
+    track = ("sounds/bgm/bgm_" + str(random.randint(1,3)) + ".mp3")
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load(track)
+    pygame.mixer.music.play(-1)
+
+def play_p2_bgm():
+    track = ("sounds/bgm/bgm_" + str(random.randint(4,5)) + ".mp3")
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load(track)
+    pygame.mixer.music.play(-1)
