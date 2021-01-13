@@ -119,10 +119,10 @@ def final_hack_success():
         time_is_up = True
     
     if too_slow == True:
-        pygame.mixer.music.fadeout()
+        pygame.mixer.music.fadeout(4)
         return False
     if time_is_up == True:
-        pygame.mixer.music.fadeout()
+        pygame.mixer.music.fadeout(4)
         return True
     if too_many_presses == True:
         return False
