@@ -15,7 +15,10 @@ def play_mp3(track):
     pygame.mixer.music.stop()
     pygame.mixer.music.load("sounds/" + track)
     pygame.mixer.music.play(-1)
-
+def play_mp3_once(track):
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load("sounds/" + track)
+    pygame.mixer.music.play(1)
 
 click = pygame.mixer.Sound("sounds/audio_16_bit/PM_FSSF_UI_CLICKS_1.wav")
 rumble = pygame.mixer.Sound(

@@ -36,7 +36,7 @@ from my_modules import pt1_combined as pt1
 from my_modules import pt2_code_cracker as pt2
 
 # import the second half of the game, decrypting nexus key!q
-
+from importlib import reload
 
 def run_game():
     """run nexus, and move modules between each other"""
@@ -56,6 +56,8 @@ def run_game():
         pass
     else:
         os.system("cls" if os.name == "nt" else "clear")
+        reload(pt1)
+        #clear all stuff from the first part
         run_game()
         # clear the output in the terminal
         # back to title
@@ -70,6 +72,8 @@ def run_game():
         pass
     else:
         os.system("cls" if os.name == "nt" else "clear")
+        reload(pt2)
+        reload(pt1)
         run_game()
         # clear the output in the terminal
         # back to title

@@ -226,6 +226,8 @@ class P1:
                         "MONITOR",
                         "RECALIBRATE",
                         "BOOT",
+                        "HACK",
+                        "UPLOAD"
                     )
                 )
                 hack_noun = random.choice(
@@ -234,7 +236,8 @@ class P1:
                         "FIREWALL",
                         "VPN",
                         "DOMAIN",
-                        "CIRCUIT BOARD",
+                        "IP 192.168.1.1"
+                        "MOTHERBOARD",
                         "DARK WEB",
                         "NETWORK",
                         "METADATA",
@@ -246,7 +249,7 @@ class P1:
                         "COOL ONE-LINER",
                         "COMPUTER JARGON",
                         "MICROSOFT WORD",
-                        "LIGHT SHOW",
+                        "HARD DRIVE",
                         "DRONE ARMY",
                         "TOE FUNGUS",
                         "BOTNET",
@@ -255,12 +258,16 @@ class P1:
                         "HTTPS",
                         "IP ADDRESS",
                         "EXPLOIT",
+                        "USER CREDENTIALS"
                         "MALWARE",
                         "PAYLOAD",
                         "CLOAKING",
                         "ROOTKIT",
                         "ENCRYPTION",
                         "PROTOCOL",
+                        "WHITELIST",
+                        "ANTIVIRUS",
+                        
                     )
                 )
                 answer = str(hack_verb + " " + hack_noun)
@@ -496,10 +503,9 @@ class P1:
             stdscr.clear()
             stdscr.refresh()
 
-            while k not in [
-                ord("q"),
-            ]:  # repeat until user enters an option
-
+            while k !=curses.KEY_ENTER and k != 10 and k != 13:
+            # repeat until user enters an option
+                
                 # Get window height & width
                 height, width = stdscr.getmaxyx()
 
@@ -519,7 +525,7 @@ class P1:
                     subtitle1 = "VERY LOW SECURITY"
                 if P1.fw_level < -2:
                     subtitle1 = "INCREDIBLY LOW SECURITY"
-                subtitle2 = "PRESS Q TO BEGIN HACK."
+                subtitle2 = "PRESS 'ENTER' TO BEGIN HACK."
                 pygame.mixer.unpause()
 
                 start_x_title = int(
@@ -537,7 +543,7 @@ class P1:
                 # Wait for next input
                 k = stdscr.getch()
 
-            if k == ord("q") or ord("Q"):
+            if k ==curses.KEY_ENTER or k == 10 or k == 13:
                 play(stdscr)
 
         curses.wrapper(main)
@@ -726,7 +732,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        # print(P1.entry_key)
+        print(P1.entry_key)
         while P1.chances != 0 and P1.guess != P1.entry_key:
             P1.tripwire = False
             # make sure the tripwire starts with a false status, only started by failing hack

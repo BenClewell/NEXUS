@@ -4,12 +4,128 @@ from random import randint
 
 import pyfiglet
 import pyfiglet.fonts
+import pygame
+from pygame import mixer
 
 import time
 
 from my_modules import title_screen
 from my_modules import sfx
 
+import keyboard
+import threading
+import win32api
+from importlib import reload
+# allow the nexus timer to decrypt in the background
+
+def final_hack_success():
+    sfx.play_mp3_once('/bgm/bgm_6.mp3')
+    global too_many_presses # monitor for double key presses
+    too_many_presses = False
+    global time_is_up # monitor to see if the time has elapsed
+    time_is_up = False
+    global too_slow #trigger if the response is too slow
+    too_slow = False
+
+    while too_many_presses == False and time_is_up == False and too_slow == False:
+
+        def final_challenge():
+            global enter_count
+            enter_count = 0
+            #
+            global too_slow
+            global time_is_up
+            global too_many_presses
+            #
+            a = None
+            print('DO NOT TOUCH YOUR KEYBOARD UNTIL IT IS TIME TO RESPOND')
+            print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
+            sfx.sonar.play()
+            time.sleep(4)
+            print("PREPARE TO RESPOND.")
+            time.sleep(3)
+            print("<<<TEST BEGINNING SOON>>>")
+            time.sleep(random.randint(2, 5))
+            if time_is_up == False:
+                ascii_respond = pyfiglet.figlet_format("RESPOND")
+                sfx.burst_sound()
+                print(ascii_respond)
+                tic = time.perf_counter()
+                a = input()
+                toc = time.perf_counter()
+                sfx.gentle_ui()
+                timeSpent = toc - tic
+                if timeSpent > 0.5:
+                    print(
+                        "RESPONSE TIME TOO SLOW. ("
+                        + str(timeSpent)
+                        + ") \nLOCKING SYSTEM."
+                    )
+                    too_slow = True
+                    #
+                if timeSpent < 0.5:
+                    time.sleep(2)
+                    print(
+                        "RESPONSE TIME SATISFACTORY. ("
+                        + str(timeSpent)
+                        + ") \nCONTINUING..."
+                    )
+                    final_challenge()
+            else:
+                pass #time is up!
+
+        global my_timer
+        '''the final mission for decrypting the nexus key...'''
+        def countdown():
+            global my_timer
+            global time_is_up
+            my_timer = 55
+            for x in range(55):
+                my_timer = my_timer -1
+                time.sleep(1)
+            print("OUT OF TIME")
+            time_is_up = True
+            #
+            #
+
+        def monitor_enter_key():# 0x0D is enter
+            '''track the number of enter presses'''
+            global enter_count
+            global too_many_presses
+            enter_count = 0
+            while my_timer > 0:
+                a = win32api.GetKeyState(0x0D)
+                if a < 0:
+                    enter_count +=1
+                    print(str(enter_count))
+                    time.sleep(.5)
+                if enter_count == 2:
+                    print('YOU HAVE PRESSED ENTER OUTSIDE A TEST')
+                    too_many_presses = True
+
+
+
+        countdown_thread = threading.Thread(target = countdown)
+        countdown_thread.start()
+        monitor_thread = threading.Thread(target = monitor_enter_key)
+        monitor_thread.start()
+
+
+        while my_timer > 0:
+            time.sleep(1)
+            final_challenge()
+            time.sleep(1)
+        print('You have finished.')
+        time_is_up = True
+    
+    if too_slow == True:
+        pygame.mixer.music.fadeout()
+        return False
+    if time_is_up == True:
+        pygame.mixer.music.fadeout()
+        return True
+    if too_many_presses == True:
+        return False
 
 def decode_key():
 
@@ -51,7 +167,7 @@ def decode_key():
         letters.reverse()
 
     number = "".join(letters)
-    # print(str(number))
+    print(str(number))
     """for play testing purposes"""
 
     print(
@@ -127,7 +243,7 @@ def decode_key():
             print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
             sfx.sonar.play()
             time.sleep(4)
-            print("PREPARE TO RESPOND")
+            print("PREPARE TO RESPOND.\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME...")
             time.sleep(3)
             print("<<<TEST BEGINNING SOON>>>")
             time.sleep(random.randint(2, 5))
@@ -172,7 +288,7 @@ def decode_key():
             print("FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)")
             sfx.sonar.play()
             time.sleep(4)
-            print("PREPARE TO RESPOND")
+            print("PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME...")
             time.sleep(3)
             print("<<<TEST BEGINNING SOON>>>")
             time.sleep(random.randint(2, 5))
@@ -189,7 +305,7 @@ def decode_key():
             timeSpent = toc - tic
             if timeSpent > 0.4 or "submit" not in cheat_check.lower():
                 time.sleep(2)
-                if "submit" not in cheat_check:
+                if "submit" not in cheat_check.lower():
                     print(
                         "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
                     )
@@ -217,7 +333,7 @@ def decode_key():
             print("FIREWALL CHECK ENGAGED: HARD (.35 SECOND RESPONSE)")
             sfx.sonar.play()
             time.sleep(4)
-            print("PREPARE TO RESPOND")
+            print("PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME...")
             time.sleep(3)
             print("<<<TEST BEGINNING SOON>>>")
             time.sleep(random.randint(2, 5))
@@ -234,7 +350,7 @@ def decode_key():
             timeSpent = toc - tic
             if timeSpent > 0.35 or "submit" not in cheat_check.lower():
                 time.sleep(2)
-                if "submit" not in cheat_check:
+                if "submit" not in cheat_check.lower():
                     print(
                         "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
                     )
@@ -263,7 +379,7 @@ def decode_key():
             print("FIREWALL CHECK ENGAGED: VERY HARD (.3 SECOND RESPONSE)")
             sfx.sonar.play()
             time.sleep(4)
-            print("PREPARE TO RESPOND")
+            print("PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME...")
             time.sleep(3)
             print("<<<TEST BEGINNING SOON>>>")
             time.sleep(random.randint(2, 5))
@@ -280,7 +396,7 @@ def decode_key():
             timeSpent = toc - tic
             if timeSpent > 0.30 or "submit" not in cheat_check.lower():
                 time.sleep(2)
-                if "submit" not in cheat_check:
+                if "submit" not in cheat_check.lower():
                     print(
                         "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
                     )
@@ -310,7 +426,18 @@ def decode_key():
             time.sleep(1)
             print("The NEXUS KEY is decrypting!")
             sfx.gentle_ui()
-            time.sleep(2)
+            time.sleep(1)
+            sfx.fail_corrupt()
+            print("You just need to protect against the firewall while it decrypts...")
+            if final_hack_success():
+                pass
+            else:
+                time.sleep(2)
+                ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                print(ascii_locked)
+                print("THANK YOU FOR VISITING.")
+                time.sleep(8)
+                return False
             ascii_win = pyfiglet.figlet_format("KEY DECODED: YOU WIN")
             print(ascii_win)
             sfx.gentle_ui()
