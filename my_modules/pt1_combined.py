@@ -219,6 +219,7 @@ class P1:
                         "TROUBLESHOOT",
                         "DESTABILIZE",
                         "PROTECT",
+                        "QUANTIZE",
                         "INSTALL",
                         "RESTART",
                         "ACCESS",
@@ -227,7 +228,7 @@ class P1:
                         "RECALIBRATE",
                         "BOOT",
                         "HACK",
-                        "UPLOAD"
+                        "UPLOAD",
                     )
                 )
                 hack_noun = random.choice(
@@ -236,8 +237,7 @@ class P1:
                         "FIREWALL",
                         "VPN",
                         "DOMAIN",
-                        "IP 192.168.1.1"
-                        "MOTHERBOARD",
+                        "IP 192.168.1.1" "MOTHERBOARD",
                         "DARK WEB",
                         "NETWORK",
                         "METADATA",
@@ -245,7 +245,7 @@ class P1:
                         "BACKDOOR",
                         "TIP CALCULATOR",
                         "SAFETY NET",
-                        "INDOOR SUNGLASSES",
+                        "HACKER SUNGLASSES",
                         "COOL ONE-LINER",
                         "COMPUTER JARGON",
                         "MICROSOFT WORD",
@@ -255,11 +255,10 @@ class P1:
                         "BOTNET",
                         "VERIFICATION",
                         "NODE PASSWORD",
-                        "HTTPS",
+                        "HTTPS DOMAIN",
                         "IP ADDRESS",
                         "EXPLOIT",
-                        "USER CREDENTIALS"
-                        "MALWARE",
+                        "USER CREDENTIALS" "MALWARE",
                         "PAYLOAD",
                         "CLOAKING",
                         "ROOTKIT",
@@ -267,7 +266,6 @@ class P1:
                         "PROTOCOL",
                         "WHITELIST",
                         "ANTIVIRUS",
-                        
                     )
                 )
                 answer = str(hack_verb + " " + hack_noun)
@@ -503,9 +501,9 @@ class P1:
             stdscr.clear()
             stdscr.refresh()
 
-            while k !=curses.KEY_ENTER and k != 10 and k != 13:
-            # repeat until user enters an option
-                
+            while k != curses.KEY_ENTER and k != 10 and k != 13:
+                # repeat until user enters an option
+
                 # Get window height & width
                 height, width = stdscr.getmaxyx()
 
@@ -543,7 +541,7 @@ class P1:
                 # Wait for next input
                 k = stdscr.getch()
 
-            if k ==curses.KEY_ENTER or k == 10 or k == 13:
+            if k == curses.KEY_ENTER or k == 10 or k == 13:
                 play(stdscr)
 
         curses.wrapper(main)
