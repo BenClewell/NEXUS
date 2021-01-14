@@ -70,7 +70,7 @@ def run_game():
     sfx.appear_blip()
     print(ascii_nexus)
     if pt2.P2.decode_key():
-        passq
+        pass
     else:
         os.system("cls" if os.name == "nt" else "clear")
         reload(pt2)

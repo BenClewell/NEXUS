@@ -16,7 +16,7 @@ import keyboard
 import threading
 import win32api
 import pynput
-from pyput import keyboard
+from pynput import keyboard
 from importlib import reload
 
 # allow the nexus timer to decrypt in the background
@@ -49,15 +49,11 @@ class P2:
         def on_press(key):
             if key == keyboard.Key.enter and P2.enable_key_tracking == True:
                 P2.enter_count += 1
-                if P2.enter_count == 1:
-                    sfx.bad_sound_hack()
-                    print(
-                        'PREMATURE ENTRY. DO NOT PRESS ENTER BEFORE YOU SEE "RESPOND".'
-                    )
+                print("[TEST RESPONSE SUBMITTED]")
                 if P2.enter_count > 1:
-                    sfx.bad_sound_hack()
+                    sfx.fail_corrupt()
                     print(
-                        "SECOND PREMATURE ENTRY DETECTED. SHUTTING DOWN NEXUS..."
+                        "YOU HAVE MADE A DOUBLE SUBMISSION FOR THE TEST. SHUTTING DOWN NEXUS..."
                     )
                     P2.too_many_presses = True
                     return
@@ -67,7 +63,9 @@ class P2:
             a = None
             if P2.too_many_presses == False:
 
-                print("Now monitoring keyboard for premature keypresses...")
+                print(
+                    "BE CAREFUL: Now monitoring keyboard for premature keypresses..."
+                )
                 P2.enable_key_tracking = True
                 #
                 listener = keyboard.Listener(on_press=on_press)
@@ -111,14 +109,14 @@ class P2:
                 print("<<<TEST BEGINNING SOON>>>")
                 time.sleep(random.randint(2, 5))
             if P2.too_many_presses == False:
-                P2.enable_key_tracking = False
-                listener.stop()  # stop
                 ascii_respond = pyfiglet.figlet_format("RESPOND")
                 sfx.burst_sound()
                 print(ascii_respond)
                 tic = time.perf_counter()
                 a = input()
                 toc = time.perf_counter()
+                P2.enable_key_tracking = False
+                listener.stop()  # stop
                 sfx.gentle_ui()
                 timeSpent = toc - tic
                 if timeSpent > threshold:
@@ -531,12 +529,12 @@ class P2:
                 )
                 print(ascii_win)
                 sfx.gentle_ui()
-                time.sleep(2)
-
+                time.sleep(3)
                 print("Welcome... to the Nexus.")
-                print("CONGRATULATIONS")
-                ascii_win = pyfiglet.figlet_format("THANK YOU FOR PLAYING")
+                ascii_win = pyfiglet.figlet_format("CONGRATULATIONS")
+                time.sleep(5)
                 print(ascii_win)
+                print("THANK YOU FOR PLAYING")
                 time.sleep(5)
                 ascii_win = pyfiglet.figlet_format(
                     "NEXUS: A GAME BY BENJAMIN CLEWELL"

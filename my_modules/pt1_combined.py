@@ -215,15 +215,18 @@ class P1:
                         "ENCRYPT",
                         "DECRYPT",
                         "ANALYZE",
+                        "REBUILD",
                         "CIRCUMVENT",
                         "TROUBLESHOOT",
                         "DESTABILIZE",
                         "PROTECT",
                         "QUANTIZE",
                         "INSTALL",
+                        "DENY",
+                        "PERMIT",
                         "RESTART",
                         "ACCESS",
-                        "SECURE",
+                        "CONFIRM" "SECURE",
                         "MONITOR",
                         "RECALIBRATE",
                         "BOOT",
@@ -233,7 +236,11 @@ class P1:
                         "LOOK UP",
                         "INVESTIGATE",
                         "RESEARCH",
+                        "UPDATE",
+                        "REVERT",
+                        "TRIANGULATE",
                         "COMPILE",
+                        "PACKAGE",
                     )
                 )
                 hack_noun = random.choice(
@@ -249,15 +256,16 @@ class P1:
                         "METADATA",
                         "SECURITY KEY",
                         "BACKDOOR",
+                        "DATABASE",
                         "TIP CALCULATOR",
                         "SAFETY NET",
-                        "HACKER SUNGLASSES",
+                        "CLOUD SERVER",
                         "COOL ONE-LINER",
                         "COMPUTER JARGON",
                         "MICROSOFT WORD",
                         "HARD DRIVE",
                         "DRONE ARMY",
-                        "TOE FUNGUS",
+                        "BRUTE FORCE",
                         "BOTNET",
                         "VERIFICATION",
                         "NODE PASSWORD",
@@ -368,7 +376,9 @@ class P1:
                     stdscr.refresh()
 
                     if key == 10:  # user presses enter, 10 is the enter button
-                        if user_answer == str(actual_answer):  # correct answer
+                        if user_answer.upper().strip() == str(
+                            actual_answer
+                        ):  # correct answer
                             sfx.burst_sound()
                             # sound
                             stdscr.addstr(y, x, ">" * 25)
