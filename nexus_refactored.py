@@ -68,12 +68,13 @@ def run_game():
     ascii_nexus = pyfiglet.figlet_format("DECRYPT THE KEY")
     sfx.appear_blip()
     print(ascii_nexus)
-    if pt2.decode_key():
+    if pt2.P2.decode_key():
         pass
     else:
         os.system("cls" if os.name == "nt" else "clear")
         reload(pt2)
         reload(pt1)
+        os.system("cls" if os.name == "nt" else "clear")
         run_game()
         # clear the output in the terminal
         # back to title
