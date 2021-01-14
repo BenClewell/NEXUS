@@ -38,6 +38,7 @@ from my_modules import pt2_code_cracker as pt2
 # import the second half of the game, decrypting nexus key!q
 from importlib import reload
 
+
 def run_game():
     """run nexus, and move modules between each other"""
     sfx.play_p1_bgm()
@@ -57,7 +58,7 @@ def run_game():
     else:
         os.system("cls" if os.name == "nt" else "clear")
         reload(pt1)
-        #clear all stuff from the first part
+        # clear all stuff from the first part
         run_game()
         # clear the output in the terminal
         # back to title
@@ -69,7 +70,7 @@ def run_game():
     sfx.appear_blip()
     print(ascii_nexus)
     if pt2.P2.decode_key():
-        pass
+        passq
     else:
         os.system("cls" if os.name == "nt" else "clear")
         reload(pt2)

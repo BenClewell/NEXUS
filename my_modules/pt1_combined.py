@@ -229,6 +229,11 @@ class P1:
                         "BOOT",
                         "HACK",
                         "UPLOAD",
+                        "CROSS-REFERENCE",
+                        "LOOK UP",
+                        "INVESTIGATE",
+                        "RESEARCH",
+                        "COMPILE",
                     )
                 )
                 hack_noun = random.choice(
@@ -237,7 +242,8 @@ class P1:
                         "FIREWALL",
                         "VPN",
                         "DOMAIN",
-                        "IP 192.168.1.1" "MOTHERBOARD",
+                        "IP 192.168.1.1",
+                        "MOTHERBOARD",
                         "DARK WEB",
                         "NETWORK",
                         "METADATA",
@@ -258,7 +264,8 @@ class P1:
                         "HTTPS DOMAIN",
                         "IP ADDRESS",
                         "EXPLOIT",
-                        "USER CREDENTIALS" "MALWARE",
+                        "USER CREDENTIALS",
+                        "MALWARE",
                         "PAYLOAD",
                         "CLOAKING",
                         "ROOTKIT",

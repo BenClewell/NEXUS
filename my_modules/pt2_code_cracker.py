@@ -15,116 +15,144 @@ from my_modules import sfx
 import keyboard
 import threading
 import win32api
+import pynput
+from pyput import keyboard
 from importlib import reload
+
 # allow the nexus timer to decrypt in the background
 
+
 class P2:
-    '''house all methods and unify all global variables'''
-    too_many_presses = False #endgame, monitor enter presses (multithread)
-    enter_count = 0 # multithread, monitor times enter is pressed
+    """house all methods and unify all global variables"""
+
+    too_many_presses = False  # endgame, monitor enter presses (multithread)
+    enable_key_tracking = False  # check for cheating key presses
+    enter_count = 0  # multithread, monitor times enter is pressed
     # DISABLED time_is_up  = False #endgame, monitor timer (multithread)
     final_roundcount = 1
     rounds_done = False
-    too_slow = False #endgame, monitor speed
-#
-#
-#
+    too_slow = False  # endgame, monitor speed
+    #
+    #
+    #
+
     def final_hack_success():
-        sfx.play_mp3_once('/bgm/bgm_6.mp3')
+        sfx.play_mp3_once("/bgm/bgm_6.mp3")
         sfx.burst_sound()
         ascii_no_touch = pyfiglet.figlet_format("DO NOT TOUCH\nTHE KEYBOARD")
         print(ascii_no_touch)
-        print('PREMATURE KEYPRESSES WILL LOCK NEXUS...')
+        print("PREMATURE KEYPRESSES WILL LOCK NEXUS...")
         print("ONLY HIT 'ENTER' WHEN YOU ARE PROMPTED TO RESPOND.")
         time.sleep(5)
         #
         #
-        def monitor_enter_key():# 0x0D is enter
-            '''track the number of enter presses'''
-            P2.enter_count = 0
-            while P2.final_roundcount <=3 and P2.enter_count <2:
-                a = win32api.GetKeyState(0x0D)
-                if a < 0:
-                    P2.enter_count +=1
-                    time.sleep(1)
-            while P2.final_roundcount <=3:
-                if P2.enter_count >1:
-                    print('YOU HAVE PRESSED ENTER OUTSIDE A TEST')
-                    time.sleep(2)
-                    print('REPORTING YOU TO THE NEXUS...')
+        def on_press(key):
+            if key == keyboard.Key.enter and P2.enable_key_tracking == True:
+                P2.enter_count += 1
+                if P2.enter_count == 1:
+                    sfx.bad_sound_hack()
+                    print(
+                        'PREMATURE ENTRY. DO NOT PRESS ENTER BEFORE YOU SEE "RESPOND".'
+                    )
+                if P2.enter_count > 1:
+                    sfx.bad_sound_hack()
+                    print(
+                        "SECOND PREMATURE ENTRY DETECTED. SHUTTING DOWN NEXUS..."
+                    )
                     P2.too_many_presses = True
                     return
 
-        monitor_thread = threading.Thread(target = monitor_enter_key)
-        monitor_thread.start()
+        def final_challenge():
+            P2.enter_count = 0
+            a = None
+            if P2.too_many_presses == False:
 
-        while P2.too_many_presses == False and P2.too_slow == False and P2.rounds_done==False:
-
-            def final_challenge():
-                P2.enter_count = 0
-                a = None
-                if P2.too_many_presses == False:
-                    print('Now monitoring keyboard for premature keypresses...')
-                    time.sleep(2)
-                    if P2.final_roundcount ==1:
-                        print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
-                        ascii_prog = pyfiglet.figlet_format("DECRYPTION:\n33% COMPLETE")
-                        sfx.gentle_ui()
-                        print(ascii_prog)
-                        threshold = 0.5
-                    if P2.final_roundcount ==2:
-                        print("FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)")
-                        ascii_prog = pyfiglet.figlet_format("DECRYPTION:\n66% COMPLETE")
-                        sfx.gentle_ui()
-                        print(ascii_prog)
-                        threshold =  0.4
-                    if P2.final_roundcount ==3:
-                        ascii_prog = pyfiglet.figlet_format("DECRYPTION:\n99% COMPLETE")
-                        sfx.gentle_ui()
-                        print(ascii_prog)
-                        print("FIREWALL CHECK ENGAGED: VERY HARD (.3 SECOND RESPONSE)")
-                        threshold = 0.3
-                    sfx.sonar.play()
-                    time.sleep(1)
-                if P2.too_many_presses == False:
-                    print("\n\nPREPARE TO RESPOND.")
-                time.sleep(.5)
-                if P2.too_many_presses == False:
-                    print("<<<TEST BEGINNING SOON>>>")
-                    time.sleep(random.randint(2, 5))
-                if P2.too_many_presses == False:
-                    ascii_respond = pyfiglet.figlet_format("RESPOND")
-                    sfx.burst_sound()
-                    print(ascii_respond)
-                    tic = time.perf_counter()
-                    a = input()
-                    toc = time.perf_counter()
+                print("Now monitoring keyboard for premature keypresses...")
+                P2.enable_key_tracking = True
+                #
+                listener = keyboard.Listener(on_press=on_press)
+                listener.start()
+                #
+                time.sleep(2)
+                if P2.final_roundcount == 1:
+                    print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
+                    ascii_prog = pyfiglet.figlet_format(
+                        "DECRYPTION:\n33% COMPLETE"
+                    )
                     sfx.gentle_ui()
-                    timeSpent = toc - tic
-                    if timeSpent > threshold:
-                        print(
-                            "RESPONSE TIME TOO SLOW. ("
-                            + str(timeSpent)
-                            + ") \nLOCKING SYSTEM."
-                        )
-                        P2.too_slow = True
-                        #
-                    if timeSpent < threshold:
-                        time.sleep(2)
-                        print(
-                            "RESPONSE TIME SATISFACTORY. ("
-                            + str(timeSpent)
-                            + ") \nCONTINUING..."
-                        )
-                        P2.final_roundcount +=1 #do another round, until five rounds have been played
-                        if P2.final_roundcount >3:
-                            P2.rounds_done = True
-                        else:
-                            final_challenge()
-            final_challenge()
+                    print(ascii_prog)
+                    threshold = 0.5
+                if P2.final_roundcount == 2:
+                    print(
+                        "FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)"
+                    )
+                    ascii_prog = pyfiglet.figlet_format(
+                        "DECRYPTION:\n66% COMPLETE"
+                    )
+                    sfx.gentle_ui()
+                    print(ascii_prog)
+                    threshold = 0.4
+                if P2.final_roundcount == 3:
+                    ascii_prog = pyfiglet.figlet_format(
+                        "DECRYPTION:\n99% COMPLETE"
+                    )
+                    sfx.gentle_ui()
+                    print(ascii_prog)
+                    print(
+                        "FIREWALL CHECK ENGAGED: VERY HARD (.3 SECOND RESPONSE)"
+                    )
+                    threshold = 0.3
+                sfx.sonar.play()
+                time.sleep(1)
+            if P2.too_many_presses == False:
+                print("\n\nPREPARE TO RESPOND.")
+            time.sleep(0.5)
+            if P2.too_many_presses == False:
+                print("<<<TEST BEGINNING SOON>>>")
+                time.sleep(random.randint(2, 5))
+            if P2.too_many_presses == False:
+                P2.enable_key_tracking = False
+                listener.stop()  # stop
+                ascii_respond = pyfiglet.figlet_format("RESPOND")
+                sfx.burst_sound()
+                print(ascii_respond)
+                tic = time.perf_counter()
+                a = input()
+                toc = time.perf_counter()
+                sfx.gentle_ui()
+                timeSpent = toc - tic
+                if timeSpent > threshold:
+                    print(
+                        "RESPONSE TIME TOO SLOW. ("
+                        + str(timeSpent)
+                        + ") \nLOCKING SYSTEM."
+                    )
+                    P2.too_slow = True
+                    #
+                if timeSpent < threshold:
+                    time.sleep(2)
+                    print(
+                        "RESPONSE TIME SATISFACTORY. ("
+                        + str(timeSpent)
+                        + ") \nCONTINUING..."
+                    )
+                    P2.final_roundcount += 1  # do another round, until five rounds have been played
+                    if P2.final_roundcount > 3:
+                        P2.rounds_done = True
+                    else:
+                        final_challenge()
 
+        final_challenge()
 
-        '''
+        if P2.too_slow == True:
+            pygame.mixer.music.fadeout(4)
+            return False
+        if P2.rounds_done == True:
+            return True
+        if P2.too_many_presses == True:
+            pygame.mixer.music.fadeout(4)
+            return False
+        """
         def countdown():
             # multithreading timer. DISABLED FOR NOW, MIGHT IMPLEMENT LATER
             my_timer = 55
@@ -135,7 +163,7 @@ class P2:
             time_is_up = True
         countdown_thread = threading.Thread(target = countdown)
         countdown_thread.start()
-            
+
 
         while my_timer > 0:
             time.sleep(1)
@@ -143,16 +171,35 @@ class P2:
             time.sleep(1)
         print('You have finished.')
         time_is_up = True
+        """
+        #
         '''
+        def monitor_enter_key():  # 0x0D is enter
+            """track the number of enter presses"""
+            P2.enter_count = 0
+            while (
+                P2.final_roundcount <= 3
+                and P2.enter_count < 2
+                and P2.too_many_presses == False
+            ):
+                a = win32api.GetKeyState(0x0D)
+                if a < 0:
+                    P2.enter_count += 1
+                    time.sleep(1)
+            while P2.final_roundcount <= 3:
+                if P2.enter_count > 1:
+                    print("YOU HAVE PRESSED ENTER OUTSIDE A TEST")
+                    time.sleep(2)
+                    print("REPORTING YOU TO THE NEXUS...")
+                    P2.too_many_presses = True
+                    return
 
-        if P2.too_slow == True:
-            pygame.mixer.music.fadeout(4)
-            return False
-        if P2.rounds_done == True:
-            return True
-        if P2.too_many_presses == True:
-            pygame.mixer.music.fadeout(4)
-            return False
+        while (
+            P2.too_many_presses == False
+            and P2.too_slow == False
+            and P2.rounds_done == False
+        ):
+        '''
 
     def decode_key():
 
@@ -220,7 +267,9 @@ class P2:
             if len(input_crack) != digits:
                 time.sleep(1)
                 sfx.gentle_ui()
-                print("That's not the right number of ACCESS TOKENS in the key...")
+                print(
+                    "That's not the right number of ACCESS TOKENS in the key..."
+                )
                 continue
 
             # Create the clues.
@@ -251,7 +300,9 @@ class P2:
                 sfx.enable_firewall.play()
                 print(ascii_fw_online)
                 sfx.appear_blip()
-                print("The system has found out we're in the Nexus Key's node.")
+                print(
+                    "The system has found out we're in the Nexus Key's node."
+                )
                 time.sleep(1)
                 sfx.appear_blip()
                 print(
@@ -270,7 +321,9 @@ class P2:
                 print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
                 sfx.sonar.play()
                 time.sleep(4)
-                print("PREPARE TO RESPOND.\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME...")
+                print(
+                    "PREPARE TO RESPOND.\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME..."
+                )
                 time.sleep(3)
                 print("<<<TEST BEGINNING SOON>>>")
                 time.sleep(random.randint(2, 5))
@@ -315,7 +368,9 @@ class P2:
                 print("FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)")
                 sfx.sonar.play()
                 time.sleep(4)
-                print("PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME...")
+                print(
+                    "PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME..."
+                )
                 time.sleep(3)
                 print("<<<TEST BEGINNING SOON>>>")
                 time.sleep(random.randint(2, 5))
@@ -360,7 +415,9 @@ class P2:
                 print("FIREWALL CHECK ENGAGED: HARD (.35 SECOND RESPONSE)")
                 sfx.sonar.play()
                 time.sleep(4)
-                print("PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME...")
+                print(
+                    "PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME..."
+                )
                 time.sleep(3)
                 print("<<<TEST BEGINNING SOON>>>")
                 time.sleep(random.randint(2, 5))
@@ -406,7 +463,9 @@ class P2:
                 print("FIREWALL CHECK ENGAGED: VERY HARD (.3 SECOND RESPONSE)")
                 sfx.sonar.play()
                 time.sleep(4)
-                print("PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME...")
+                print(
+                    "PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME..."
+                )
                 time.sleep(3)
                 print("<<<TEST BEGINNING SOON>>>")
                 time.sleep(random.randint(2, 5))
@@ -455,7 +514,9 @@ class P2:
                 sfx.gentle_ui()
                 time.sleep(1)
                 sfx.fail_corrupt()
-                print("You just need to protect against the firewall while it decrypts...")
+                print(
+                    "You just need to protect against the firewall while it decrypts..."
+                )
                 if P2.final_hack_success():
                     pass
                 else:
@@ -465,17 +526,21 @@ class P2:
                     print("THANK YOU FOR VISITING.")
                     time.sleep(8)
                     return False
-                ascii_win = pyfiglet.figlet_format("DECRYPTION:\n100% COMPLETE")
+                ascii_win = pyfiglet.figlet_format(
+                    "DECRYPTION:\n100% COMPLETE"
+                )
                 print(ascii_win)
                 sfx.gentle_ui()
                 time.sleep(2)
-                
+
                 print("Welcome... to the Nexus.")
                 print("CONGRATULATIONS")
                 ascii_win = pyfiglet.figlet_format("THANK YOU FOR PLAYING")
                 print(ascii_win)
                 time.sleep(5)
-                ascii_win = pyfiglet.figlet_format("NEXUS: A GAME BY BENJAMIN CLEWELL")
+                ascii_win = pyfiglet.figlet_format(
+                    "NEXUS: A GAME BY BENJAMIN CLEWELL"
+                )
                 print(ascii_win)
                 time.sleep(5)
                 sfx.success()
