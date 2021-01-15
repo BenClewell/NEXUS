@@ -25,6 +25,15 @@ from importlib import reload
 class P2:
     """house all methods and unify all global variables"""
 
+    preemptive_press = (
+        False  # start of p2, monitor enter presses (multithread)
+    )
+    first_allowed_range = (
+        False  # start p2, are you in the allowed keypress range?
+    )
+    initial_not_fail = False
+    #
+    #
     too_many_presses = False  # endgame, monitor enter presses (multithread)
     allowed_range = (
         False  # multithread, are you in the allowed keypress range?
@@ -318,196 +327,128 @@ class P2:
                 print(
                     "ENSURE THAT DURING THESE CHECKS, YOU ONLY PRESS ENTER ONE TIME, OR YOU WILL BE LOCKED OUT."
                 )
+
+            def initial_on_press(key):
+                if (
+                    key == keyboard.Key.enter
+                    and P2.first_allowed_range == True
+                ):
+                    print("[VALID TEST RESPONSE SUBMITTED]")
+                if (
+                    key == keyboard.Key.enter
+                    and P2.first_allowed_range == False
+                ):
+                    print("[INVALID TEST RESPONSE]")
+                    sfx.fail_corrupt()
+                    sfx.burst_sound()
+                    print(
+                        "YOU HAVE MADE AN INVALID SUBMISSION FOR THE TEST. SHUTTING DOWN NEXUS..."
+                    )
+                    P2.preemptive_press = True  # flag the press as premptive
+                    sfx.fail_corrupt()
+                    sfx.burst_sound()
+                    print("FIREWALL DISABLING INFRASTRUCTURE...")
+                    return
+
+            def firewall_check(engaged_message, threshold_value):
+                a = None
+                P2.initial_not_fail = False
+                listener = keyboard.Listener(on_press=initial_on_press)
+                listener.start()
+                print(
+                    "BE CAREFUL: Continuously monitoring keyboard for premature keypresses..."
+                )
+                if P2.preemptive_press == False:
+                    time.sleep(2)
+                    print(engaged_message)
+                    threshold = threshold_value
+                    time.sleep(1)
+                if P2.preemptive_press == False:
+                    print("\n\nPREPARE TO RESPOND.")
+                time.sleep(0.5)
+                if P2.preemptive_press == False:
+                    print("<<<TEST BEGINNING SOON>>>")
+                    time.sleep(random.randint(2, 5))
+                if P2.preemptive_press == False:
+                    ascii_respond = pyfiglet.figlet_format("RESPOND")
+                    sfx.burst_sound()
+                    print(ascii_respond)
+                    tic = time.perf_counter()
+                    P2.first_allowed_range = True
+                    a = input()
+                    P2.first_allowed_range = False
+                    toc = time.perf_counter()
+                    sfx.gentle_ui()
+                    timeSpent = toc - tic
+                    if timeSpent > threshold:
+                        listener.stop()
+                        print(
+                            "RESPONSE TIME TOO SLOW. ("
+                            + str(timeSpent)
+                            + ") \nLOCKING SYSTEM."
+                        )
+                        P2.too_slow = True
+                        #
+                    if timeSpent < threshold:
+                        listener.stop()
+                        time.sleep(2)
+                        print(
+                            "RESPONSE TIME SATISFACTORY. ("
+                            + str(timeSpent)
+                            + ") \nFIREWALL IS TEMPORARILY DISABLED..."
+                        )
+                        P2.initial_not_fail = True
+
+                listener.stop()
+                if P2.too_slow == True:
+                    pygame.mixer.music.fadeout(4)
+                    return False
+                if P2.initial_not_fail == True:
+                    return True
+                if P2.preemptive_press == True:
+                    time.sleep(2)
+                    sfx.fail_corrupt()
+                    ascii_locked = pyfiglet.figlet_format("FIREWALL DEPLOYED")
+                    print(ascii_locked)
+                    sfx.fail_corrupt()
+                    ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                    print(ascii_locked)
+                    print("THANK YOU FOR VISITING.")
+                    time.sleep(8)
+                    pygame.mixer.music.fadeout(4)
+                    return False
+                    #
+                    #
+
             if counter == 5 or counter == 6:
-                key_monitor = True
-                print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
-                sfx.sonar.play()
-                time.sleep(4)
-                print(
-                    "PREPARE TO RESPOND.\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME..."
-                )
-                time.sleep(3)
-                print("<<<TEST BEGINNING SOON>>>")
-                time.sleep(random.randint(2, 5))
-                ascii_respond = pyfiglet.figlet_format("RESPOND")
-                sfx.burst_sound()
-                print(ascii_respond)
-                tic = time.perf_counter()
-                a = input()
-                toc = time.perf_counter()
-                sfx.gentle_ui()
-                cheat_check = input(
-                    "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
-                )
-                timeSpent = toc - tic
-                if timeSpent > 0.5 or "submit" not in cheat_check.lower():
-                    time.sleep(2)
-                    if "submit" not in cheat_check.lower():
-                        print(
-                            "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
-                        )
-                    if timeSpent > 0.5:
-                        print(
-                            "RESPONSE TIME TOO SLOW. ("
-                            + str(timeSpent)
-                            + ") \nLOCKING SYSTEM."
-                        )
-                    ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-                    sfx.fail_corrupt()
-                    print(ascii_locked)
-                    print("THANK YOU FOR VISITING.")
-                    time.sleep(8)
+                if firewall_check(
+                    "FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)", 0.5
+                ):
+                    pass
+                else:
                     return False
-                if timeSpent < 0.5 and "submit" in cheat_check.lower():
-                    time.sleep(2)
-                    print(
-                        "RESPONSE TIME SATISFACTORY. ("
-                        + str(timeSpent)
-                        + ") \nYOU MAY PROCEED"
-                    )
             if counter == 7 or counter == 8:
-                key_monitor = True
-                print("FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)")
-                sfx.sonar.play()
-                time.sleep(4)
-                print(
-                    "PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME..."
-                )
-                time.sleep(3)
-                print("<<<TEST BEGINNING SOON>>>")
-                time.sleep(random.randint(2, 5))
-                sfx.burst_sound()
-                ascii_respond = pyfiglet.figlet_format("RESPOND")
-                print(ascii_respond)
-                tic = time.perf_counter()
-                a = input()
-                toc = time.perf_counter()
-                sfx.gentle_ui()
-                cheat_check = input(
-                    "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
-                )
-                timeSpent = toc - tic
-                if timeSpent > 0.4 or "submit" not in cheat_check.lower():
-                    time.sleep(2)
-                    if "submit" not in cheat_check.lower():
-                        print(
-                            "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
-                        )
-                    if timeSpent > 0.4:
-                        print(
-                            "RESPONSE TIME TOO SLOW. ("
-                            + str(timeSpent)
-                            + ") \nLOCKING SYSTEM."
-                        )
-                    ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-                    sfx.fail_corrupt()
-                    print(ascii_locked)
-                    print("THANK YOU FOR VISITING.")
-                    time.sleep(8)
+                if firewall_check(
+                    "FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)", 0.4
+                ):
+                    pass
+                else:
                     return False
-                if timeSpent < 0.4 and "submit" in cheat_check.lower():
-                    time.sleep(2)
-                    print(
-                        "RESPONSE TIME SATISFACTORY. ("
-                        + str(timeSpent)
-                        + ") \nYOU MAY PROCEED"
-                    )
             if counter == 9:
-                key_monitor = True
-                print("FIREWALL CHECK ENGAGED: HARD (.35 SECOND RESPONSE)")
-                sfx.sonar.play()
-                time.sleep(4)
-                print(
-                    "PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME..."
-                )
-                time.sleep(3)
-                print("<<<TEST BEGINNING SOON>>>")
-                time.sleep(random.randint(2, 5))
-                ascii_respond = pyfiglet.figlet_format("RESPOND")
-                sfx.burst_sound()
-                print(ascii_respond)
-                tic = time.perf_counter()
-                a = input()
-                toc = time.perf_counter()
-                sfx.gentle_ui()
-                cheat_check = input(
-                    "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
-                )
-                timeSpent = toc - tic
-                if timeSpent > 0.35 or "submit" not in cheat_check.lower():
-                    time.sleep(2)
-                    if "submit" not in cheat_check.lower():
-                        print(
-                            "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
-                        )
-                    if timeSpent > 0.35:
-                        print(
-                            "RESPONSE TIME TOO SLOW. ("
-                            + str(timeSpent)
-                            + ") \nLOCKING SYSTEM."
-                        )
-                    ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-                    sfx.fail_corrupt()
-                    print(ascii_locked)
-                    print("THANK YOU FOR VISITING.")
-                    time.sleep(8)
+                if firewall_check(
+                    "FIREWALL CHECK ENGAGED: HARD (.35 SECOND RESPONSE)", 0.35
+                ):
+                    pass
+                else:
                     return False
-
-                if timeSpent < 0.35 and "submit" in cheat_check.lower():
-                    time.sleep(2)
-                    print(
-                        "RESPONSE TIME SATISFACTORY. ("
-                        + str(timeSpent)
-                        + ") \nYOU MAY PROCEED"
-                    )
             if counter == 10 or counter == 11:
-                key_monitor = True
-                print("FIREWALL CHECK ENGAGED: VERY HARD (.3 SECOND RESPONSE)")
-                sfx.sonar.play()
-                time.sleep(4)
-                print(
-                    "PREPARE TO RESPOND\nREMEMBER: PRESS 'ENTER' ONLY ONE TIME..."
-                )
-                time.sleep(3)
-                print("<<<TEST BEGINNING SOON>>>")
-                time.sleep(random.randint(2, 5))
-                ascii_respond = pyfiglet.figlet_format("RESPOND")
-                sfx.burst_sound()
-                print(ascii_respond)
-                tic = time.perf_counter()
-                a = input()
-                toc = time.perf_counter()
-                sfx.gentle_ui()
-                cheat_check = input(
-                    "RESPONSE RECORDED.\nTYPE 'submit' AND PRESS 'ENTER' TO COMMIT YOUR RESPONSE\n\n"
-                )
-                timeSpent = toc - tic
-                if timeSpent > 0.30 or "submit" not in cheat_check.lower():
-                    time.sleep(2)
-                    if "submit" not in cheat_check.lower():
-                        print(
-                            "ERROR: CORRUPTED SUBMISSION.\n\nLOCKING SYSTEMS DUE TO FAILED RESPONSE SUBMISSION."
-                        )
-                    if timeSpent > 0.3:
-                        print(
-                            "RESPONSE TIME TOO SLOW. ("
-                            + str(timeSpent)
-                            + ") \nLOCKING SYSTEM."
-                        )
-                    ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-                    print(ascii_locked)
-                    sfx.fail_corrupt()
-                    print("THANK YOU FOR VISITING.")
-                    time.sleep(8)
+                if firewall_check(
+                    "FIREWALL CHECK ENGAGED: VERY HARD (.30 SECOND RESPONSE)",
+                    0.30,
+                ):
+                    pass
+                else:
                     return False
-                if timeSpent < 0.30 and "submit" in cheat_check.lower():
-                    time.sleep(2)
-                    print(
-                        "RESPONSE TIME SATISFACTORY. ("
-                        + str(timeSpent)
-                        + ") \nYOU MAY PROCEED"
-                    )
-
             if input_crack == number:
                 print("Wait a second...")
                 sfx.gentle_ui()
@@ -527,11 +468,13 @@ class P2:
                 time.sleep(2)
                 sfx.gentle_ui()
                 warning = input(
-                    """It looks like the firewall has increased its security for the decryption.
+                    +"""-----------------------------------------------------------------------
+It looks like the firewall has increased its security for the decryption.
 Going forward, it's going to be monitoring your keyboard constantly.
 You are going to be facing a series of FIREWALLS CHECKS consecutively.\n
 If you press 'enter' ANY TIME other than when it says to 'respond', you're going to be locked out immediately.\n
-Press ENTER one more time if you understand the risks, and are ready to finish this."""
+Press ENTER one more time if you understand the risks, and are ready to finish this.
+-----------------------------------------------------------------------"""
                 )
                 sfx.hack_node()
                 time.sleep(2)
