@@ -26,8 +26,9 @@ class P2:
     """house all methods and unify all global variables"""
 
     too_many_presses = False  # endgame, monitor enter presses (multithread)
-    enable_key_tracking = False  # check for cheating key presses
-    enter_count = 0  # multithread, monitor times enter is pressed
+    allowed_range = (
+        False  # multithread, are you in the allowed keypress range?
+    )
     # DISABLED time_is_up  = False #endgame, monitor timer (multithread)
     final_roundcount = 1
     rounds_done = False
@@ -38,25 +39,24 @@ class P2:
 
     def final_hack_success():
         def on_press(key):
-            if key == keyboard.Key.enter and P2.enable_key_tracking == True:
-                P2.enter_count += 1
-                print("[TEST RESPONSE SUBMITTED]")
-                if P2.enter_count > 1:
-                    sfx.fail_corrupt()
-                    sfx.burst_sound()
-                    print(
-                        "YOU HAVE MADE A DOUBLE SUBMISSION FOR THE TEST. SHUTTING DOWN NEXUS..."
-                    )
-                    P2.too_many_presses = True
-                    sfx.fail_corrupt()
-                    sfx.burst_sound()
-                    print("FIREWALL DISABLING INFRASTRUCTURE...")
-                    return
+            if key == keyboard.Key.enter and P2.allowed_range == True:
+                print("[VALID TEST RESPONSE SUBMITTED]")
+            if key == keyboard.Key.enter and P2.allowed_range == False:
+                print("[INVALID TEST RESPONSE]")
+                sfx.fail_corrupt()
+                sfx.burst_sound()
+                print(
+                    "YOU HAVE MADE AN INVALID SUBMISSION FOR THE TEST. SHUTTING DOWN NEXUS..."
+                )
+                P2.too_many_presses = True
+                sfx.fail_corrupt()
+                sfx.burst_sound()
+                print("FIREWALL DISABLING INFRASTRUCTURE...")
+                return
 
         sfx.play_mp3_once("/bgm/bgm_6.mp3")
         sfx.burst_sound()
         ascii_no_touch = pyfiglet.figlet_format("DO NOT TOUCH\nTHE KEYBOARD")
-        P2.enable_key_tracking = True
         listener = keyboard.Listener(on_press=on_press)
         listener.start()
         print(
@@ -115,9 +115,10 @@ class P2:
                 sfx.burst_sound()
                 print(ascii_respond)
                 tic = time.perf_counter()
+                P2.allowed_range = True
                 a = input()
+                P2.allowed_range = False
                 toc = time.perf_counter()
-
                 sfx.gentle_ui()
                 timeSpent = toc - tic
                 if timeSpent > threshold:
@@ -139,12 +140,10 @@ class P2:
                     if P2.final_roundcount > 3:
                         P2.rounds_done = True
                     else:
-                        P2.enter_count = 0
                         final_challenge()
 
         final_challenge()
         #
-        P2.enable_key_tracking = False
         listener.stop()
 
         if P2.too_slow == True:
