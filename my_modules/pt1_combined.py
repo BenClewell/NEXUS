@@ -214,20 +214,25 @@ class P1:
                         "AUTHENTICATE",
                         "ENCRYPT",
                         "DECRYPT",
+                        "ANONYMIZE",
                         "ANALYZE",
                         "REBUILD",
                         "CIRCUMVENT",
                         "TROUBLESHOOT",
                         "DESTABILIZE",
                         "PROTECT",
+                        "DEPLOY",
+                        "IMPLEMENT",
                         "QUANTIZE",
                         "INSTALL",
                         "DENY",
                         "PERMIT",
                         "RESTART",
                         "ACCESS",
-                        "CONFIRM" "SECURE",
+                        "CONFIRM",
+                        "SECURE",
                         "MONITOR",
+                        "REPAIR",
                         "RECALIBRATE",
                         "BOOT",
                         "HACK",
@@ -257,13 +262,15 @@ class P1:
                         "SECURITY KEY",
                         "BACKDOOR",
                         "DATABASE",
-                        "TIP CALCULATOR",
+                        "STATIC VARIABLES",
                         "SAFETY NET",
                         "CLOUD SERVER",
                         "COOL ONE-LINER",
                         "COMPUTER JARGON",
                         "MICROSOFT WORD",
                         "HARD DRIVE",
+                        "LOCAL SERVER",
+                        "REPOSITORY",
                         "DRONE ARMY",
                         "BRUTE FORCE",
                         "BOTNET",
@@ -747,7 +754,19 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        print(P1.entry_key)
+        # print(P1.entry_key) #for playtesting
+        print(
+            random.choice(
+                (
+                    "Nice haircut, Aaron.",
+                    "Looking sharp, Aaron.",
+                    "Sick fade, Aaron.",
+                    "Who's your barber, Aaron?",
+                    "Beautiful hair, Aaron.",
+                )
+            )
+        )
+        print('Press "0" to view your HACKER HISTORY at any time.')
         while P1.chances != 0 and P1.guess != P1.entry_key:
             P1.tripwire = False
             # make sure the tripwire starts with a false status, only started by failing hack
