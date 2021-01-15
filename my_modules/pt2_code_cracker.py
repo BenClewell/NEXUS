@@ -37,39 +37,43 @@ class P2:
     #
 
     def final_hack_success():
-        sfx.play_mp3_once("/bgm/bgm_6.mp3")
-        sfx.burst_sound()
-        ascii_no_touch = pyfiglet.figlet_format("DO NOT TOUCH\nTHE KEYBOARD")
-        print(ascii_no_touch)
-        print("PREMATURE KEYPRESSES WILL LOCK NEXUS...")
-        print("ONLY HIT 'ENTER' WHEN YOU ARE PROMPTED TO RESPOND.")
-        time.sleep(5)
-        #
-        #
         def on_press(key):
             if key == keyboard.Key.enter and P2.enable_key_tracking == True:
                 P2.enter_count += 1
                 print("[TEST RESPONSE SUBMITTED]")
                 if P2.enter_count > 1:
                     sfx.fail_corrupt()
+                    sfx.burst_sound()
                     print(
                         "YOU HAVE MADE A DOUBLE SUBMISSION FOR THE TEST. SHUTTING DOWN NEXUS..."
                     )
                     P2.too_many_presses = True
+                    sfx.fail_corrupt()
+                    sfx.burst_sound()
+                    print("FIREWALL DISABLING INFRASTRUCTURE...")
                     return
 
+        sfx.play_mp3_once("/bgm/bgm_6.mp3")
+        sfx.burst_sound()
+        ascii_no_touch = pyfiglet.figlet_format("DO NOT TOUCH\nTHE KEYBOARD")
+        P2.enable_key_tracking = True
+        listener = keyboard.Listener(on_press=on_press)
+        listener.start()
+        print(
+            "BE CAREFUL: Continuously monitoring keyboard for premature keypresses..."
+        )
+
+        print(ascii_no_touch)
+        print("PREMATURE KEYPRESSES WILL LOCK NEXUS...")
+        print("ONLY HIT 'ENTER' WHEN YOU ARE PROMPTED TO RESPOND.")
+        time.sleep(5)
+        #
+        #
+
         def final_challenge():
-            P2.enter_count = 0
             a = None
             if P2.too_many_presses == False:
-
-                print(
-                    "BE CAREFUL: Now monitoring keyboard for premature keypresses..."
-                )
-                P2.enable_key_tracking = True
                 #
-                listener = keyboard.Listener(on_press=on_press)
-                listener.start()
                 #
                 time.sleep(2)
                 if P2.final_roundcount == 1:
@@ -96,10 +100,8 @@ class P2:
                     )
                     sfx.gentle_ui()
                     print(ascii_prog)
-                    print(
-                        "FIREWALL CHECK ENGAGED: VERY HARD (.3 SECOND RESPONSE)"
-                    )
-                    threshold = 0.3
+                    print("FIREWALL CHECK ENGAGED: HARD (.35 SECOND RESPONSE)")
+                    threshold = 0.35
                 sfx.sonar.play()
                 time.sleep(1)
             if P2.too_many_presses == False:
@@ -115,8 +117,7 @@ class P2:
                 tic = time.perf_counter()
                 a = input()
                 toc = time.perf_counter()
-                P2.enable_key_tracking = False
-                listener.stop()  # stop
+
                 sfx.gentle_ui()
                 timeSpent = toc - tic
                 if timeSpent > threshold:
@@ -138,9 +139,13 @@ class P2:
                     if P2.final_roundcount > 3:
                         P2.rounds_done = True
                     else:
+                        P2.enter_count = 0
                         final_challenge()
 
         final_challenge()
+        #
+        P2.enable_key_tracking = False
+        listener.stop()
 
         if P2.too_slow == True:
             pygame.mixer.music.fadeout(4)
@@ -511,14 +516,34 @@ class P2:
                 print("The NEXUS KEY is decrypting!")
                 sfx.gentle_ui()
                 time.sleep(1)
-                sfx.fail_corrupt()
+                sfx.gentle_ui()
                 print(
                     "You just need to protect against the firewall while it decrypts..."
                 )
+                time.sleep(2)
+                sfx.fail_corrupt()
+                ascii_fw_online = pyfiglet.figlet_format(
+                    "FIREWALL:   SECURITY   INCREASED", font="bubble"
+                )
+                time.sleep(2)
+                sfx.gentle_ui()
+                warning = input(
+                    """It looks like the firewall has increased its security for the decryption.
+Going forward, it's going to be monitoring your keyboard constantly.
+You are going to be facing a series of FIREWALLS CHECKS consecutively.\n
+If you press 'enter' ANY TIME other than when it says to 'respond', you're going to be locked out immediately.\n
+Press ENTER one more time if you understand the risks, and are ready to finish this."""
+                )
+                sfx.hack_node()
+                time.sleep(2)
                 if P2.final_hack_success():
                     pass
                 else:
                     time.sleep(2)
+                    sfx.fail_corrupt()
+                    ascii_locked = pyfiglet.figlet_format("FIREWALL DEPLOYED")
+                    print(ascii_locked)
+                    sfx.fail_corrupt()
                     ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                     print(ascii_locked)
                     print("THANK YOU FOR VISITING.")
@@ -531,17 +556,18 @@ class P2:
                 sfx.gentle_ui()
                 time.sleep(3)
                 print("Welcome... to the Nexus.")
-                ascii_win = pyfiglet.figlet_format("CONGRATULATIONS")
-                time.sleep(5)
+                ascii_win = pyfiglet.figlet_format("GREAT JOB")
+                time.sleep(6)
                 print(ascii_win)
-                print("THANK YOU FOR PLAYING")
-                time.sleep(5)
-                ascii_win = pyfiglet.figlet_format(
-                    "NEXUS: A GAME BY BENJAMIN CLEWELL"
+                print("You are the best hacker I've ever seen.")
+                time.sleep(6)
+                print("NEXUS: A GAME BY BENJAMIN CLEWELL")
+                print(ascii_win)
+                time.sleep(6)
+                print(
+                    "Thank you so much for playing. I hope it was fun and thrilling!"
                 )
-                print(ascii_win)
-                time.sleep(5)
-                sfx.success()
+                sfx.success(6)
                 title_screen.show_victory()
 
             if counter > attempts:
