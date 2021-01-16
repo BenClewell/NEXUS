@@ -103,9 +103,9 @@ class P1:
             ascii_nodeguess = pyfiglet.figlet_format("NODE  " + str(P1.guess))
             print(ascii_nodeguess)
             sfx.hack_node()
-            with alive_bar(total=100, length=50, bar='squares',) as bar:   # default setting
+            with alive_bar(total=100, length=30, bar='squares', spinner = 'dots_waves2') as bar:   # default setting
                 for i in range(100):
-                    time.sleep(0.03)
+                    time.sleep(0.02)
                     bar()      
             print('\n')                  # call after consuming one item
         if P1.guess == 0:
