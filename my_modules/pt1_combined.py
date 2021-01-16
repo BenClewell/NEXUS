@@ -22,6 +22,7 @@ class P1:
     node_vulnerable = False #prevent hacking outside of the specified range
     node_progress_rank = 1
     node_progress_speed = .1 #become faster each hack
+    insertion_finished = False
     # hacking minigame
     hack_success = True
     hack_chances = 3
@@ -86,6 +87,7 @@ class P1:
     # multiple ints can be passed to collapse for multiple results
 
     def make_guess():
+        P1.insertion_finished = False
         start_insert = random.choice((10,20,30,40,50,60,70,80,90)) #start for the insertion range
         end_insert = (start_insert+10) #end for the insertion range
         '''the area in which you can perform a node hack'''
@@ -96,6 +98,7 @@ class P1:
             sfx.burst_sound()
             if key == keyboard.Key.enter and P1.node_vulnerable == False:
                 print("[INVALID TEST RESPONSE]")
+            P1.insertion_finished = True
 
         """user enters a node guess to find the key
         rejected if entry is too long, or not valid"""
@@ -127,17 +130,18 @@ class P1:
             #
             listener = keyboard.Listener(on_press=on_press)
             listener.start()
-            with alive_bar(total=100, length=30, bar='squares', spinner = 'dots_waves2') as bar:   # default setting
-
-                for i in range(100):
-                    if i in range(start_insert,end_insert):
-                        P1.node_vulnerable = True
-                    else:
-                        P1.node_vulnerable = False
-                    time.sleep(P1.node_progress_speed)
-                    bar()
+            with alive_bar(total=100, length=50, bar='squares', spinner = 'dots_waves2') as bar:   # default setting
+                    for i in range(100):
+                        if P1.insertion_finished == False:
+                            if i in range(start_insert,end_insert):
+                                P1.node_vulnerable = True
+                            else:
+                                P1.node_vulnerable = False
+                            time.sleep(P1.node_progress_speed)
+                            bar()
             P1.node_progress_speed -=.02
             P1.node_progress_rank +=1
+            absorb_input = input("") #pressing enter to hack counts as entering a node, I guess lol
             listener.stop() 
             #
             #  
@@ -145,6 +149,7 @@ class P1:
         if P1.guess == 0:
             P1.hacker_history()
             P1.make_guess()
+
 
     #
     #

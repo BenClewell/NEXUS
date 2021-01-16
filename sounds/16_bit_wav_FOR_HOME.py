@@ -12,7 +12,7 @@ def convertAllFilesInDirectoryTo16Bit(directory):
             data, samplerate = soundfile.read(directory + file)
 
             soundfile.write(
-                "/Users/Ben/Desktop/python projects/NEXUS/sounds/wav_exports"
+                "/Users/Ben/Desktop/python projects/NEXUS/sounds/wav_exports/"
                 + nameSolo
                 + ".wav",
                 data,
