@@ -38,7 +38,6 @@ from my_modules import pt2_code_cracker as pt2
 # import the second half of the game, decrypting nexus key!q
 from importlib import reload
 
-
 def run_game():
     """run nexus, and move modules between each other"""
     sfx.play_p1_bgm()
@@ -83,5 +82,5 @@ def run_game():
 
 if __name__ == "__main__":
     keyboard.press_and_release("F11")
-    time.sleep(1)
+    time.sleep(2)
     run_game()

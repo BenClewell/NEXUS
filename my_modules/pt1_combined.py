@@ -7,6 +7,7 @@ import pyfiglet.fonts
 import curses
 import pygame
 from pygame import mixer
+from alive_progress import alive_bar # cool loading animations
 
 from random import sample, shuffle, choice
 from random import randint
@@ -83,7 +84,7 @@ class P1:
         rejected if entry is too long, or not valid"""
         sfx.gentle_ui()
         print(
-            "----------------------------------------------\nENTER A NODE (between 1 and 100):\n"
+            "---------------------------------------------------\nENTER A NODE (between 1 and 100):\n"
         )
         try:
             valid = True
@@ -101,6 +102,12 @@ class P1:
         if valid == True and P1.guess != 0:
             ascii_nodeguess = pyfiglet.figlet_format("NODE  " + str(P1.guess))
             print(ascii_nodeguess)
+            sfx.hack_node()
+            with alive_bar(total=100, length=50, bar='squares',) as bar:   # default setting
+                for i in range(100):
+                    time.sleep(0.03)
+                    bar()      
+            print('\n')                  # call after consuming one item
         if P1.guess == 0:
             P1.hacker_history()
             P1.make_guess()
@@ -754,15 +761,15 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        # print(P1.entry_key) #for playtesting
+        print(P1.entry_key) #for playtesting
         print(
             random.choice(
                 (
-                    "Nice haircut, Aaron.",
-                    "Looking sharp, Aaron.",
-                    "Sick fade, Aaron.",
-                    "Who's your barber, Aaron?",
-                    "Beautiful hair, Aaron.",
+                    "We've got this.",
+                    "I can't wait to perform today's decryption.",
+                    "I'm excited to begin our hack.",
+                    "This is going to be a piece of cake.",
+                    "This time it's gonna work.",
                 )
             )
         )
@@ -822,7 +829,13 @@ class P1:
             print("NEXUS KEY LOCATED.")
             time.sleep(2)
             sfx.gentle_ui()
-            print("EXTRACTING DATA")
+            sfx.hack_node()
+            print("EXTRACTING DATA\n")
+            with alive_bar(total=100, length=75, bar='smooth',) as bar:   # default setting
+                for i in range(100):
+                    time.sleep(0.03)
+                    bar()                        # call after consuming one item
+            print('\n')
             time.sleep(1)
             sfx.gentle_ui()
             ascii_win = pyfiglet.figlet_format("KEY ACQUIRED")

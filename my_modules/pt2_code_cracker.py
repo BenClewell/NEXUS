@@ -7,6 +7,8 @@ import pyfiglet.fonts
 import pygame
 from pygame import mixer
 
+from alive_progress import alive_bar # cool loading animations
+
 import time
 
 from my_modules import title_screen
@@ -156,6 +158,9 @@ class P2:
         listener.stop()
 
         if P2.too_slow == True:
+            sfx.burst_sound()
+            print('RESPONSE TOO SLOW.')
+            time.sleep(1)
             pygame.mixer.music.fadeout(4)
             return False
         if P2.rounds_done == True:
@@ -299,6 +304,19 @@ class P2:
                 sfx.appear_blip()
                 print("NO ACCESS TOKENS DETECTED")
             else:
+                for clue in clues:
+                    if 'MIS' in clue:
+                        sfx.gentle_ui()
+                        with alive_bar(length=100, unknown='waves',) as bar:   # default setting
+                            for i in range(100):
+                                time.sleep(0.01)
+                                bar()     
+                    if 'ALIGNED' in clue and 'MIS' not in clue:
+                        sfx.gentle_ui()
+                        with alive_bar(total=100, length=50, bar='squares',) as bar:   # default setting
+                            for i in range(100):
+                                time.sleep(0.01)
+                                bar()       
                 sfx.appear_blip()
                 print(" ".join(clues))
 
@@ -468,7 +486,7 @@ class P2:
                 time.sleep(2)
                 sfx.gentle_ui()
                 warning = input(
-                    +"""-----------------------------------------------------------------------
+                    """-----------------------------------------------------------------------
 It looks like the firewall has increased its security for the decryption.
 Going forward, it's going to be monitoring your keyboard constantly.
 You are going to be facing a series of FIREWALLS CHECKS consecutively.\n
@@ -498,18 +516,21 @@ Press ENTER one more time if you understand the risks, and are ready to finish t
                 sfx.gentle_ui()
                 time.sleep(3)
                 print("Welcome... to the Nexus.")
+                sfx.gentle_ui()
                 ascii_win = pyfiglet.figlet_format("GREAT JOB")
                 time.sleep(6)
-                print(ascii_win)
+                sfx.gentle_ui()
                 print("You are the best hacker I've ever seen.")
-                time.sleep(6)
+                time.sleep(7)
+                sfx.gentle_ui()
                 print("NEXUS: A GAME BY BENJAMIN CLEWELL")
                 print(ascii_win)
-                time.sleep(6)
+                time.sleep(7)
+                sfx.gentle_ui()
                 print(
                     "Thank you so much for playing. I hope it was fun and thrilling!"
                 )
-                sfx.success(6)
+                sfx.success()
                 title_screen.show_victory()
 
             if counter > attempts:
