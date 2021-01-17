@@ -21,12 +21,13 @@ from my_modules import sfx
 class P1:
     node_vulnerable = False #prevent hacking outside of the specified range
     node_progress_rank = 1
+    node_failed_state = False # has the user failed the last node hack?
     node_progress_speed = .1 #become faster each hack
     insertion_finished = False
     # hacking minigame
     hack_success = True
     hack_chances = 3
-    fw_difficulty = 2000
+    fw_difficulty = 5000
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
     fw_level = 0
     # inform the user what level firewall the AI is using.
@@ -94,11 +95,17 @@ class P1:
         def on_press(key):
             sfx.burst_sound()
             if key == keyboard.Key.enter and P1.node_vulnerable == True:
+                P1.node_failed_state = False # user hacked node successfully
+                P1.insertion_finished = True
+                time.sleep(1)
                 print("[INSERTION VALID]")
             sfx.burst_sound()
             if key == keyboard.Key.enter and P1.node_vulnerable == False:
+                P1.node_failed_state = True
+                P1.insertion_finished = True
+                time.sleep(1)
                 print("[INVALID TEST RESPONSE]")
-            P1.insertion_finished = True
+ 
 
         """user enters a node guess to find the key
         rejected if entry is too long, or not valid"""
@@ -130,7 +137,7 @@ class P1:
             #
             listener = keyboard.Listener(on_press=on_press)
             listener.start()
-            with alive_bar(total=100, length=50, bar='squares', spinner = 'dots_waves2') as bar:   # default setting
+            with alive_bar(total=100, length=50, bar='squares', spinner = 'dots_waves2', enrich_print= False) as bar:   # default setting
                     for i in range(100):
                         if P1.insertion_finished == False:
                             if i in range(start_insert,end_insert):
@@ -139,8 +146,9 @@ class P1:
                                 P1.node_vulnerable = False
                             time.sleep(P1.node_progress_speed)
                             bar()
-            P1.node_progress_speed -=.02
-            P1.node_progress_rank +=1
+            if P1.node_progress_speed>.02:
+                P1.node_progress_speed -=.02
+                P1.node_progress_rank +=1
             absorb_input = input("") #pressing enter to hack counts as entering a node, I guess lol
             listener.stop() 
             #
@@ -617,100 +625,104 @@ class P1:
         curses.wrapper(main)
 
     def assess_guess():
-        P1.chances -= 1
-        if P1.tripwire == False:
-            if P1.guess < P1.entry_key:
-                """if guess is lower than the nexus key"""
-                P1.high_keys -= 1
-                if P1.high_keys != 0:
-                    sfx.appear_blip()
-                    print(
-                        "LOW ENTRY\n"
-                        + "REMAINING CHANCES: "
-                        + str(P1.high_keys)
-                        + " LOW, "
-                        + str(P1.low_keys)
-                        + " HIGH"
-                    )
-                    time.sleep(0.5)
-                    if P1.high_keys == 1:
-                        sfx.appear_blip()
-                        sfx.gentle_ui()
-                        print(
-                            "APPROACHING LOW NODE OVERLOAD. ONE MORE LOW NODE WILL ENGAGE SYSTEM LOCK."
-                        )
-                    time.sleep(1)
-                    P1.guess_list.append("(LOW)")
-
-            if P1.guess > P1.entry_key:
-                """if guess is higher than the nexus key"""
-                P1.low_keys -= 1
-                if P1.low_keys != 0:
-                    sfx.appear_blip()
-                    print(
-                        "HIGH ENTRY\n"
-                        + "REMAINING CHANCES: "
-                        + str(P1.high_keys)
-                        + " LOW, "
-                        + str(P1.low_keys)
-                        + " HIGH"
-                    )
-                    time.sleep(0.5)
-                    if P1.low_keys == 1:
-                        sfx.appear_blip()
-                        sfx.gentle_ui()
-
-                        print(
-                            "APPROACHING HIGH NODE OVERLOAD. ONE MORE HIGH NODE WILL ENGAGE SYSTEM LOCK."
-                        )
-                    time.sleep(1)
-                    P1.guess_list.append("(HIGH)")
-
-        if P1.tripwire == True:
-            sfx.gentle_ui()
-            """punishment for landing in defense range"""
-            print("JAMMED: NO NODE INFORMATION POSSIBLE")
-            print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
-            time.sleep(3)
-            if P1.high_keys < P1.low_keys:
-                P1.low_keys -= 1
-                print("HIGH NODE GUESSES REDUCED BY 1")
-            elif P1.high_keys > P1.low_keys:
-                P1.high_keys -= 1
-                print("LOW NODE GUESSES REDUCED BY 1")
-            elif P1.high_keys == P1.low_keys:
-                print("HIGH AND LOW NODES ARE EQUAL. DECIDING RANDOMLY...")
-                time.sleep(1)
-                coin_flip = random.randint(1, 2)
-                if coin_flip == 1:
+        if P1.node_failed_state == False: #only provide info if the node is hacked successfully
+            time.sleep(1.5) #finish other thread first
+            P1.chances -= 1
+            if P1.tripwire == False:
+                if P1.guess < P1.entry_key:
+                    """if guess is lower than the nexus key"""
                     P1.high_keys -= 1
-                    print("LOW NODE GUESSES REDUCED BY 1")
-                if coin_flip == 2:
+                    if P1.high_keys != 0:
+                        sfx.appear_blip()
+                        print(
+                            "LOW ENTRY\n"
+                            + "REMAINING CHANCES: "
+                            + str(P1.high_keys)
+                            + " LOW, "
+                            + str(P1.low_keys)
+                            + " HIGH"
+                        )
+                        time.sleep(0.5)
+                        if P1.high_keys == 1:
+                            sfx.appear_blip()
+                            sfx.gentle_ui()
+                            print(
+                                "APPROACHING LOW NODE OVERLOAD. ONE MORE LOW NODE WILL ENGAGE SYSTEM LOCK."
+                            )
+                        time.sleep(1)
+                        P1.guess_list.append("(LOW)")
+
+                if P1.guess > P1.entry_key:
+                    """if guess is higher than the nexus key"""
+                    P1.low_keys -= 1
+                    if P1.low_keys != 0:
+                        sfx.appear_blip()
+                        print(
+                            "HIGH ENTRY\n"
+                            + "REMAINING CHANCES: "
+                            + str(P1.high_keys)
+                            + " LOW, "
+                            + str(P1.low_keys)
+                            + " HIGH"
+                        )
+                        time.sleep(0.5)
+                        if P1.low_keys == 1:
+                            sfx.appear_blip()
+                            sfx.gentle_ui()
+
+                            print(
+                                "APPROACHING HIGH NODE OVERLOAD. ONE MORE HIGH NODE WILL ENGAGE SYSTEM LOCK."
+                            )
+                        time.sleep(1)
+                        P1.guess_list.append("(HIGH)")
+
+            if P1.tripwire ==True:
+                P1.chances -=1
+                time.sleep(1.5) #let the other thread finish first
+                sfx.gentle_ui()
+                """punishment for landing in defense range"""
+                print("JAMMED: NO NODE INFORMATION POSSIBLE")
+                print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
+                time.sleep(3)
+                if P1.high_keys < P1.low_keys:
                     P1.low_keys -= 1
                     print("HIGH NODE GUESSES REDUCED BY 1")
-            P1.guess_list.append("(JAMMED)")
-            P1.tripwire = False
-            print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
-            print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
-        # Increase the value of chance by 1
-        if P1.chances == 3:
-            """disable defense protocol, tripmine"""
-            time.sleep(1)
-            sfx.gentle_ui()
-            ascii_jam_offline = pyfiglet.figlet_format(
-                "JAMMER   REVEALED", font="bubble"
-            )
-            print(ascii_jam_offline)
-            time.sleep(1)
-            sfx.appear_blip()
-            P1.jam_reveal = True  # update jammer coordinates in hacker history
-            print(
-                "The JAMMER RANGE is covering "
-                + str(P1.barrier_low)
-                + " to "
-                + str(P1.barrier_high)
-                + ".\nThere is a 50% chance that the NEXUS KEY has appeared within this range."
-            )
+                elif P1.high_keys > P1.low_keys:
+                    P1.high_keys -= 1
+                    print("LOW NODE GUESSES REDUCED BY 1")
+                elif P1.high_keys == P1.low_keys:
+                    print("HIGH AND LOW NODES ARE EQUAL. DECIDING RANDOMLY...")
+                    time.sleep(1)
+                    coin_flip = random.randint(1, 2)
+                    if coin_flip == 1:
+                        P1.high_keys -= 1
+                        print("LOW NODE GUESSES REDUCED BY 1")
+                    if coin_flip == 2:
+                        P1.low_keys -= 1
+                        print("HIGH NODE GUESSES REDUCED BY 1")
+                P1.guess_list.append("(JAMMED)")
+                P1.tripwire = False
+                print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
+                print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
+            # Increase the value of chance by 1
+            if P1.chances == 3:
+                """disable defense protocol, tripmine"""
+                time.sleep(1)
+                sfx.gentle_ui()
+                ascii_jam_offline = pyfiglet.figlet_format(
+                    "JAMMER   REVEALED", font="bubble"
+                )
+                print(ascii_jam_offline)
+                time.sleep(1)
+                sfx.appear_blip()
+                P1.jam_reveal = True  # update jammer coordinates in hacker history
+                print(
+                    "The JAMMER RANGE is covering "
+                    + str(P1.barrier_low)
+                    + " to "
+                    + str(P1.barrier_high)
+                    + ".\nThere is a 50% chance that the NEXUS KEY has appeared within this range."
+                )
 
     def sonar_alerts():
         """provide sonar, and end game if too many low or high chances"""
@@ -800,7 +812,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        print(P1.entry_key) #for playtesting
+        #print(P1.entry_key) #for playtesting
         print(
             random.choice(
                 (
@@ -830,34 +842,64 @@ class P1:
                 #
                 # do hacker minigame if you're in defense range
                 if P1.guess != P1.entry_key:
-                    if P1.barrier_low < P1.guess < P1.barrier_high:
+                    if P1.node_failed_state == False: # did not fail initial skill check for node
+                        if P1.barrier_low < P1.guess < P1.barrier_high:
 
-                        ascii_jammer = pyfiglet.figlet_format(
-                            "JAMMER TRIGGERED", font="bubble"
-                        )
-                        print(ascii_jammer)
-                        sfx.appear_blip()
-                        print(
-                            "\n\nENTRY DETECTED IN JAMMER RANGE. ENGAGING COUNTERMEASURES\n\n"
-                        )
-                        sfx.hack_node()
-                        time.sleep(3)
-                        P1.node_hacking_minigame()
-                        if P1.hack_success == False:
-                            # reduce hack chances by one.
-                            print(
-                                "NODE INFORMATION JAMMED."
-                                + str(P1.hack_chances)
+                            ascii_jammer = pyfiglet.figlet_format(
+                                "JAMMER TRIGGERED", font="bubble"
                             )
+                            print(ascii_jammer)
+                            sfx.appear_blip()
+                            print(
+                                "\n\nENTRY DETECTED IN JAMMER RANGE. ENGAGING COUNTERMEASURES\n\n"
+                            )
+                            sfx.hack_node()
+                            time.sleep(3)
+                            P1.node_hacking_minigame()
+                            if P1.hack_success == False:
+                                # reduce hack chances by one.
+                                print(
+                                    "NODE INFORMATION JAMMED."
+                                )
+                    if P1.node_failed_state == True:
+                        '''if the node if failed'''
+                        P1.chances -=1
+                        time.sleep(1.5) #let the other thread finish first
+                        sfx.gentle_ui()
+                        """punishment for landing in defense range"""
+                        print("JAMMED: NO NODE INFORMATION POSSIBLE")
+                        print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
+                        time.sleep(3)
+                        if P1.high_keys < P1.low_keys:
+                            P1.low_keys -= 1
+                            print("HIGH NODE GUESSES REDUCED BY 1")
+                        elif P1.high_keys > P1.low_keys:
+                            P1.high_keys -= 1
+                            print("LOW NODE GUESSES REDUCED BY 1")
+                        elif P1.high_keys == P1.low_keys:
+                            print("HIGH AND LOW NODES ARE EQUAL. DECIDING RANDOMLY...")
+                            time.sleep(1)
+                            coin_flip = random.randint(1, 2)
+                            if coin_flip == 1:
+                                P1.high_keys -= 1
+                                print("LOW NODE GUESSES REDUCED BY 1")
+                            if coin_flip == 2:
+                                P1.low_keys -= 1
+                                print("HIGH NODE GUESSES REDUCED BY 1")
+                        P1.guess_list.append("(JAMMED)")
+                        P1.tripwire = False
+                        print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
+                        print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
                     else:
+                        time.sleep(1.5) # let other threads finish
                         sfx.appear_blip()
                         print("JAMMER NOT ACTIVE ON THIS NODE")
 
-                # CONDITIONAL EVENTS BASED ON WHAT CHANCE YOU ARE AT
-                # for testing, distable tripwire
-                P1.assess_guess()
-                # is the guess high or low?
-                # reduce chances, or apply jammer stuff
+                    # CONDITIONAL EVENTS BASED ON WHAT CHANCE YOU ARE AT
+                    # for testing, distable tripwire
+                    P1.assess_guess()
+                    # is the guess high or low?
+                    # reduce chances, or apply jammer stuff
                 P1.sonar_alerts()
                 # run sonar and assess chances
         #

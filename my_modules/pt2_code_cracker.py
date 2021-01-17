@@ -257,7 +257,7 @@ class P2:
             letters.reverse()
 
         number = "".join(letters)
-        print(str(number))
+        #print(str(number))
         """for play testing purposes"""
 
         print(
