@@ -68,6 +68,15 @@ def gentle_ui():
     )
     burst_sound.play()
 
+def gentle_lofi():
+    """ pick one of eight lofi gentle sounds """
+    sound_number = random.randint(1, 8)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/gentle_ui_sounds/lofi_gentle (" + str(sound_number) + ").wav"
+    )
+    burst_sound.play()
+
 
 def fail_corrupt():
     """ pick one of ten burst sounds """
@@ -96,7 +105,15 @@ def alarm_loop(alarm_type):
         "sounds/alarms/PM_CSPH_Alarms_" + str(alarm_type) + ".wav"
     )
     alarm_sound.play(-1)
-
+#
+#
+def loading_loop():
+    """for loading bars in-game"""
+    sound_number = random.randint(1, 28)
+    alarm_sound = pygame.mixer.Sound(
+        "sounds/bar_loops/bar_loop (" + str(sound_number) + ").wav"
+    )
+    alarm_sound.play(-1)
 
 def appear_blip():
     """ pick one of ten burst sounds """

@@ -26,7 +26,7 @@ from importlib import reload
 
 class P2:
     """house all methods and unify all global variables"""
-
+    guess_list = [] # user can track all entries
     preemptive_press = (
         False  # start of p2, monitor enter presses (multithread)
     )
@@ -45,8 +45,38 @@ class P2:
     rounds_done = False
     too_slow = False  # endgame, monitor speed
     #
+    node_progress_speed = .1 #become faster each hack
+    node_progress_rank = 1
+    node_vulnerable = False
+    bad_insertion = False #the user has gotten each nexus insertion right
     #
-    #
+    def hacker_history():
+        """provide history of choices"""
+        status_splash = True
+        while status_splash == True:
+            sfx.gentle_ui()
+            ascii_intel = pyfiglet.figlet_format("HACKING HISTORY")
+            print(ascii_intel)
+            time.sleep(0.5)
+            sfx.gentle_ui()
+            time.sleep(0.5)
+            print("--------------------------")
+            sfx.gentle_ui()
+            time.sleep(0.5)
+            print("--------------------------" * 2)
+            sfx.gentle_ui()
+            time.sleep(0.5)
+            print("--------------------------" * 3)
+
+            print("\nEntry Information:")
+            if P2.guess_list == []:
+                print("NO ENTRIES COMMITTED YET")
+            if P2.guess_list != []:
+                print("ENTRIES SO FAR: " + str(P2.guess_list))
+            time.sleep(2)
+            print("\nReturning to hacking interface...")
+            time.sleep(1)
+            status_splash = False
 
     def final_hack_success():
         def on_press(key):
@@ -237,15 +267,17 @@ class P2:
         print(
             "The system will return the following messages as we try cracking the encryption...\n"
         )
+        time.sleep(2)
+        sfx.gentle_lofi()
         print("When the system returns:        That means:\n")
         print(
-            "MISALIGNED ACCESS TOKEN         An access token is correct, but positioned wrong."
+            "MISALIGNED TOKEN                  An access token is correct, but positioned wrong."
         )
         print(
-            "ALIGNED ACCESS TOKEN            An access token is correct and positioned right."
+            "ALIGNED TOKEN                     An access token is correct and positioned right."
         )
         print(
-            "NO ACCESS TOKENS                None of the access tokens entered are in the key."
+            "NO ACCESS TOKENS                  None of the access tokens entered are in the key."
         )
         print("\nThere are no repeated ACCESS TOKENS in the key.")
 
@@ -259,7 +291,8 @@ class P2:
         number = "".join(letters)
         #print(str(number))
         """for play testing purposes"""
-
+        time.sleep(2)
+        sfx.gentle_lofi()
         print(
             "The system just established its encryption made up of three single-number ACCESS TOKENS.\n"
         )
@@ -272,13 +305,22 @@ class P2:
             "\nRegarding any clues the system might give through its messages:\nthey don't reflect the order of the ACCESS TOKENS in the KEY.\nIt looks like the messages can apply to any position."
         )
 
+        print('If an ACCESS TOKEN is ALIGNED, you will have to perform increasingly high-security hacks for each aligned node.')
+        print('Press "0" to view your hacking history at any time.')
         counter = 1
-        # print(number)
+        #print(number)
 
         while True:
             sfx.gentle_ui()
+            time.sleep(2)
             print("\nATTEMPT #" + str(counter) + "\n" + "-" * 20 + "\n\n")
             input_crack = input()
+            sfx.gentle_lofi()
+            time.sleep(1)
+            print("Do not press ENTER until prompted.\n\n")
+            if input_crack =='0':
+                P2.hacker_history()
+                continue
 
             if len(input_crack) != digits:
                 time.sleep(1)
@@ -291,38 +333,110 @@ class P2:
             # Create the clues.
 
             clues = []
+            P2.guess_list.append(input_crack)
+            aligned_count = 0
+            misaligned_count = 0
 
             for index in range(digits):
                 if input_crack[index] == number[index]:
                     clues.append("ALIGNED ACCESS TOKEN DETECTED\n")
+                    aligned_count+=1
                 elif input_crack[index] in number:
                     clues.append("MISALIGNED ACCESS TOKEN DETECTED\n")
-
+                    misaligned_count+=1
+            if aligned_count>0:
+                P2.guess_list.append('ALIGNED: ' + str(aligned_count))
+            if misaligned_count>0:
+                P2.guess_list.append('MISALIGNED: ' + str(misaligned_count))
+            if misaligned_count ==0 and aligned_count == 0:
+                P2.guess_list.append('NO TOKENS')
             shuffle(clues)
 
             if len(clues) == 0:
                 sfx.appear_blip()
                 print("NO ACCESS TOKENS DETECTED")
             else:
-                for clue in clues:
-                    if 'MIS' in clue:
-                        sfx.gentle_ui()
-                        with alive_bar(length=100, unknown='waves',) as bar:   # default setting
-                            for i in range(100):
-                                time.sleep(0.01)
-                                bar()     
-                    if 'ALIGNED' in clue and 'MIS' not in clue:
-                        sfx.gentle_ui()
-                        with alive_bar(total=100, length=50, bar='squares',) as bar:   # default setting
-                            for i in range(100):
-                                time.sleep(0.01)
-                                bar()       
-                sfx.appear_blip()
-                print(" ".join(clues))
 
+                for clue in clues:
+                    time.sleep(1.5)
+                    if P2.bad_insertion == False:
+                        if 'MIS' in clue:
+                            sfx.gentle_ui()
+                            sfx.gentle_lofi()
+                            print('MISALIGNED TOKEN: No security')
+                            sfx.loading_loop()
+                            with alive_bar(length=50, unknown='waves',) as bar:   # default setting
+                                for i in range(100):
+                                    time.sleep(0.01)
+                                    bar()     
+                            pygame.mixer.stop()
+                        if 'ALIGNED' in clue and 'MIS' not in clue:
+                            P2.insertion_finished = False #fixes the previous isnertion_finished from last time
+                            def on_press(key):
+                                if key == keyboard.Key.enter and P2.node_vulnerable == True:
+                                    sfx.burst_sound()
+                                    P2.node_failed_state = False # user hacked node successfully
+                                    P2.insertion_finished = True
+                                    time.sleep(1)
+                                    print("[INSERTION VALID]")
+                                if key == keyboard.Key.enter and P2.node_vulnerable == False:
+                                    sfx.burst_sound()
+                                    P2.node_failed_state = True
+                                    P2.insertion_finished = True
+                                    P2.bad_insertion = True
+                                    time.sleep(1)
+                                    print("[INSERTION INVALID]")
+                                    
+                            #
+                            #
+                            #
+                            start_insert = random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90)) #start for the insertion range
+                            end_insert = (start_insert+10) #end for the insertion range
+                            sfx.gentle_lofi()
+                            print('ALIGNED TOKEN: Security level {}'.format(P2.node_progress_rank))
+                            print('Press ENTER between {} and {} to avoid triggering firewall.'.format(start_insert,end_insert))
+                            time.sleep(3)
+                            listener = keyboard.Listener(on_press=on_press)
+                            listener.start()
+                            sfx.loading_loop()
+                            with alive_bar(total=100, length=50, bar='squares', spinner = 'dots_waves2', enrich_print= False) as bar:   # default setting
+                                    for i in range(100):
+                            
+                                        if P2.insertion_finished == False:
+                                            if i in range(start_insert,end_insert):
+                                                P2.node_vulnerable = True
+                                            else:
+                                                P2.node_vulnerable = False
+                                            time.sleep(P2.node_progress_speed)
+                                            bar()
+                            time.sleep(1.5)
+                            pygame.mixer.stop()
+                            if P2.node_progress_speed>.02:
+                                P2.node_progress_speed -=.01
+                                P2.node_progress_rank +=1
+                            listener.stop()
+                            absorb_input = input("") #pressing enter to hack counts as entering a node, I guess lol
+                        #
+                        #  
+                        print('\n')                  # call after consuming one item
+                sfx.appear_blip()
+
+            if P2.bad_insertion == True:
+                time.sleep(2)
+                sfx.fail_corrupt()
+                ascii_locked = pyfiglet.figlet_format("FAILED TO ENTER ALIGNED KEY: FIREWALL DEPLOYED")
+                print(ascii_locked)
+                sfx.fail_corrupt()
+                ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                print(ascii_locked)
+                print("THANK YOU FOR VISITING.")
+                time.sleep(8)
+                pygame.mixer.music.fadeout(4)
+                return False
             counter += 1
 
             if counter == 4:
+                time.sleep(2)
                 ascii_fw_online = pyfiglet.figlet_format(
                     "FIREWALL   ONLINE", font="bubble"
                 )

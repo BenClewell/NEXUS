@@ -89,18 +89,18 @@ class P1:
 
     def make_guess():
         P1.insertion_finished = False
-        start_insert = random.choice((10,20,30,40,50,60,70,80,90)) #start for the insertion range
+        start_insert = random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90)) #start for the insertion range
         end_insert = (start_insert+10) #end for the insertion range
         '''the area in which you can perform a node hack'''
         def on_press(key):
-            sfx.burst_sound()
             if key == keyboard.Key.enter and P1.node_vulnerable == True:
+                sfx.burst_sound()
                 P1.node_failed_state = False # user hacked node successfully
                 P1.insertion_finished = True
                 time.sleep(1)
                 print("[INSERTION VALID]")
-            sfx.burst_sound()
             if key == keyboard.Key.enter and P1.node_vulnerable == False:
+                sfx.burst_sound()
                 P1.node_failed_state = True
                 P1.insertion_finished = True
                 time.sleep(1)
@@ -137,6 +137,7 @@ class P1:
             #
             listener = keyboard.Listener(on_press=on_press)
             listener.start()
+            sfx.loading_loop()
             with alive_bar(total=100, length=50, bar='squares', spinner = 'dots_waves2', enrich_print= False) as bar:   # default setting
                     for i in range(100):
                         if P1.insertion_finished == False:
@@ -146,6 +147,8 @@ class P1:
                                 P1.node_vulnerable = False
                             time.sleep(P1.node_progress_speed)
                             bar()
+            time.sleep(1.5)
+            pygame.mixer.stop()
             if P1.node_progress_speed>.02:
                 P1.node_progress_speed -=.02
                 P1.node_progress_rank +=1
@@ -165,8 +168,8 @@ class P1:
 
     def hacker_history():
         """provide history of choices"""
-        status_splash = 0
-        while status_splash == 0:
+        status_splash = True
+        while status_splash == True:
             sfx.gentle_ui()
             ascii_intel = pyfiglet.figlet_format("HACKING HISTORY")
             print(ascii_intel)
@@ -228,7 +231,7 @@ class P1:
             time.sleep(2)
             print("\nReturning to hacking interface...")
             time.sleep(1)
-            status_splash += 1
+            status_splash = False
 
     def node_hacking_minigame():
         """triggered when hacking a node"""
@@ -627,8 +630,8 @@ class P1:
     def assess_guess():
         if P1.node_failed_state == False: #only provide info if the node is hacked successfully
             time.sleep(1.5) #finish other thread first
-            P1.chances -= 1
             if P1.tripwire == False:
+                P1.chances -= 1
                 if P1.guess < P1.entry_key:
                     """if guess is lower than the nexus key"""
                     P1.high_keys -= 1
@@ -846,7 +849,7 @@ class P1:
                         if P1.barrier_low < P1.guess < P1.barrier_high:
 
                             ascii_jammer = pyfiglet.figlet_format(
-                                "JAMMER TRIGGERED", font="bubble"
+                                "JAMMER ENGAGED", font="bubble"
                             )
                             print(ascii_jammer)
                             sfx.appear_blip()
@@ -861,7 +864,7 @@ class P1:
                                 print(
                                     "NODE INFORMATION JAMMED."
                                 )
-                    if P1.node_failed_state == True:
+                    elif P1.node_failed_state == True:
                         '''if the node if failed'''
                         P1.chances -=1
                         time.sleep(1.5) #let the other thread finish first
