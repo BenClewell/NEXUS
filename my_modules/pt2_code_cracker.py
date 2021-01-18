@@ -546,6 +546,7 @@ class P2:
                     print("\n\nPREPARE TO RESPOND.")
                 time.sleep(0.5)
                 if P2.preemptive_press == False:
+                    sfx.sonar.play()
                     print("<<<TEST BEGINNING SOON>>>")
                     time.sleep(random.randint(2, 5))
                 if P2.preemptive_press == False:
