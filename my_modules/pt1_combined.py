@@ -28,7 +28,7 @@ class P1:
     # hacking minigame
     hack_success = True
     hack_chances = 3
-    fw_difficulty = 3000
+    fw_difficulty = 2500
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
     fw_level = 0
     # inform the user what level firewall the AI is using.
@@ -594,7 +594,8 @@ class P1:
                 sfx.success()
                 sfx.burst_sound()
                 P1.hack_success = True
-                P1.fw_difficulty -= 500
+                if P1.fw_difficulty >500:
+                    P1.fw_difficulty -= 500 # can't go to zero
                 # make the enemy move faster
                 P1.fw_level += 1
                 # increase the 'level difficulty' by one
@@ -881,15 +882,15 @@ class P1:
                         "KEY MORE THAN 20 NODES FROM " + str(P1.guess)
                     )
 
-            if P1.chances == 2:
-                if P1.low_keys != 0 and P1.high_keys != 0:
-                    time.sleep(1)
-                    print("\n\nI just confirmed where the NEXUS KEY is situated.")
-                    time.sleep(1)
-                    if P1.barrier_inside == 2:
-                        print("It's inside the JAMMER RANGE!")
-                    if P1.barrier_inside == 1:
-                        print("It's outside the JAMMER RANGE!")
+        if P1.chances == 2:
+            if P1.low_keys != 0 and P1.high_keys != 0:
+                time.sleep(1)
+                print("\n\nI just confirmed where the NEXUS KEY is situated.")
+                time.sleep(1)
+                if P1.barrier_inside == 2:
+                    print("It's inside the JAMMER RANGE!")
+                if P1.barrier_inside == 1:
+                    print("It's outside the JAMMER RANGE!")
 
             if P1.chances == 1:
                 if P1.low_keys != 0 and P1.high_keys != 0:
@@ -1067,10 +1068,11 @@ class P1:
             ):
 
                 sfx.appear_blip()
+                time.sleep(1)
                 print(
-                    "The system is falling apart... but it seems like you're so close to the NEXUS KEY that the system is hesitating to kick you out--\nIt must not want to delete the NEXUS KEY's node by accident.\nIt looks like we have time for one more chance!"
+                    "\n\nThe system is falling apart... but it seems like you're so close to the NEXUS KEY that the system is hesitating to kick you out--\nIt must not want to delete the NEXUS KEY's node by accident.\nIt looks like we have time for one more chance!"
                 )
-                print("SYSTEM LOCK DELAYED. RECALIBRATING...")
+                print("\n\nSYSTEM LOCK DELAYED. RECALIBRATING...")
                 sfx.alarm_loop(4)
                 time.sleep(1)
                 print(P1.ascii_sonar_status)
