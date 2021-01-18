@@ -19,6 +19,7 @@ from my_modules import sfx
 
 
 class P1:
+
     node_vulnerable = False #prevent hacking outside of the specified range
     node_progress_rank = 1
     node_failed_state = False # has the user failed the last node hack?
@@ -27,7 +28,7 @@ class P1:
     # hacking minigame
     hack_success = True
     hack_chances = 3
-    fw_difficulty = 5000
+    fw_difficulty = 7000
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
     fw_level = 0
     # inform the user what level firewall the AI is using.
@@ -190,8 +191,11 @@ class P1:
             if P1.guess_list != []:
                 print("ENTRIES SO FAR: " + str(P1.guess_list))
             print("\nENTRIES REMAINING UNTIL SYSTEM LOCK: ")
-            print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
-            print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
+            if (P1.high_keys == 0 and P1.low_keys == 1) or (P1.high_keys == 1 and P1.low_keys == 0):
+                print('ENTRY INFORMATION NOT AVAILABLE.')
+            else:
+                print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
+                print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
 
             print("\nJAMMER Information:")
             if P1.jam_reveal == False:
@@ -815,7 +819,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        #print(P1.entry_key) #for playtesting
+        print(P1.entry_key) #for playtesting
         print(
             random.choice(
                 (
@@ -864,7 +868,11 @@ class P1:
                                 print(
                                     "NODE INFORMATION JAMMED."
                                 )
-                    elif P1.node_failed_state == True:
+                        else:
+                            time.sleep(1.5) # let other threads finish
+                            sfx.appear_blip()
+                            print("JAMMER NOT ACTIVE ON THIS NODE")
+                    if P1.node_failed_state == True:
                         '''if the node if failed'''
                         P1.chances -=1
                         time.sleep(1.5) #let the other thread finish first
@@ -893,10 +901,8 @@ class P1:
                         P1.tripwire = False
                         print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
                         print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
-                    else:
-                        time.sleep(1.5) # let other threads finish
-                        sfx.appear_blip()
-                        print("JAMMER NOT ACTIVE ON THIS NODE")
+
+
 
                     # CONDITIONAL EVENTS BASED ON WHAT CHANCE YOU ARE AT
                     # for testing, distable tripwire
@@ -936,9 +942,10 @@ class P1:
                 and ((P1.guess - 2) <= P1.entry_key <= (P1.guess + 2))
                 and (P1.guess != P1.entry_key)
             ):
+
                 sfx.appear_blip()
                 print(
-                    "The system is falling apart... but it seems like you're so close to the NEXUS KEY that the system is hesitating to kick you out-- It must not want to delete the NEXUS KEY's node by accident.\nIt looks like we have time for one more chance!"
+                    "The system is falling apart... but it seems like you're so close to the NEXUS KEY that the system is hesitating to kick you out--\nIt must not want to delete the NEXUS KEY's node by accident.\nIt looks like we have time for one more chance!"
                 )
                 print("SYSTEM LOCK DELAYED. RECALIBRATING...")
                 sfx.alarm_loop(4)
@@ -947,9 +954,18 @@ class P1:
                 print("NEXUS KEY WITHIN 2 NODES")
                 P1.sonar_list.append("KEY WITHIN 2 NODES OF " + str(P1.guess))
                 time.sleep(1)
-                print("Let's finish this...")
+                if (P1.high_keys == 0 and P1.low_keys == 1) or (P1.high_keys == 1 and P1.low_keys == 0):
+                    print('Since you had only ONE remaining high and low entry before this,\nwe have NO WAY of inferring which direction the NEXUS KEY is from here...')
+                    P1.guess_list.append('UNKNOWN')
+                if (P1.high_keys == 0 and P1.low_keys > 1):
+                    print('Since you ran out of LOW ENTRIES and had multiple high entries remaining,\nwe can infer the NEXUS KEY is HIGHER THAN ' + str(P1.guess) + '.')
+                    P1.guess_list.append('LOW')
+                if (P1.high_keys > 1 and P1.low_keys == 0):
+                    print('Since you ran out of HIGH ENTRIES and had multiple high entries remaining,\nwe can infer the NEXUS KEY is LOWER THAN ' + str(P1.guess) + '.')
+                    P1.guess_list.append('HIGH')
                 P1.make_guess()
                 pygame.mixer.stop()
+                P1.extra_chance = False 
 
         if P1.guess == P1.entry_key:
             sfx.appear_blip()

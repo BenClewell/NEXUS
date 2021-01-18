@@ -118,24 +118,71 @@ class P2:
                 #
                 time.sleep(2)
                 if P2.final_roundcount == 1:
-                    print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
+                    print('\n\n')
+                    sfx.loading_loop()
+                    with alive_bar(total = 100, length=100, bar='smooth') as bar:   # default setting
+                        for i in range(100):
+                            time.sleep(0.05)
+                            bar()
+                            if i >20:
+                                time.sleep(0.03)
+                            if i ==33:
+                                break
+                    pygame.mixer.stop()
+                    sfx.fail_corrupt()
+                    time.sleep(1.5)
+                    sfx.gentle_lofi()
+                    print('\n\n')
                     ascii_prog = pyfiglet.figlet_format(
                         "DECRYPTION:\n33% COMPLETE"
                     )
                     sfx.gentle_ui()
                     print(ascii_prog)
+                    print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
                     threshold = 0.5
                 if P2.final_roundcount == 2:
-                    print(
-                        "FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)"
-                    )
+                    print('\n\n')
+                    sfx.loading_loop()
+                    with alive_bar(total = 100, length=100, bar='smooth') as bar:   # default setting
+                        for i in range(100):
+                            time.sleep(0.05)
+                            if i >50:
+                                time.sleep(0.03)
+                            bar()
+                            if i ==66:
+                                break   
+                    pygame.mixer.stop()
+                    sfx.fail_corrupt()
+                    time.sleep(1.5)
+                    sfx.gentle_lofi()
+                    print('\n\n')
                     ascii_prog = pyfiglet.figlet_format(
                         "DECRYPTION:\n66% COMPLETE"
                     )
                     sfx.gentle_ui()
                     print(ascii_prog)
+                    print(
+                        "FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)"
+                    )
                     threshold = 0.4
-                if P2.final_roundcount == 3:
+                if P2.final_roundcount == 3: 
+                    print('\n\n')
+                    sfx.loading_loop()
+                    with alive_bar(total = 100, length=100, bar='smooth') as bar:   # default setting
+                        for i in range(100):
+                            time.sleep(0.05)
+                            if i> 70:
+                                time.sleep(.02)
+                            if i> 90:
+                                time.sleep(.02)
+                            bar()
+                            if i ==98:
+                                break   
+                    pygame.mixer.stop()
+                    sfx.fail_corrupt()
+                    time.sleep(1.5)
+                    sfx.gentle_lofi()
+                    print('\n\n')
                     ascii_prog = pyfiglet.figlet_format(
                         "DECRYPTION:\n99% COMPLETE"
                     )
@@ -289,7 +336,7 @@ class P2:
             letters.reverse()
 
         number = "".join(letters)
-        #print(str(number))
+        print(str(number))
         """for play testing purposes"""
         time.sleep(2)
         sfx.gentle_lofi()
@@ -317,7 +364,7 @@ class P2:
             input_crack = input()
             sfx.gentle_lofi()
             time.sleep(1)
-            print("Do not press ENTER until prompted.\n\n")
+            print("Do not press ENTER until prompted, or until the attempt is FINISHED.\n\n")
             if input_crack =='0':
                 P2.hacker_history()
                 continue
@@ -623,6 +670,15 @@ Press ENTER one more time if you understand the risks, and are ready to finish t
                     print("THANK YOU FOR VISITING.")
                     time.sleep(8)
                     return False
+                sfx.loading_loop()
+                print('\n\n')
+                with alive_bar(total = 100, length=100, bar='smooth') as bar:   # default setting
+                    for i in range(100):
+                        time.sleep(0.07)
+                        bar()  
+                pygame.mixer.stop()
+                print('\n\n')
+                sfx.enable_firewall.play()
                 ascii_win = pyfiglet.figlet_format(
                     "DECRYPTION:\n100% COMPLETE"
                 )
@@ -639,11 +695,11 @@ Press ENTER one more time if you understand the risks, and are ready to finish t
                 sfx.gentle_ui()
                 print("NEXUS: A GAME BY BENJAMIN CLEWELL")
                 print(ascii_win)
-                time.sleep(7)
                 sfx.gentle_ui()
                 print(
                     "Thank you so much for playing. I hope it was fun and thrilling!"
                 )
+                time.sleep(3)
                 sfx.success()
                 title_screen.show_victory()
 
