@@ -28,7 +28,7 @@ class P1:
     # hacking minigame
     hack_success = True
     hack_chances = 3
-    fw_difficulty = 7000
+    fw_difficulty = 3000
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
     fw_level = 0
     # inform the user what level firewall the AI is using.
@@ -49,7 +49,8 @@ class P1:
     guess_list = []
     sonar = False  # begin the game with no use of sonar
     sonar_list = []  # store information about a player's game history
-
+    special_sonar = False # give player the option to use SPECIAL SONAR
+    special_sonar_limit = 0
     # USING PYFIGLET TO CREATE COOL TEXT TITLES:
     ascii_sonar_status = pyfiglet.figlet_format(
         "SONAR", font="digital"
@@ -117,7 +118,7 @@ class P1:
         try:
             valid = True
             P1.guess = int(input())
-            if len(str(P1.guess)) > 3 or P1.guess > 100:
+            if len(str(P1.guess)) > 3 or P1.guess > 101:
                 valid = False
                 print("This node is TOO HIGH.")
                 print("PLEASE ENTER A VALID NODE.")
@@ -127,7 +128,8 @@ class P1:
             print("I don't understand this node.")
             print("PLEASE ENTER A VALID NODE.")
             P1.make_guess()
-        if valid == True and P1.guess != 0:
+                
+        if valid == True and P1.guess != 0 and P1.guess<101:
             ascii_nodeguess = pyfiglet.figlet_format("NODE  " + str(P1.guess))
             print(ascii_nodeguess)
             sfx.burst_sound()
@@ -161,12 +163,46 @@ class P1:
         if P1.guess == 0:
             P1.hacker_history()
             P1.make_guess()
-
+        if P1.guess ==101:
+            P1.sonar_response()
+            P1.make_guess()
 
     #
     #
     #
-
+    def sonar_response():
+        if P1.sonar == True and P1.special_sonar_limit == 0:
+            if P1.special_sonar == False:
+                sfx.gentle_lofi()
+                time.sleep(1)
+                print('SPECIAL SONAR IS NOW ACTIVATED FOR YOUR NEXT NODE ENTRY.')
+                time.sleep(.5)
+                sfx.burst_sound()
+                print('TYPE "101" AGAIN TO DISABLE SPECIAL SONAR.')
+                P1.special_sonar = True
+                return
+                
+            if P1.special_sonar == True:
+                sfx.gentle_lofi()
+                time.sleep(1)
+                print('SPECIAL SONAR IS DEACTIVATED FOR YOUR NEXT NODE ENTRY.')
+                time.sleep(.5)
+                sfx.burst_sound()
+                print('TYPE "101" AGAIN TO ENABLE SPECIAL SONAR.')
+                P1.special_sonar = False
+                return
+                
+        if P1.sonar ==False:
+            sfx.fail_corrupt()
+            print('SONAR has not been activated yet. Please try again once SONAR is online.')
+            time.sleep(1)
+            
+        if P1.special_sonar_limit >0:
+            sfx.fail_corrupt()
+            print('ERROR: YOU HAVE ALREADY USED YOUR SPECIAL SONAR.')
+            time.sleep(1)
+    #
+    #
     def hacker_history():
         """provide history of choices"""
         status_splash = True
@@ -733,89 +769,120 @@ class P1:
 
     def sonar_alerts():
         """provide sonar, and end game if too many low or high chances"""
-        if P1.chances == 3:
-            P1.sonar = True
+        if P1.special_sonar ==True:
+            sfx.enable_firewall.play()
+            print('CUSTOM SONAR RANGE')
+            input_sonar = input('Please input a value for the RANGE you would like the SONAR to scan against.\n\nDESIRED SONAR SCAN RANGE: ')
             if P1.sonar == True and (
-                ((P1.guess - 30) <= P1.entry_key <= (P1.guess + 30))
+                ((P1.guess - input_sonar) <= P1.entry_key <= (P1.guess + input_sonar))
                 and (0 < P1.guess < 101)
             ):
                 time.sleep(1)
                 print(" ")
                 print(P1.ascii_sonar_status)
                 sfx.sonar.play()
-                print("NEXUS KEY WITHIN 30 NODES")
-                P1.sonar_list.append("KEY WITHIN 30 NODES OF " + str(P1.guess))
+                print("NEXUS KEY WITHIN " + str(input_sonar) + "NODES")
+                P1.sonar_list.append("KEY WITHIN " + str(input_sonar)  + "NODES OF " + str(P1.guess))
             else:
                 time.sleep(1)
                 print(" ")
                 print(P1.ascii_sonar_status)
                 sfx.sonar.play()
-                print("NEXUS KEY FURTHER THAN 30 NODES AWAY")
+                print("NEXUS KEY FURTHER THAN " + str(input_sonar) + " NODES AWAY")
                 P1.sonar_list.append(
-                    "KEY MORE THAN 30 NODES FROM  " + str(P1.guess)
+                    "KEY MORE THAN " + str(input_sonar) + " NODES FROM  " + str(P1.guess)
                 )
+            P1.special_sonar = False
+            print('SPECIALIZED SONAR IS NOW PERMANENTLY DISABLED')
+            sfx.fail_corrupt()
+            P1.special_sonar+=1 #make it impossible to resummon
 
-        if P1.chances == 2:
-            if P1.sonar == True and (
-                ((P1.guess - 20) <= P1.entry_key <= (P1.guess + 20))
-                and (0 < P1.guess < 101)
-            ):
-                time.sleep(1)
-                print(" ")
-                print(P1.ascii_sonar_status)
-                sfx.sonar.play()
-                print("NEXUS KEY WITHIN 20 NODES")
-                P1.sonar_list.append("KEY WITHIN 20 NODES OF " + str(P1.guess))
-            else:
-                time.sleep(1)
-                print(" ")
-                print(P1.ascii_sonar_status)
-                sfx.sonar.play()
-                print("NEXUS KEY FURTHER THAN 20 NODES AWAY")
-                P1.sonar_list.append(
-                    "KEY MORE THAN 20 NODES FROM " + str(P1.guess)
-                )
-
-        if P1.chances == 2:
-            if P1.low_keys != 0 and P1.high_keys != 0:
-                time.sleep(1)
-                print("\n\nI just confirmed where the NEXUS KEY is situated.")
-                time.sleep(1)
-                if P1.barrier_inside == 2:
-                    print("It's inside the JAMMER RANGE!")
-                if P1.barrier_inside == 1:
-                    print("It's outside the JAMMER RANGE!")
-
-        if P1.chances == 1:
-            if P1.low_keys != 0 and P1.high_keys != 0:
-                print(
-                    "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
-                )
+        if P1.special_sonar == False:
+            if P1.chances == 3:
+                P1.sonar = True
                 if P1.sonar == True and (
-                    ((P1.guess - 10) <= P1.entry_key <= (P1.guess + 10))
+                    ((P1.guess - 30) <= P1.entry_key <= (P1.guess + 30))
                     and (0 < P1.guess < 101)
                 ):
-                    P1.sonar10 = True
+                    time.sleep(1)
+                    print(" ")
+                    print(P1.ascii_sonar_status)
+                    print('Type "101" during node selection for CUSTOM SONAR.')
+                    sfx.sonar.play()
+                    print("NEXUS KEY WITHIN 30 NODES")
+                    P1.sonar_list.append("KEY WITHIN 30 NODES OF " + str(P1.guess))
+                else:
+                    time.sleep(1)
+                    print(" ")
+                    print(P1.ascii_sonar_status)
+                    print('Type "101" during node selection for CUSTOM SONAR.')
+                    sfx.sonar.play()
+                    print("NEXUS KEY FURTHER THAN 30 NODES AWAY")
+                    P1.sonar_list.append(
+                        "KEY MORE THAN 30 NODES FROM  " + str(P1.guess)
+                    )
+
+            if P1.chances == 2:
+                if P1.sonar == True and (
+                    ((P1.guess - 20) <= P1.entry_key <= (P1.guess + 20))
+                    and (0 < P1.guess < 101)
+                ):
                     time.sleep(1)
                     print(" ")
                     print(P1.ascii_sonar_status)
                     sfx.sonar.play()
-                    print("NEXUS KEY WITHIN 10 NODES")
-                    P1.sonar_list.append(
-                        "KEY WITHIN 10 NODES OF " + str(P1.guess)
-                    )
+                    print("NEXUS KEY WITHIN 20 NODES")
+                    P1.sonar_list.append("KEY WITHIN 20 NODES OF " + str(P1.guess))
                 else:
                     time.sleep(1)
                     print(" ")
                     print(P1.ascii_sonar_status)
                     sfx.sonar.play()
-                    print("NEXUS KEY FURTHER THAN 10 NODES AWAY")
+                    print("NEXUS KEY FURTHER THAN 20 NODES AWAY")
                     P1.sonar_list.append(
-                        "KEY MORE THAN 10 NODES FROM " + str(P1.guess)
+                        "KEY MORE THAN 20 NODES FROM " + str(P1.guess)
                     )
 
-        if P1.high_keys == 0 or P1.low_keys == 0:
-            P1.chances = 0
+            if P1.chances == 2:
+                if P1.low_keys != 0 and P1.high_keys != 0:
+                    time.sleep(1)
+                    print("\n\nI just confirmed where the NEXUS KEY is situated.")
+                    time.sleep(1)
+                    if P1.barrier_inside == 2:
+                        print("It's inside the JAMMER RANGE!")
+                    if P1.barrier_inside == 1:
+                        print("It's outside the JAMMER RANGE!")
+
+            if P1.chances == 1:
+                if P1.low_keys != 0 and P1.high_keys != 0:
+                    print(
+                        "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
+                    )
+                    if P1.sonar == True and (
+                        ((P1.guess - 10) <= P1.entry_key <= (P1.guess + 10))
+                        and (0 < P1.guess < 101)
+                    ):
+                        P1.sonar10 = True
+                        time.sleep(1)
+                        print(" ")
+                        print(P1.ascii_sonar_status)
+                        sfx.sonar.play()
+                        print("NEXUS KEY WITHIN 10 NODES")
+                        P1.sonar_list.append(
+                            "KEY WITHIN 10 NODES OF " + str(P1.guess)
+                        )
+                    else:
+                        time.sleep(1)
+                        print(" ")
+                        print(P1.ascii_sonar_status)
+                        sfx.sonar.play()
+                        print("NEXUS KEY FURTHER THAN 10 NODES AWAY")
+                        P1.sonar_list.append(
+                            "KEY MORE THAN 10 NODES FROM " + str(P1.guess)
+                        )
+
+            if P1.high_keys == 0 or P1.low_keys == 0:
+                P1.chances = 0
 
     def game():
         """the only called function, manages all other methods"""
