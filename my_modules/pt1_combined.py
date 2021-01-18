@@ -410,7 +410,7 @@ class P1:
                 )
                 answer = str(hack_verb + " " + hack_noun)
                 return (
-                    "ISSUE COMMAND//: '{} {}':".format(
+                    "INPUT_SYS_CMD//: '{} {}':".format(
                         hack_verb, hack_noun
                     ),
                     answer,
@@ -1074,6 +1074,7 @@ class P1:
                 sfx.alarm_loop(4)
                 time.sleep(1)
                 print(P1.ascii_sonar_status)
+                print('EXTRA SONAR READING:')
                 print("NEXUS KEY WITHIN 2 NODES")
                 P1.sonar_list.append("KEY WITHIN 2 NODES OF " + str(P1.guess))
                 time.sleep(1)
@@ -1086,6 +1087,7 @@ class P1:
                 if (P1.high_keys > 1 and P1.low_keys == 0):
                     print('Since you ran out of HIGH ENTRIES and had multiple low entries remaining,\nwe can infer the NEXUS KEY is LOWER THAN ' + str(P1.guess) + '.')
                     P1.guess_list.append('HIGH')
+                P1.sonar_alerts()
                 P1.make_guess()
                 pygame.mixer.stop()
                 P1.extra_chance = False 
