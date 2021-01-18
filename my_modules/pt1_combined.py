@@ -86,6 +86,7 @@ class P1:
 
     tripwire = False
     # has the user set off the defense range?
+    tripwire_tracker = False # if the player sets off tripwire on nexus key, kill them
     collapse = random.randint(2, 2)
     # multiple ints can be passed to collapse for multiple results
 
@@ -751,7 +752,7 @@ class P1:
                         P1.low_keys -= 1
                         print("HIGH NODE GUESSES REDUCED BY 1")
                 P1.guess_list.append("(JAMMED)")
-                P1.tripwire = False
+                P1.tripwire = False #disa
                 print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
                 print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
             # Increase the value of chance by 1
@@ -992,6 +993,15 @@ class P1:
         if P1.guess == P1.entry_key:
             sfx.appear_blip()
             print("NEXUS KEY LOCATED.")
+            if P1.chances == 0 and (P1.node_failed_state == False or P1.tripwire_tracker==False):
+                '''last chance, failed the node or the hacking minigame'''
+                sfx.fail_corrupt()
+                time.sleep(2)
+                print("However, since you are OUT OF CHANCES and triggered the jammer,\
+                    we can't extract the data...)
+                sfx.fail_corrupt()
+                print('')
+                
             time.sleep(2)
             sfx.gentle_ui()
             sfx.hack_node()
