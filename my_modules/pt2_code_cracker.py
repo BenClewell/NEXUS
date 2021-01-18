@@ -337,7 +337,7 @@ class P2:
 
         number = "".join(letters)
         print(str(number))
-        """for play testing purposes"""
+        """for playtesting purposes"""
         time.sleep(2)
         sfx.gentle_lofi()
         print(

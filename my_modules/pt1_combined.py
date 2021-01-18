@@ -263,6 +263,13 @@ class P1:
                     print("ACCURACY: 20 NUMBER RANGE")
                 if P1.chances == 1:
                     print("ACCURACY: 10 NUMBER RANGE")
+            if sonar == True:
+                if P1.special_sonar = True and P1.special_sonar_limit ==0:
+                    print('SPECIAL SONAR IS ENGAGED, AND AVAILABLE TO USE.')
+                if P1.special_sonar = False and P1.special_sonar_limit ==0:
+                    print('SPECIAL SONAR IS DISABLED, BUT AVAILABLE TO USE.')
+                if P1.special_sonar_limit >0:
+                    print('SPECIAL SONAR HAS BEEN USED, AND IS NO LONGER AVAILABLE.')
             if P1.sonar_list == []:
                 print("NO SONAR HISTORY")
             if P1.sonar_list != []:
@@ -771,8 +778,8 @@ class P1:
         """provide sonar, and end game if too many low or high chances"""
         if P1.special_sonar ==True:
             sfx.enable_firewall.play()
-            print('CUSTOM SONAR RANGE')
-            input_sonar = input('Please input a value for the RANGE you would like the SONAR to scan against.\n\nDESIRED SONAR SCAN RANGE: ')
+            print('\nSPECIAL SONAR RANGE')
+            input_sonar = int(input('Please input a value for the RANGE you would like the SONAR to scan against.\n\nDESIRED SONAR SCAN RANGE: ')) # gotta be int
             if P1.sonar == True and (
                 ((P1.guess - input_sonar) <= P1.entry_key <= (P1.guess + input_sonar))
                 and (0 < P1.guess < 101)
@@ -792,10 +799,10 @@ class P1:
                 P1.sonar_list.append(
                     "KEY MORE THAN " + str(input_sonar) + " NODES FROM  " + str(P1.guess)
                 )
-            P1.special_sonar = False
+
             print('SPECIALIZED SONAR IS NOW PERMANENTLY DISABLED')
             sfx.fail_corrupt()
-            P1.special_sonar+=1 #make it impossible to resummon
+            P1.special_sonar_limit+=1 #make it impossible to resummon
 
         if P1.special_sonar == False:
             if P1.chances == 3:
@@ -807,7 +814,7 @@ class P1:
                     time.sleep(1)
                     print(" ")
                     print(P1.ascii_sonar_status)
-                    print('Type "101" during node selection for CUSTOM SONAR.')
+                    print('Type "101" during node selection for SPECIAL SONAR.')
                     sfx.sonar.play()
                     print("NEXUS KEY WITHIN 30 NODES")
                     P1.sonar_list.append("KEY WITHIN 30 NODES OF " + str(P1.guess))
@@ -815,7 +822,7 @@ class P1:
                     time.sleep(1)
                     print(" ")
                     print(P1.ascii_sonar_status)
-                    print('Type "101" during node selection for CUSTOM SONAR.')
+                    print('Type "101" during node selection for SPECIAL SONAR.')
                     sfx.sonar.play()
                     print("NEXUS KEY FURTHER THAN 30 NODES AWAY")
                     P1.sonar_list.append(
@@ -881,8 +888,9 @@ class P1:
                             "KEY MORE THAN 10 NODES FROM " + str(P1.guess)
                         )
 
-            if P1.high_keys == 0 or P1.low_keys == 0:
-                P1.chances = 0
+        if P1.high_keys == 0 or P1.low_keys == 0:
+            P1.chances = 0
+        P1.special_sonar = False #always revert this to false
 
     def game():
         """the only called function, manages all other methods"""
