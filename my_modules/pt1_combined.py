@@ -264,9 +264,9 @@ class P1:
                 if P1.chances == 1:
                     print("ACCURACY: 10 NUMBER RANGE")
             if sonar == True:
-                if P1.special_sonar = True and P1.special_sonar_limit ==0:
+                if P1.special_sonar == True and P1.special_sonar_limit ==0:
                     print('SPECIAL SONAR IS ENGAGED, AND AVAILABLE TO USE.')
-                if P1.special_sonar = False and P1.special_sonar_limit ==0:
+                if P1.special_sonar == False and P1.special_sonar_limit ==0:
                     print('SPECIAL SONAR IS DISABLED, BUT AVAILABLE TO USE.')
                 if P1.special_sonar_limit >0:
                     print('SPECIAL SONAR HAS BEEN USED, AND IS NO LONGER AVAILABLE.')
