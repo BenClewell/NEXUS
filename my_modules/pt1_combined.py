@@ -265,9 +265,9 @@ class P1:
                     print("ACCURACY: 10 NUMBER RANGE")
             if P1.sonar == True:
                 if P1.special_sonar == True and P1.special_sonar_limit ==0:
-                    print('SPECIAL SONAR IS ENGAGED, AND AVAILABLE TO USE.')
+                    print('SPECIAL SONAR IS EQUIPPED, AND WILL BE USED ON YOUR NEXT NODE.')
                 if P1.special_sonar == False and P1.special_sonar_limit ==0:
-                    print('SPECIAL SONAR IS DISABLED, BUT AVAILABLE TO USE.')
+                    print('SPECIAL SONAR IS DISABLED, BUT CAN BE EQUIPPED BEFORE ANY NODE.')
                 if P1.special_sonar_limit >0:
                     print('SPECIAL SONAR HAS BEEN USED, AND IS NO LONGER AVAILABLE.')
             if P1.sonar_list == []:
@@ -1036,7 +1036,7 @@ class P1:
                     print('Since you ran out of LOW ENTRIES and had multiple high entries remaining,\nwe can infer the NEXUS KEY is HIGHER THAN ' + str(P1.guess) + '.')
                     P1.guess_list.append('LOW')
                 if (P1.high_keys > 1 and P1.low_keys == 0):
-                    print('Since you ran out of HIGH ENTRIES and had multiple high entries remaining,\nwe can infer the NEXUS KEY is LOWER THAN ' + str(P1.guess) + '.')
+                    print('Since you ran out of HIGH ENTRIES and had multiple low entries remaining,\nwe can infer the NEXUS KEY is LOWER THAN ' + str(P1.guess) + '.')
                     P1.guess_list.append('HIGH')
                 P1.make_guess()
                 pygame.mixer.stop()
