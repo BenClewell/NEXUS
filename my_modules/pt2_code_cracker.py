@@ -95,7 +95,7 @@ class P2:
                 print("FIREWALL DISABLING INFRASTRUCTURE...")
                 return
 
-        sfx.play_mp3_once("/bgm/bgm_6.mp3")
+        sfx.play_mp3_once("/bgm/bgm_8.mp3")
         sfx.burst_sound()
         ascii_no_touch = pyfiglet.figlet_format("DO NOT TOUCH\nTHE KEYBOARD")
         listener = keyboard.Listener(on_press=on_press)
@@ -437,7 +437,7 @@ class P2:
                             #
                             #
                             #
-                            start_insert = random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90)) #start for the insertion range
+                            start_insert = random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,)) #start for the insertion range
                             end_insert = (start_insert+10) #end for the insertion range
                             sfx.gentle_lofi()
                             print('ALIGNED TOKEN: Security level {}'.format(P2.node_progress_rank))

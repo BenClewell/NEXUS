@@ -92,7 +92,7 @@ class P1:
 
     def make_guess():
         P1.insertion_finished = False
-        start_insert = random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90)) #start for the insertion range
+        start_insert = random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,)) #start for the insertion range
         end_insert = (start_insert+10) #end for the insertion range
         '''the area in which you can perform a node hack'''
         def on_press(key):
@@ -788,7 +788,17 @@ class P1:
         if P1.special_sonar ==True:
             sfx.enable_firewall.play()
             print('\nSPECIAL SONAR RANGE')
-            input_sonar = int(input('Please input a value for the RANGE you would like the SONAR to scan against.\n\nDESIRED SONAR SCAN RANGE: ')) # gotta be int
+            def correct_input():
+                global input_sonar
+                try:
+                    input_sonar = int(input('Please input a value for the RANGE you would like the SONAR to scan against.\n\nDESIRED SONAR SCAN RANGE: ')) # gotta be int
+                except:
+                    sfx.fail_corrupt()
+                    time.sleep(1)
+                    sfx.burst_sound()
+                    print("This appears to be an invalid SONAR RANGE. Please enter a valid number and try again.")
+                    correct_input()
+            correct_input()
             if P1.sonar == True and (
                 ((P1.guess - input_sonar) <= P1.entry_key <= (P1.guess + input_sonar))
                 and (0 < P1.guess < 101)
@@ -797,8 +807,8 @@ class P1:
                 print(" ")
                 print(P1.ascii_sonar_status)
                 sfx.sonar.play()
-                print("NEXUS KEY WITHIN " + str(input_sonar) + "NODES")
-                P1.sonar_list.append("KEY WITHIN " + str(input_sonar)  + "NODES OF " + str(P1.guess))
+                print("NEXUS KEY WITHIN " + str(input_sonar) + " NODES")
+                P1.sonar_list.append("KEY WITHIN " + str(input_sonar)  + " NODES OF " + str(P1.guess))
             else:
                 time.sleep(1)
                 print(" ")
@@ -809,7 +819,7 @@ class P1:
                     "KEY MORE THAN " + str(input_sonar) + " NODES FROM  " + str(P1.guess)
                 )
 
-            print('SPECIALIZED SONAR IS NOW PERMANENTLY DISABLED')
+            print('SPECIAL SONAR IS NOW PERMANENTLY DISABLED')
             sfx.fail_corrupt()
             P1.special_sonar_limit+=1 #make it impossible to resummon
 

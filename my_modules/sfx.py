@@ -143,7 +143,7 @@ def play_p1_bgm():
 
 
 def play_p2_bgm():
-    track = "sounds/bgm/bgm_" + str(random.randint(4, 5)) + ".mp3"
+    track = "sounds/bgm/bgm_" + str(random.randint(4, 6)) + ".mp3"
     pygame.mixer.music.stop()
     pygame.mixer.music.load(track)
     pygame.mixer.music.play(-1)
