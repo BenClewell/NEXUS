@@ -580,7 +580,17 @@ class P2:
 
                 listener.stop()
                 if P2.too_slow == True:
+                    time.sleep(2)
+                    sfx.fail_corrupt()
+                    ascii_locked = pyfiglet.figlet_format("FIREWALL DEPLOYED")
+                    print(ascii_locked)
+                    sfx.fail_corrupt()
+                    ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                    print(ascii_locked)
+                    print("THANK YOU FOR VISITING.")
+                    time.sleep(8)
                     pygame.mixer.music.fadeout(4)
+                    return False
                     return False
                 if P2.initial_not_fail == True:
                     return True

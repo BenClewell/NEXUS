@@ -136,7 +136,7 @@ def appear_blip():
 
 
 def play_p1_bgm():
-    track = "sounds/bgm/bgm_" + str(random.randint(0, 3)) + ".mp3"
+    track = "sounds/bgm/bgm_" + str(random.randint(-3, 3)) + ".mp3"
     pygame.mixer.music.stop()
     pygame.mixer.music.load(track)
     pygame.mixer.music.play(-1)
