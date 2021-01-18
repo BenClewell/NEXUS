@@ -116,6 +116,10 @@ class P1:
         print(
             "---------------------------------------------------\nENTER A NODE (between 1 and 100):\n"
         )
+        if P1.sonar == True and P1.special_sonar == True and P1.special_sonar_limit == 0:
+            print('[SPECIAL SONAR: EQUIPPED] (Type "101" to remove.)\n---------------------------------------------------\n')
+        if P1.sonar == True and P1.special_sonar == False and P1.special_sonar_limit == 0:
+            print('[SPECIAL SONAR: UNEQUIPPED] (Type "101" to equip.)\n---------------------------------------------------\n')
         try:
             valid = True
             P1.guess = int(input())
@@ -184,20 +188,16 @@ class P1:
             if P1.special_sonar == False:
                 sfx.gentle_lofi()
                 time.sleep(1)
-                print('SPECIAL SONAR IS NOW ACTIVATED FOR YOUR NEXT NODE ENTRY.')
-                time.sleep(.5)
-                sfx.burst_sound()
-                print('TYPE "101" AGAIN TO DISABLE SPECIAL SONAR.')
+                sfx.sonar.play()
+                print('SPECIAL SONAR IS NOW EQUIPPED FOR YOUR NEXT NODE ENTRY.\n\n\n\n')
                 P1.special_sonar = True
                 return
                 
             if P1.special_sonar == True:
                 sfx.gentle_lofi()
                 time.sleep(1)
-                print('SPECIAL SONAR IS DEACTIVATED FOR YOUR NEXT NODE ENTRY.')
-                time.sleep(.5)
-                sfx.burst_sound()
-                print('TYPE "101" AGAIN TO ENABLE SPECIAL SONAR.')
+                sfx.sonar.play()
+                print('SPECIAL SONAR IS NOW UNEQUIPPED.\n\n\n\n')
                 P1.special_sonar = False
                 return
                 
@@ -318,6 +318,11 @@ class P1:
                 second_number = random.randint(3, 12)
                 answer = first_number * second_number
                 return "{} * {} =".format(first_number, second_number), answer
+            elif operator == 5:
+                # multiplication
+                num_type_times = random.randint(10,20)
+                answer = str("I" * num_type_times)
+                return "DDOS ATTACK//: INPUT 'I' {} TIMES:".format(num_type_times), answer
             elif operator == 4:
                 # multiplication
                 hack_verb = random.choice(
@@ -405,7 +410,7 @@ class P1:
                 )
                 answer = str(hack_verb + " " + hack_noun)
                 return (
-                    "SYSTEM// ISSUE COMMAND: '{} {}':".format(
+                    "ISSUE COMMAND//: '{} {}':".format(
                         hack_verb, hack_noun
                     ),
                     answer,
@@ -526,7 +531,7 @@ class P1:
 
                         else:  # incorrect answer
                             user_answer = ""
-                            if operator == 4:
+                            if operator == 4 or operator == 5:
                                 stdscr.addstr(
                                     start_y_problem,
                                     start_x_problem + 60,
@@ -550,7 +555,7 @@ class P1:
                         key == 127 or key == 8 or key == 263
                     ):  # user presses backspace
                         user_answer = user_answer[:-1]
-                        if operator == 4:
+                        if operator == 4 or operator == 5:
                             stdscr.addstr(
                                 start_y_problem,
                                 start_x_problem + 60,
@@ -566,7 +571,7 @@ class P1:
                     elif key != -1:  # user adds character to their answer
                         user_answer = user_answer + str(chr(key))
                         # number shows user input start
-                    if operator == 4:
+                    if operator == 4 or operator == 5:
                         stdscr.addstr(
                             start_y_problem, start_x_problem + 60, user_answer
                         )  # update user answer
@@ -787,11 +792,14 @@ class P1:
         """provide sonar, and end game if too many low or high chances"""
         if P1.special_sonar ==True:
             sfx.enable_firewall.play()
-            print('\nSPECIAL SONAR RANGE')
+            ascii_ss = pyfiglet.figlet_format(
+                    "SPECIAL SONAR ACTIVATED", font="big"
+                )
+            print(ascii_ss)
             def correct_input():
                 global input_sonar
                 try:
-                    input_sonar = int(input('Please input a value for the RANGE you would like the SONAR to scan against.\n\nDESIRED SONAR SCAN RANGE: ')) # gotta be int
+                    input_sonar = int(input('Please enter a custom value for the RANGE you would like the SONAR to scan for.\n\nSONAR SCAN RANGE: ')) # gotta be int
                 except:
                     sfx.fail_corrupt()
                     time.sleep(1)
@@ -818,7 +826,7 @@ class P1:
                 P1.sonar_list.append(
                     "KEY MORE THAN " + str(input_sonar) + " NODES FROM  " + str(P1.guess)
                 )
-
+            time.sleep(1)
             print('SPECIAL SONAR IS NOW PERMANENTLY DISABLED')
             sfx.fail_corrupt()
             P1.special_sonar_limit+=1 #make it impossible to resummon
@@ -833,20 +841,24 @@ class P1:
                     time.sleep(1)
                     print(" ")
                     print(P1.ascii_sonar_status)
-                    print('Type "101" during node selection for SPECIAL SONAR.')
                     sfx.sonar.play()
                     print("NEXUS KEY WITHIN 30 NODES")
                     P1.sonar_list.append("KEY WITHIN 30 NODES OF " + str(P1.guess))
+                    time.sleep(2)
+                    sfx.enable_firewall.play()
+                    print('\nSPECIAL SONAR unlocked.\n')
                 else:
                     time.sleep(1)
                     print(" ")
                     print(P1.ascii_sonar_status)
-                    print('Type "101" during node selection for SPECIAL SONAR.')
                     sfx.sonar.play()
                     print("NEXUS KEY FURTHER THAN 30 NODES AWAY")
                     P1.sonar_list.append(
                         "KEY MORE THAN 30 NODES FROM  " + str(P1.guess)
                     )
+                    time.sleep(2)
+                    sfx.enable_firewall.play()
+                    print('\nSPECIAL SONAR unlocked.\n')
 
             if P1.chances == 2:
                 if P1.sonar == True and (
