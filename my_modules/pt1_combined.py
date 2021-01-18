@@ -28,7 +28,7 @@ class P1:
     # hacking minigame
     hack_success = True
     hack_chances = 3
-    fw_difficulty = 2500
+    fw_difficulty = 3000
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
     fw_level = 0
     # inform the user what level firewall the AI is using.
@@ -66,7 +66,7 @@ class P1:
     # ESTABLISHING THE DEFENSE RANGE, and LOCATION OF THE NEXUS KEY
     jam_reveal = False  # jammer has not been revealed
     barrier_low = random.randint(1, 50)
-    barrier_high = random.randint(50, 100)
+    barrier_high = random.randint(51, 100)
     # sets the low and high defense range parameters.
     barrier_inside = random.randint(1, 2)
     # sets 50-50 chance for whether number is in thres or outside
@@ -133,6 +133,14 @@ class P1:
         if valid == True and P1.guess != 0 and P1.guess<101:
             ascii_nodeguess = pyfiglet.figlet_format("NODE  " + str(P1.guess))
             print(ascii_nodeguess)
+            if P1.guess == P1.entry_key: # alert user they have found the nexus key and alert them of the risks
+                time.sleep(.5)
+                sfx.enable_firewall.play()
+                print('\nALERT: NEXUS KEY HAS BEEN TARGETED')
+                time.sleep(.5)
+                sfx.sonar.play()
+                print('It looks like this node contains the NEXUS KEY. If you trigger the JAMMER now, we will not be able to get in.\nPlease be careful.\n\n')
+                time.sleep(2)
             sfx.burst_sound()
             print('Node security level {}'.format(P1.node_progress_rank))
             print('Press ENTER between {} and {} to hack node.'.format(start_insert,end_insert))
@@ -155,7 +163,7 @@ class P1:
             pygame.mixer.stop()
             if P1.node_progress_speed>.02:
                 P1.node_progress_speed -=.02
-                P1.node_progress_rank +=1
+                P1.node_progress_rank +=2
             absorb_input = input("") #pressing enter to hack counts as entering a node, I guess lol
             listener.stop() 
             #
@@ -240,7 +248,7 @@ class P1:
             if P1.jam_reveal == True:
                 print(
                     "JAMMER RANGE: "
-                    + str(P1.barrier_low)
+                    + str(P1.barrier_low +1 ) #the +1 corrects the jammer range, since the lowest range point is outside jammer
                     + " to "
                     + str(P1.barrier_high)
                 )
@@ -769,7 +777,7 @@ class P1:
                 P1.jam_reveal = True  # update jammer coordinates in hacker history
                 print(
                     "The JAMMER RANGE is covering "
-                    + str(P1.barrier_low)
+                    + str(P1.barrier_low + 1)
                     + " to "
                     + str(P1.barrier_high)
                     + ".\nThere is a 50% chance that the NEXUS KEY has appeared within this range."
@@ -926,7 +934,7 @@ class P1:
                 # do hacker minigame if you're in defense range
                 if P1.guess != P1.entry_key:
                     if P1.node_failed_state == False: # did not fail initial skill check for node
-                        if P1.barrier_low < P1.guess < P1.barrier_high:
+                        if (P1.barrier_low +1 ) < P1.guess < P1.barrier_high:
 
                             ascii_jammer = pyfiglet.figlet_format(
                                 "JAMMER ENGAGED", font="bubble"
@@ -974,7 +982,7 @@ class P1:
                                 P1.low_keys -= 1
                                 print("HIGH NODE GUESSES REDUCED BY 1")
                         P1.guess_list.append("(JAMMED)")
-                        P1.tripwire = False
+                        #P1.tripwire = False   # disabled so you can assess the guess
                         print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
                         print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
 
@@ -993,16 +1001,24 @@ class P1:
         if P1.guess == P1.entry_key:
             sfx.appear_blip()
             print("NEXUS KEY LOCATED.")
-            if P1.chances == 0 and (P1.node_failed_state == False or P1.tripwire_tracker==False):
-                '''last chance, failed the node or the hacking minigame'''
-                sfx.fail_corrupt()
-                time.sleep(2)
-                print("However, since you are OUT OF CHANCES and triggered the jammer,\
-                    we can't extract the data...)
-                sfx.fail_corrupt()
-                print('')
-                
             time.sleep(2)
+            if P1.tripwire == True or P1.node_failed_state == True:
+                sfx.fail_corrupt() # failed one of the two states
+                print('However, since you triggered the JAMMER, there is no way to get into the node.')
+                time.sleep(1)
+                sfx.burst_sound()
+                print('The FIREWALL is locking us out. Next time, make sure to avoid triggering the JAMMER on the NEXUS NODE.')
+                print(
+                    "\n\n Denying Nexus entry due to JAMMER TRIGGER.\n\nRELEASING KEY CODE: ",
+                    P1.entry_key,
+                )
+                time.sleep(6)
+                sfx.fail_corrupt()
+                ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                print(ascii_locked)
+                print("THANK YOU FOR VISITING.")
+                time.sleep(8)
+                return False
             sfx.gentle_ui()
             sfx.hack_node()
             print("EXTRACTING DATA\n")
@@ -1055,7 +1071,30 @@ class P1:
         if P1.guess == P1.entry_key:
             sfx.appear_blip()
             print("NEXUS KEY LOCATED.")
+            if P1.tripwire == True or P1.node_failed_state == True: #if failed, prevent access
+                sfx.fail_corrupt() # failed one of the two states
+                print('However, since you triggered the JAMMER, there is no way to get into the node.')
+                time.sleep(1)
+                sfx.burst_sound()
+                print('The FIREWALL is locking us out. Next time, make sure to avoid triggering the JAMMER on the NEXUS NODE.')
+                print(
+                    "\n\n Denying Nexus entry due to JAMMER TRIGGER.\n\nRELEASING KEY CODE: ",
+                    P1.entry_key,
+                )
+                time.sleep(6)
+                sfx.fail_corrupt()
+                ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                print(ascii_locked)
+                print("THANK YOU FOR VISITING.")
+                time.sleep(8)
+                return False
             time.sleep(2)
+            with alive_bar(total=100, length=75, bar='smooth',) as bar:   # default setting
+                for i in range(100):
+                    time.sleep(0.03)
+                    bar()                        # call after consuming one item
+            print('\n')
+            time.sleep(1)
             sfx.gentle_ui()
             print("EXTRACTING DATA")
             time.sleep(1)
