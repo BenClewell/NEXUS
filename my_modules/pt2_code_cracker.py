@@ -437,11 +437,11 @@ class P2:
                             #
                             #
                             #
-                            start_insert = random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,)) #start for the insertion range
-                            end_insert = (start_insert+10) #end for the insertion range
+                            start_insert = (random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,))-1) #start for the insertion range
+                            end_insert = (start_insert+11) #end for the insertion range
                             sfx.gentle_lofi()
                             print('ALIGNED TOKEN: Security level {}'.format(P2.node_progress_rank))
-                            print('Press ENTER between {} and {} to avoid triggering firewall.'.format(start_insert,end_insert))
+                            print('Press ENTER between {} and {} to avoid triggering firewall.'.format((start_insert+1),end_insert))
                             time.sleep(3)
                             listener = keyboard.Listener(on_press=on_press)
                             listener.start()

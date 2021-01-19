@@ -92,8 +92,8 @@ class P1:
 
     def make_guess():
         P1.insertion_finished = False
-        start_insert = random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,)) #start for the insertion range
-        end_insert = (start_insert+10) #end for the insertion range
+        start_insert = (random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,))-1) #put the -1 there so you can be valid with first in range
+        end_insert = (start_insert+11) #end for the insertion range, +11 instead of +10 so the range includes both end points
         '''the area in which you can perform a node hack'''
         def on_press(key):
             if key == keyboard.Key.enter and P1.node_vulnerable == True:
@@ -147,7 +147,7 @@ class P1:
                 time.sleep(2)
             sfx.burst_sound()
             print('Node security level {}'.format(P1.node_progress_rank))
-            print('Press ENTER between {} and {} to hack node.'.format(start_insert,end_insert))
+            print('Press ENTER between {} and {} to hack node.'.format((start_insert+1),(end_insert))) #+1, to expand range
             time.sleep(3)
             sfx.hack_node()
             #
@@ -926,7 +926,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        #print(P1.entry_key) #for playtesting
+        print(P1.entry_key) #for playtesting
         print(
             random.choice(
                 (
