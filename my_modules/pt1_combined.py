@@ -268,7 +268,9 @@ class P1:
 
         if P1.special_sonar_limit > 0:
             sfx.fail_corrupt()
-            print("ERROR: YOU HAVE ALREADY USED YOUR SPECIAL SONAR.")
+            print(
+                "ERROR: YOUR SPECIAL SONAR HAS BEEN DISABLED DUE TO OVEREXTENDED RANGE."
+            )
             time.sleep(1)
 
     #
@@ -331,6 +333,8 @@ class P1:
                 print("SONAR OFFLINE")
             if P1.sonar == True:
                 print("SONAR ONLINE")
+                if P1.chances == 4:
+                    print("NEXT ACCURACY: 30 NUMBER RANGE")
                 if P1.chances == 3:
                     print("NEXT ACCURACY: 20 NUMBER RANGE")
                 if P1.chances == 2:
@@ -873,9 +877,8 @@ class P1:
         """provide sonar, and end game if too many low or high chances"""
         if P1.special_sonar == True:
             sfx.enable_firewall.play()
-            ascii_ss = pyfiglet.figlet_format(
-                "SPECIAL SONAR ACTIVATED", font="big"
-            )
+            print("\n")
+            ascii_ss = pyfiglet.figlet_format("SPECIAL SONAR")
             print(ascii_ss)
 
             def correct_input():
@@ -915,6 +918,9 @@ class P1:
                     + " NODES OF "
                     + str(P1.guess)
                 )
+                time.sleep(1)
+                print("SPECIAL SONAR IN-RANGE, AND CAN STILL BE USED LATER.")
+                sfx.gentle_lofi()
             else:
                 time.sleep(1)
                 print(" ")
@@ -931,14 +937,21 @@ class P1:
                     + " NODES FROM  "
                     + str(P1.guess)
                 )
-            time.sleep(1)
-            print("SPECIAL SONAR IS NOW PERMANENTLY DISABLED")
-            sfx.fail_corrupt()
-            P1.special_sonar_limit += 1  # make it impossible to resummon
+                time.sleep(1)
+                print(
+                    "SPECIAL SONAR OUT OF RANGE, AND IS NOW PERMANENTLY DISABLED."
+                )
+                sfx.fail_corrupt()
+                P1.special_sonar_limit += 1  # make it impossible to resummon
 
         if P1.special_sonar == False:
-            if P1.chances == 3:
+            if P1.chances == 4:
                 P1.sonar = True
+                # enable special sonar
+                time.sleep(2)
+                sfx.enable_firewall.play()
+                print("\nSPECIAL SONAR unlocked.\n")
+            if P1.chances == 3:
                 if P1.sonar == True and (
                     ((P1.guess - 30) <= P1.entry_key <= (P1.guess + 30))
                     and (0 < P1.guess < 101)
@@ -951,9 +964,6 @@ class P1:
                     P1.sonar_list.append(
                         "KEY WITHIN 30 NODES OF " + str(P1.guess)
                     )
-                    time.sleep(2)
-                    sfx.enable_firewall.play()
-                    print("\nSPECIAL SONAR unlocked.\n")
                 else:
                     time.sleep(1)
                     print(" ")
@@ -963,9 +973,6 @@ class P1:
                     P1.sonar_list.append(
                         "KEY MORE THAN 30 NODES FROM  " + str(P1.guess)
                     )
-                    time.sleep(2)
-                    sfx.enable_firewall.play()
-                    print("\nSPECIAL SONAR unlocked.\n")
 
             if P1.chances == 2:
                 if P1.sonar == True and (
