@@ -49,6 +49,8 @@ def run_game():
 
     ascii_nexus = pyfiglet.figlet_format("THE    NEXUS")
     sfx.appear_blip()
+    time.sleep(.5)
+    sfx.voice_introduction()
     print(ascii_nexus)
 
     if pt1.P1.game():

@@ -196,7 +196,9 @@ class P1:
                     (start_insert + 1), (end_insert)
                 )
             )  # +1, to expand range
-            time.sleep(3)
+            time.sleep(1)
+            sfx.voice_nodehack()
+            time.sleep(2)
             sfx.hack_node()
             #
             listener = keyboard.Listener(on_press=on_press)
@@ -344,15 +346,15 @@ class P1:
             if P1.sonar == True:
                 if P1.special_sonar == True and P1.special_sonar_limit == 0:
                     print(
-                        "SPECIAL SONAR IS EQUIPPED, AND WILL BE USED ON YOUR NEXT NODE."
+                        "SPECIAL SONAR IS EQUIPPED"
                     )
                 if P1.special_sonar == False and P1.special_sonar_limit == 0:
                     print(
-                        "SPECIAL SONAR IS DISABLED, BUT CAN BE EQUIPPED BEFORE ANY NODE."
+                        "SPECIAL SONAR IS UNEQUIPPED, BUT CAN BE EQUIPPED BEFORE ANY NODE."
                     )
                 if P1.special_sonar_limit > 0:
                     print(
-                        "SPECIAL SONAR HAS BEEN USED, AND IS NO LONGER AVAILABLE."
+                        "SPECIAL SONAR HAS BEEN DISABLED PERMANENTLY (OVEREXTENDED RANGE)"
                     )
             if P1.sonar_list == []:
                 print("NO SONAR HISTORY")
@@ -790,15 +792,16 @@ class P1:
                             + " HIGH"
                         )
                         time.sleep(0.5)
+
+                        time.sleep(1)
+                        P1.guess_list.append("(LOW)")
                         if P1.high_keys == 1:
                             sfx.appear_blip()
                             sfx.gentle_ui()
+                            sfx.voice_warning_low_entries()
                             print(
                                 "APPROACHING LOW NODE OVERLOAD. ONE MORE LOW NODE WILL ENGAGE SYSTEM LOCK."
                             )
-                        time.sleep(1)
-                        P1.guess_list.append("(LOW)")
-
                 if P1.guess > P1.entry_key:
                     """if guess is higher than the nexus key"""
                     P1.low_keys -= 1
@@ -816,6 +819,7 @@ class P1:
                         if P1.low_keys == 1:
                             sfx.appear_blip()
                             sfx.gentle_ui()
+                            sfx.voice_warning_high_entries()
 
                             print(
                                 "APPROACHING HIGH NODE OVERLOAD. ONE MORE HIGH NODE WILL ENGAGE SYSTEM LOCK."
@@ -844,9 +848,25 @@ class P1:
                     if coin_flip == 1:
                         P1.high_keys -= 1
                         print("LOW NODE GUESSES REDUCED BY 1")
+                        if P1.high_keys == 1:
+                            sfx.appear_blip()
+                            sfx.gentle_ui()
+                            time.sleep(1)
+                            sfx.voice_warning_low_entries()
+                            print(
+                                "APPROACHING LOW NODE OVERLOAD. ONE MORE LOW NODE WILL ENGAGE SYSTEM LOCK."
+                            )
                     if coin_flip == 2:
                         P1.low_keys -= 1
                         print("HIGH NODE GUESSES REDUCED BY 1")
+                        if P1.low_keys == 1:
+                            sfx.appear_blip()
+                            sfx.gentle_ui()
+                            time.sleep(1)
+                            sfx.voice_warning_high_entries()
+                            print(
+                                "APPROACHING HIGH NODE OVERLOAD. ONE MORE HIGH NODE WILL ENGAGE SYSTEM LOCK."
+                            )
                 P1.guess_list.append("(JAMMED)")
                 P1.tripwire = False  # disa
                 print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
@@ -1120,9 +1140,25 @@ class P1:
                             if coin_flip == 1:
                                 P1.high_keys -= 1
                                 print("LOW NODE GUESSES REDUCED BY 1")
+                                if P1.high_keys == 1:
+                                    sfx.appear_blip()
+                                    sfx.gentle_ui()
+                                    time.sleep(1)
+                                    sfx.voice_warning_low_entries()
+                                    print(
+                                        "APPROACHING LOW NODE OVERLOAD. ONE MORE LOW NODE WILL ENGAGE SYSTEM LOCK."
+                                    )
                             if coin_flip == 2:
                                 P1.low_keys -= 1
                                 print("HIGH NODE GUESSES REDUCED BY 1")
+                                if P1.low_keys == 1:
+                                    sfx.appear_blip()
+                                    sfx.gentle_ui()
+                                    time.sleep(1)
+                                    sfx.voice_warning_high_entries()
+                                    print(
+                                        "APPROACHING HIGH NODE OVERLOAD. ONE MORE HIGH NODE WILL ENGAGE SYSTEM LOCK."
+                                    )
                         P1.guess_list.append("(JAMMED)")
                         # P1.tripwire = False   # disabled so you can assess the guess
                         print("LOW ENTRIES REMAINING: " + str(P1.high_keys))

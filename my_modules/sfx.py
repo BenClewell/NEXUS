@@ -86,8 +86,43 @@ def fail_corrupt():
         "sounds/hack_sounds/fail (" + str(sound_number) + ").wav"
     )
     burst_sound.play()
+def voice_introduction():
+    """ play at entry screen"""
+    sound_number = random.randint(1, 5)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/introductions/intro_" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
 
-
+def voice_nodehack():
+    """ play when hacking node"""
+    sound_number = random.randint(2, 11)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/node_hacking/nodehack (" + str(sound_number) + ").wav"
+    )
+    burst_sound.play()
+def voice_warning_high_entries():
+    """ one more high entry"""
+    sound_number = random.randint(1, 2)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/warnings/warning_high_" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
+    #
+    #
+def voice_warning_low_entries():
+    """ one more low entry"""
+    sound_number = random.randint(1, 2)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/warnings/warning_low_" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
+    #
+    #
 def success():
     """ pick one of ten burst sounds """
     sound_number = random.randint(1, 3)
