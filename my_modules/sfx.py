@@ -103,6 +103,22 @@ def voice_nodehack():
         "sounds/narration/node_hacking/nodehack (" + str(sound_number) + ").wav"
     )
     burst_sound.play()
+def voice_too_high():
+    """ high entry"""
+    sound_number = random.randint(1, 4)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/too_high/too_high (" + str(sound_number) + ").wav"
+    )
+    burst_sound.play()
+def voice_too_low():
+    """ low entry"""
+    sound_number = random.randint(1, 4)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/too_low/too_low (" + str(sound_number) + ").wav"
+    )
+    burst_sound.play()
 def voice_warning_high_entries():
     """ one more high entry"""
     sound_number = random.randint(1, 2)

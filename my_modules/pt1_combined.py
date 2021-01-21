@@ -783,6 +783,7 @@ class P1:
                     P1.high_keys -= 1
                     if P1.high_keys != 0:
                         sfx.appear_blip()
+                        sfx.voice_too_low()
                         print(
                             "LOW ENTRY\n"
                             + "REMAINING CHANCES: "
@@ -807,6 +808,7 @@ class P1:
                     P1.low_keys -= 1
                     if P1.low_keys != 0:
                         sfx.appear_blip()
+                        sfx.voice_too_high()
                         print(
                             "HIGH ENTRY\n"
                             + "REMAINING CHANCES: "
@@ -816,6 +818,7 @@ class P1:
                             + " HIGH"
                         )
                         time.sleep(0.5)
+                        time.sleep(1)
                         if P1.low_keys == 1:
                             sfx.appear_blip()
                             sfx.gentle_ui()
@@ -824,7 +827,6 @@ class P1:
                             print(
                                 "APPROACHING HIGH NODE OVERLOAD. ONE MORE HIGH NODE WILL ENGAGE SYSTEM LOCK."
                             )
-                        time.sleep(1)
                         P1.guess_list.append("(HIGH)")
 
             if P1.tripwire == True:
