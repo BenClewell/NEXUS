@@ -192,7 +192,8 @@ class P1:
                 )
                 time.sleep(2)
                 print("GET READY.")
-                time.sleep(1.5)
+                sfx.burst_sound()
+                time.sleep(3)
             sfx.burst_sound()
             print("Node security level {}".format(P1.node_progress_rank))
             print(
