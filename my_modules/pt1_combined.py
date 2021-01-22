@@ -142,7 +142,7 @@ class P1:
         rejected if entry is too long, or not valid"""
         sfx.gentle_ui()
         print(
-            "---------------------------------------------------\nENTER A NODE (between 1 and 100):\n"
+            "---------------------------------------------------\nENTER A NODE (between 1 and 100):"
         )
         if (
             P1.sonar == True
@@ -150,16 +150,18 @@ class P1:
             and P1.special_sonar_limit == 0
         ):
             print(
-                '[SPECIAL SONAR: EQUIPPED] (Type "101" to remove.)\n---------------------------------------------------\n'
+                "[SPECIAL SONAR: EQUIPPED]\n---------------------------------------------------\n"
             )
-        if (
+        elif (
             P1.sonar == True
             and P1.special_sonar == False
             and P1.special_sonar_limit == 0
         ):
             print(
-                '[SPECIAL SONAR: UNEQUIPPED] (Type "101" to equip.)\n---------------------------------------------------\n'
+                "[SPECIAL SONAR: INACTIVE]\n---------------------------------------------------\n"
             )
+        else:
+            print("---------------------------------------------------\n")
         try:
             valid = True
             P1.guess = int(input())
@@ -347,11 +349,9 @@ class P1:
                     print("NEXT ACCURACY: 2 NUMBER RANGE (IF POSSIBLE")
             if P1.sonar == True:
                 if P1.special_sonar == True and P1.special_sonar_limit == 0:
-                    print("SPECIAL SONAR IS EQUIPPED")
+                    print("SPECIAL SONAR IS EQUIPPED ('101' to UNEQUIP)")
                 if P1.special_sonar == False and P1.special_sonar_limit == 0:
-                    print(
-                        "SPECIAL SONAR IS UNEQUIPPED, BUT CAN BE EQUIPPED BEFORE ANY NODE."
-                    )
+                    print("SPECIAL SONAR IS INACTIVE ('101' to EQUIP).")
                 if P1.special_sonar_limit > 0:
                     print(
                         "SPECIAL SONAR HAS BEEN DISABLED PERMANENTLY (OVEREXTENDED RANGE)"
@@ -840,9 +840,25 @@ class P1:
                 if P1.high_keys < P1.low_keys:
                     P1.low_keys -= 1
                     print("HIGH NODE GUESSES REDUCED BY 1")
+                    if P1.low_keys == 1:
+                        sfx.appear_blip()
+                        sfx.gentle_ui()
+                        time.sleep(1)
+                        sfx.voice_warning_high_entries()
+                        print(
+                            "APPROACHING HIGH NODE OVERLOAD. ONE MORE HIGH NODE WILL ENGAGE SYSTEM LOCK."
+                        )
                 elif P1.high_keys > P1.low_keys:
                     P1.high_keys -= 1
                     print("LOW NODE GUESSES REDUCED BY 1")
+                    if P1.high_keys == 1:
+                        sfx.appear_blip()
+                        sfx.gentle_ui()
+                        time.sleep(1)
+                        sfx.voice_warning_low_entries()
+                        print(
+                            "APPROACHING LOW NODE OVERLOAD. ONE MORE LOW NODE WILL ENGAGE SYSTEM LOCK."
+                        )
                 elif P1.high_keys == P1.low_keys:
                     print("HIGH AND LOW NODES ARE EQUAL. DECIDING RANDOMLY...")
                     time.sleep(1)
@@ -908,15 +924,19 @@ class P1:
                 try:
                     input_sonar = int(
                         input(
-                            "Please enter a custom value for the RANGE you would like the SONAR to scan for.\n\nSONAR SCAN RANGE: "
+                            "\nPlease enter a custom value for the RANGE you would like the SONAR to scan for.\n\nSONAR SCAN RANGE: "
                         )
                     )  # gotta be int
+                    if input_sonar == 0:
+                        # show hacker history if 0 is pressed
+                        P1.hacker_history()
+                        correct_input()
                 except:
                     sfx.fail_corrupt()
                     time.sleep(1)
                     sfx.burst_sound()
                     print(
-                        "This appears to be an invalid SONAR RANGE. Please enter a valid number and try again."
+                        "\nThis appears to be an invalid SONAR RANGE. Please enter a valid number and try again."
                     )
                     correct_input()
 
@@ -964,6 +984,7 @@ class P1:
                     "SPECIAL SONAR OUT OF RANGE, AND IS NOW PERMANENTLY DISABLED."
                 )
                 sfx.fail_corrupt()
+
                 P1.special_sonar_limit += 1  # make it impossible to resummon
 
         if P1.special_sonar == False:
@@ -972,7 +993,9 @@ class P1:
                 # enable special sonar
                 time.sleep(2)
                 sfx.enable_firewall.play()
-                print("\nSPECIAL SONAR unlocked.\n")
+                print(
+                    "\nSPECIAL SONAR unlocked. (Type '101' to toggle ON/OFF)\n"
+                )
             if P1.chances == 3:
                 if P1.sonar == True and (
                     ((P1.guess - 30) <= P1.entry_key <= (P1.guess + 30))
@@ -1056,10 +1079,11 @@ class P1:
                         P1.sonar_list.append(
                             "KEY MORE THAN 10 NODES FROM " + str(P1.guess)
                         )
+        if P1.special_sonar_limit > 0:
+            P1.special_sonar = False
 
         if P1.high_keys == 0 or P1.low_keys == 0:
             P1.chances = 0
-        P1.special_sonar = False  # always revert this to false
 
     def game():
         """the only called function, manages all other methods"""
@@ -1130,9 +1154,25 @@ class P1:
                         if P1.high_keys < P1.low_keys:
                             P1.low_keys -= 1
                             print("HIGH NODE GUESSES REDUCED BY 1")
+                            if P1.low_keys == 1:
+                                sfx.appear_blip()
+                                sfx.gentle_ui()
+                                time.sleep(1)
+                                sfx.voice_warning_high_entries()
+                                print(
+                                    "APPROACHING HIGH NODE OVERLOAD. ONE MORE HIGH NODE WILL ENGAGE SYSTEM LOCK."
+                                )
                         elif P1.high_keys > P1.low_keys:
                             P1.high_keys -= 1
                             print("LOW NODE GUESSES REDUCED BY 1")
+                            if P1.high_keys == 1:
+                                sfx.appear_blip()
+                                sfx.gentle_ui()
+                                time.sleep(1)
+                                sfx.voice_warning_low_entries()
+                                print(
+                                    "APPROACHING LOW NODE OVERLOAD. ONE MORE LOW NODE WILL ENGAGE SYSTEM LOCK."
+                                )
                         elif P1.high_keys == P1.low_keys:
                             print(
                                 "HIGH AND LOW NODES ARE EQUAL. DECIDING RANDOMLY..."
