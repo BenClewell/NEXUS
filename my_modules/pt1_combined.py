@@ -17,6 +17,8 @@ from random import randint
 
 from my_modules import sfx
 
+# not yet ## from my_modules import help_guide
+
 
 class P1:
 
@@ -345,9 +347,7 @@ class P1:
                     print("NEXT ACCURACY: 2 NUMBER RANGE (IF POSSIBLE")
             if P1.sonar == True:
                 if P1.special_sonar == True and P1.special_sonar_limit == 0:
-                    print(
-                        "SPECIAL SONAR IS EQUIPPED"
-                    )
+                    print("SPECIAL SONAR IS EQUIPPED")
                 if P1.special_sonar == False and P1.special_sonar_limit == 0:
                     print(
                         "SPECIAL SONAR IS UNEQUIPPED, BUT CAN BE EQUIPPED BEFORE ANY NODE."

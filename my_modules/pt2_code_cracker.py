@@ -7,7 +7,7 @@ import pyfiglet.fonts
 import pygame
 from pygame import mixer
 
-from alive_progress import alive_bar # cool loading animations
+from alive_progress import alive_bar  # cool loading animations
 
 import time
 
@@ -26,7 +26,8 @@ from importlib import reload
 
 class P2:
     """house all methods and unify all global variables"""
-    guess_list = [] # user can track all entries
+
+    guess_list = []  # user can track all entries
     preemptive_press = (
         False  # start of p2, monitor enter presses (multithread)
     )
@@ -45,10 +46,10 @@ class P2:
     rounds_done = False
     too_slow = False  # endgame, monitor speed
     #
-    node_progress_speed = .1 #become faster each hack
+    node_progress_speed = 0.1  # become faster each hack
     node_progress_rank = 1
     node_vulnerable = False
-    bad_insertion = False #the user has gotten each nexus insertion right
+    bad_insertion = False  # the user has gotten each nexus insertion right
     #
     def hacker_history():
         """provide history of choices"""
@@ -118,21 +119,23 @@ class P2:
                 #
                 time.sleep(2)
                 if P2.final_roundcount == 1:
-                    print('\n\n')
+                    print("\n\n")
                     sfx.loading_loop()
-                    with alive_bar(total = 100, length=100, bar='smooth') as bar:   # default setting
+                    with alive_bar(
+                        total=100, length=100, bar="smooth"
+                    ) as bar:  # default setting
                         for i in range(100):
                             time.sleep(0.05)
                             bar()
-                            if i >20:
+                            if i > 20:
                                 time.sleep(0.03)
-                            if i ==33:
+                            if i == 33:
                                 break
                     pygame.mixer.stop()
                     sfx.fail_corrupt()
                     time.sleep(1.5)
                     sfx.gentle_lofi()
-                    print('\n\n')
+                    print("\n\n")
                     ascii_prog = pyfiglet.figlet_format(
                         "DECRYPTION:\n33% COMPLETE"
                     )
@@ -141,21 +144,23 @@ class P2:
                     print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
                     threshold = 0.5
                 if P2.final_roundcount == 2:
-                    print('\n\n')
+                    print("\n\n")
                     sfx.loading_loop()
-                    with alive_bar(total = 100, length=100, bar='smooth') as bar:   # default setting
+                    with alive_bar(
+                        total=100, length=100, bar="smooth"
+                    ) as bar:  # default setting
                         for i in range(100):
                             time.sleep(0.05)
-                            if i >50:
+                            if i > 50:
                                 time.sleep(0.03)
                             bar()
-                            if i ==66:
-                                break   
+                            if i == 66:
+                                break
                     pygame.mixer.stop()
                     sfx.fail_corrupt()
                     time.sleep(1.5)
                     sfx.gentle_lofi()
-                    print('\n\n')
+                    print("\n\n")
                     ascii_prog = pyfiglet.figlet_format(
                         "DECRYPTION:\n66% COMPLETE"
                     )
@@ -165,24 +170,26 @@ class P2:
                         "FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)"
                     )
                     threshold = 0.4
-                if P2.final_roundcount == 3: 
-                    print('\n\n')
+                if P2.final_roundcount == 3:
+                    print("\n\n")
                     sfx.loading_loop()
-                    with alive_bar(total = 100, length=100, bar='smooth') as bar:   # default setting
+                    with alive_bar(
+                        total=100, length=100, bar="smooth"
+                    ) as bar:  # default setting
                         for i in range(100):
                             time.sleep(0.05)
-                            if i> 70:
-                                time.sleep(.02)
-                            if i> 90:
-                                time.sleep(.02)
+                            if i > 70:
+                                time.sleep(0.02)
+                            if i > 90:
+                                time.sleep(0.02)
                             bar()
-                            if i ==98:
-                                break   
+                            if i == 98:
+                                break
                     pygame.mixer.stop()
                     sfx.fail_corrupt()
                     time.sleep(1.5)
                     sfx.gentle_lofi()
-                    print('\n\n')
+                    print("\n\n")
                     ascii_prog = pyfiglet.figlet_format(
                         "DECRYPTION:\n99% COMPLETE"
                     )
@@ -236,7 +243,7 @@ class P2:
 
         if P2.too_slow == True:
             sfx.burst_sound()
-            print('RESPONSE TOO SLOW.')
+            print("RESPONSE TOO SLOW.")
             time.sleep(1)
             pygame.mixer.music.fadeout(4)
             return False
@@ -336,7 +343,7 @@ class P2:
             letters.reverse()
 
         number = "".join(letters)
-        #print(str(number))
+        # print(str(number))
         """for playtesting purposes"""
         time.sleep(2)
         sfx.gentle_lofi()
@@ -352,10 +359,12 @@ class P2:
             "\nRegarding any clues the system might give through its messages:\nthey don't reflect the order of the ACCESS TOKENS in the KEY.\nIt looks like the messages can apply to any position."
         )
 
-        print('If an ACCESS TOKEN is ALIGNED, you will have to perform increasingly high-security hacks for each aligned node.')
+        print(
+            "If an ACCESS TOKEN is ALIGNED, you will have to perform increasingly high-security hacks for each aligned node."
+        )
         print('Press "0" to view your hacking history at any time.')
         counter = 1
-        #print(number)
+        # print(number)
 
         while True:
             sfx.gentle_ui()
@@ -364,8 +373,10 @@ class P2:
             input_crack = input()
             sfx.gentle_lofi()
             time.sleep(1)
-            print("Do not press ENTER until prompted, or until the attempt is FINISHED.\n\n")
-            if input_crack =='0':
+            print(
+                "Do not press ENTER until prompted, or until the attempt is FINISHED.\n\n"
+            )
+            if input_crack == "0":
                 P2.hacker_history()
                 continue
 
@@ -387,16 +398,16 @@ class P2:
             for index in range(digits):
                 if input_crack[index] == number[index]:
                     clues.append("ALIGNED ACCESS TOKEN DETECTED\n")
-                    aligned_count+=1
+                    aligned_count += 1
                 elif input_crack[index] in number:
                     clues.append("MISALIGNED ACCESS TOKEN DETECTED\n")
-                    misaligned_count+=1
-            if aligned_count>0:
-                P2.guess_list.append('ALIGNED: ' + str(aligned_count))
-            if misaligned_count>0:
-                P2.guess_list.append('MISALIGNED: ' + str(misaligned_count))
-            if misaligned_count ==0 and aligned_count == 0:
-                P2.guess_list.append('NO TOKENS')
+                    misaligned_count += 1
+            if aligned_count > 0:
+                P2.guess_list.append("ALIGNED: " + str(aligned_count))
+            if misaligned_count > 0:
+                P2.guess_list.append("MISALIGNED: " + str(misaligned_count))
+            if misaligned_count == 0 and aligned_count == 0:
+                P2.guess_list.append("NO TOKENS")
             shuffle(clues)
 
             if len(clues) == 0:
@@ -407,71 +418,127 @@ class P2:
                 for clue in clues:
                     time.sleep(1.5)
                     if P2.bad_insertion == False:
-                        if 'MIS' in clue:
+                        if "MIS" in clue:
                             sfx.gentle_ui()
                             sfx.gentle_lofi()
-                            print('MISALIGNED TOKEN: No security')
+                            print("MISALIGNED TOKEN: No security")
                             sfx.loading_loop()
-                            with alive_bar(length=50, unknown='waves',) as bar:   # default setting
+                            with alive_bar(
+                                length=50,
+                                unknown="waves",
+                            ) as bar:  # default setting
                                 for i in range(100):
                                     time.sleep(0.01)
-                                    bar()     
+                                    bar()
                             pygame.mixer.stop()
-                        if 'ALIGNED' in clue and 'MIS' not in clue:
-                            P2.insertion_finished = False #fixes the previous isnertion_finished from last time
+                        if "ALIGNED" in clue and "MIS" not in clue:
+                            P2.insertion_finished = False  # fixes the previous isnertion_finished from last time
+
                             def on_press(key):
-                                if key == keyboard.Key.enter and P2.node_vulnerable == True:
+                                if (
+                                    key == keyboard.Key.enter
+                                    and P2.node_vulnerable == True
+                                ):
                                     sfx.burst_sound()
-                                    P2.node_failed_state = False # user hacked node successfully
+                                    P2.node_failed_state = (
+                                        False  # user hacked node successfully
+                                    )
                                     P2.insertion_finished = True
                                     time.sleep(1)
                                     print("[INSERTION VALID]")
-                                if key == keyboard.Key.enter and P2.node_vulnerable == False:
+                                if (
+                                    key == keyboard.Key.enter
+                                    and P2.node_vulnerable == False
+                                ):
                                     sfx.burst_sound()
                                     P2.node_failed_state = True
                                     P2.insertion_finished = True
                                     P2.bad_insertion = True
                                     time.sleep(1)
                                     print("[INSERTION INVALID]")
-                                    
+
                             #
                             #
                             #
-                            start_insert = (random.choice((10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,))-1) #start for the insertion range
-                            end_insert = (start_insert+11) #end for the insertion range
+                            start_insert = (
+                                random.choice(
+                                    (
+                                        10,
+                                        15,
+                                        20,
+                                        25,
+                                        30,
+                                        35,
+                                        40,
+                                        45,
+                                        50,
+                                        55,
+                                        60,
+                                        65,
+                                        70,
+                                        75,
+                                        80,
+                                        85,
+                                    )
+                                )
+                                - 1
+                            )  # start for the insertion range
+                            end_insert = (
+                                start_insert + 11
+                            )  # end for the insertion range
                             sfx.gentle_lofi()
-                            print('ALIGNED TOKEN: Security level {}'.format(P2.node_progress_rank))
-                            print('Press ENTER between {} and {} to avoid triggering firewall.'.format((start_insert+1),end_insert))
+                            print(
+                                "ALIGNED TOKEN: Security level {}".format(
+                                    P2.node_progress_rank
+                                )
+                            )
+                            print(
+                                "Press ENTER between {} and {} to avoid triggering firewall.".format(
+                                    (start_insert + 1), end_insert
+                                )
+                            )
                             time.sleep(3)
                             listener = keyboard.Listener(on_press=on_press)
                             listener.start()
                             sfx.loading_loop()
-                            with alive_bar(total=100, length=50, bar='squares', spinner = 'dots_waves2', enrich_print= False) as bar:   # default setting
-                                    for i in range(100):
-                            
-                                        if P2.insertion_finished == False:
-                                            if i in range(start_insert,end_insert):
-                                                P2.node_vulnerable = True
-                                            else:
-                                                P2.node_vulnerable = False
-                                            time.sleep(P2.node_progress_speed)
-                                            bar()
+                            with alive_bar(
+                                total=100,
+                                length=50,
+                                bar="squares",
+                                spinner="dots_waves2",
+                                enrich_print=False,
+                            ) as bar:  # default setting
+                                for i in range(100):
+
+                                    if P2.insertion_finished == False:
+                                        if i in range(
+                                            start_insert, end_insert
+                                        ):
+                                            P2.node_vulnerable = True
+                                        else:
+                                            P2.node_vulnerable = False
+                                        time.sleep(P2.node_progress_speed)
+                                        bar()
                             time.sleep(1.5)
                             pygame.mixer.stop()
-                            if P2.node_progress_speed>.02:
-                                P2.node_progress_speed -=.01
-                                P2.node_progress_rank +=1
+                            if P2.node_progress_speed > 0.02:
+                                P2.node_progress_speed -= 0.01
+                                P2.node_progress_rank += 1
                             listener.stop()
-                            absorb_input = input("") #pressing enter to hack counts as entering a node, I guess lol
+                            absorb_input = input(
+                                ""
+                            )  # pressing enter to hack counts as entering a node, I guess lol
                         #
-                        #  
-                        print('\n')                  # call after consuming one item
+                        #
+                        print("\n")  # call after consuming one item
                 sfx.appear_blip()
 
             if P2.bad_insertion == True:
                 time.sleep(2)
                 sfx.fail_corrupt()
-                ascii_locked = pyfiglet.figlet_format("FAILED TO ENTER ALIGNED KEY: FIREWALL DEPLOYED")
+                ascii_locked = pyfiglet.figlet_format(
+                    "FAILED TO ENTER ALIGNED KEY: FIREWALL DEPLOYED"
+                )
                 print(ascii_locked)
                 sfx.fail_corrupt()
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
@@ -682,13 +749,15 @@ Press ENTER one more time if you understand the risks, and are ready to finish t
                     time.sleep(8)
                     return False
                 sfx.loading_loop()
-                print('\n\n')
-                with alive_bar(total = 100, length=100, bar='smooth') as bar:   # default setting
+                print("\n\n")
+                with alive_bar(
+                    total=100, length=100, bar="smooth"
+                ) as bar:  # default setting
                     for i in range(100):
                         time.sleep(0.07)
-                        bar()  
+                        bar()
                 pygame.mixer.stop()
-                print('\n\n')
+                print("\n\n")
                 sfx.enable_firewall.play()
                 ascii_win = pyfiglet.figlet_format(
                     "DECRYPTION:\n100% COMPLETE"
