@@ -30,7 +30,7 @@ class P1:
     # hacking minigame
     hack_success = True
     hack_chances = 3
-    fw_difficulty = 2500
+    fw_difficulty = 3000
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
     fw_level = 0
     # inform the user what level firewall the AI is using.
@@ -834,6 +834,7 @@ class P1:
                 P1.chances -= 1
                 time.sleep(1.5)  # let the other thread finish first
                 sfx.gentle_ui()
+                sfx.voice_node_fail() #reassure player
                 """punishment for landing in defense range"""
                 print("JAMMED: NO NODE INFORMATION POSSIBLE")
                 print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
@@ -1146,6 +1147,7 @@ class P1:
                         P1.chances -= 1
                         time.sleep(1.5)  # let the other thread finish first
                         sfx.gentle_ui()
+                        sfx.voice_node_fail() #reassure player
                         """punishment for landing in defense range"""
                         print("JAMMED: NO NODE INFORMATION POSSIBLE")
                         print(
