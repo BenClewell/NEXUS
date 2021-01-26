@@ -4,14 +4,12 @@ import sys
 import os
 import pyfiglet
 import pyfiglet.fonts
-import curses
 import pygame
 from pygame import mixer
 from alive_progress import alive_bar  # cool loading animations
 import pynput
 from pynput import keyboard
-
-
+import curses
 from random import sample, shuffle, choice
 from random import randint
 
@@ -21,7 +19,6 @@ from my_modules import sfx
 
 
 class P1:
-
     node_vulnerable = False  # prevent hacking outside of the specified range
     node_progress_rank = 1
     node_failed_state = False  # has the user failed the last node hack?
@@ -626,7 +623,7 @@ class P1:
                                     start_x_problem + 11,
                                     "           ",
                                 )
-                                enemy_x = enemy_x + 5
+                                enemy_x = (enemy_x + 5)
 
                             sfx.bad_sound_hack.play()
 
@@ -1043,17 +1040,6 @@ class P1:
                     P1.sonar_list.append(
                         "KEY MORE THAN 20 NODES FROM " + str(P1.guess)
                     )
-
-        if P1.chances == 2:
-            if P1.low_keys != 0 and P1.high_keys != 0:
-                time.sleep(1)
-                print("\n\nI just confirmed where the NEXUS KEY is situated.")
-                time.sleep(1)
-                if P1.barrier_inside == 2:
-                    print("It's inside the JAMMER RANGE!")
-                if P1.barrier_inside == 1:
-                    print("It's outside the JAMMER RANGE!")
-
             if P1.chances == 1:
                 if P1.low_keys != 0 and P1.high_keys != 0:
                     print(
@@ -1081,6 +1067,17 @@ class P1:
                         P1.sonar_list.append(
                             "KEY MORE THAN 10 NODES FROM " + str(P1.guess)
                         )
+        if P1.chances == 2:
+            if P1.low_keys != 0 and P1.high_keys != 0:
+                time.sleep(1)
+                print("\n\nI just confirmed where the NEXUS KEY is situated.")
+                time.sleep(1)
+                if P1.barrier_inside == 2:
+                    print("It's inside the JAMMER RANGE!")
+                if P1.barrier_inside == 1:
+                    print("It's outside the JAMMER RANGE!")
+
+
         if P1.special_sonar_limit > 0:
             P1.special_sonar = False
 

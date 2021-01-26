@@ -38,8 +38,10 @@ from my_modules import pt2_code_cracker as pt2
 # import the second half of the game, decrypting nexus key!q
 from importlib import reload
 
+import curses # make sure you can press enter after the reload
 
 def run_game():
+
     """run nexus, and move modules between each other"""
     sfx.play_p1_bgm()
     # background music for gameplay
