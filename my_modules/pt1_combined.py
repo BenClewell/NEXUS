@@ -533,6 +533,7 @@ class P1:
             # Get window height & width
             height, width = stdscr.getmaxyx()
             title = "COUNTERMEASURES IN PROGRESS"
+            enemy_jump = 5
 
             # get various x,y coordinates according to user's window size
             start_x_title = int(
@@ -638,7 +639,9 @@ class P1:
                                     start_x_problem + 11,
                                     "           ",
                                 )
-                                enemy_x = (enemy_x + 5)
+                            stdscr.addstr(enemy_y, enemy_x, "*" * enemy_jump)
+                            enemy_x = (enemy_x + int(enemy_jump))
+                            enemy_jump+=5 # make the next wrong answer more punishing
 
                             sfx.bad_sound_hack.play()
 
