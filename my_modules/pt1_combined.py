@@ -12,6 +12,7 @@ from pynput import keyboard
 import curses
 from random import sample, shuffle, choice
 from random import randint
+import string # generate random lets 
 
 from my_modules import sfx
 
@@ -372,8 +373,22 @@ class P1:
             Returns a math equation string as well as the answer
             """
             global operator
-            operator = random.randint(1, 5)
-
+            operator = random.randint(0, 5)
+            if operator == 0:
+                scrambled_letters = string.ascii_lowercase
+                random_lets = random.sample(scrambled_letters, k = 4) # make a string randomly
+                answer_lets = ""
+                answer_lets = answer_lets.join(random_lets) # what the user sees when questioned
+                response_lets = sorted(random_lets)
+                joined_respond = ""
+                response_lets = joined_respond.join(response_lets) # what the user needs to type
+                answer = str(response_lets).upper() # user types to succeed
+                return (
+                    "ALPHABETIZE CODE: {}:".format(
+                        answer_lets.upper() # the string to rearrange
+                    ),
+                    answer,
+                )
             if operator == 1:
                 # addition
                 first_number = random.randint(10, 30)
@@ -611,7 +626,7 @@ class P1:
 
                         else:  # incorrect answer
                             user_answer = ""
-                            if operator == 4 or operator == 5:
+                            if operator == 4 or operator == 5 or operator == 0:
                                 stdscr.addstr(
                                     start_y_problem,
                                     start_x_problem + 60,
@@ -635,7 +650,7 @@ class P1:
                         key == 127 or key == 8 or key == 263
                     ):  # user presses backspace
                         user_answer = user_answer[:-1]
-                        if operator == 4 or operator == 5:
+                        if operator == 4 or operator == 5 or operator == 0:
                             stdscr.addstr(
                                 start_y_problem,
                                 start_x_problem + 60,
@@ -651,7 +666,7 @@ class P1:
                     elif key != -1:  # user adds character to their answer
                         user_answer = user_answer + str(chr(key))
                         # number shows user input start
-                    if operator == 4 or operator == 5:
+                    if operator == 4 or operator == 5 or operator == 0:
                         stdscr.addstr(
                             start_y_problem, start_x_problem + 60, user_answer
                         )  # update user answer
