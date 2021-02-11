@@ -346,7 +346,7 @@ class P1:
                 if P1.chances == 2:
                     print("NEXT ACCURACY: 10 NUMBER RANGE")
                 if P1.chances == 1:
-                    print("NEXT ACCURACY: 2 NUMBER RANGE (IF POSSIBLE")
+                    print("NEXT ACCURACY: 2 NUMBER RANGE (IF POSSIBLE)")
             if P1.sonar == True:
                 if P1.special_sonar == True and P1.special_sonar_limit == 0:
                     print("SPECIAL SONAR IS EQUIPPED ('101' to UNEQUIP)")
@@ -1105,7 +1105,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        #print(P1.entry_key)  # for playtesting
+        print(P1.entry_key)  # for playtesting
         print(
             random.choice(
                 (
@@ -1324,10 +1324,10 @@ class P1:
                         + "."
                     )
                     P1.guess_list.append("HIGH")
-                P1.sonar_alerts()
                 P1.make_guess()
-                pygame.mixer.stop()
                 P1.extra_chance = False
+                pygame.mixer.stop()
+
 
         if P1.guess == P1.entry_key:
             sfx.appear_blip()
