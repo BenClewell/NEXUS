@@ -1105,7 +1105,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        print(P1.entry_key)  # for playtesting
+        #print(P1.entry_key)  # for playtesting
         print(
             random.choice(
                 (

@@ -117,7 +117,6 @@ class P2:
             if P2.too_many_presses == False:
                 #
                 #
-                time.sleep(2)
                 if P2.final_roundcount == 1:
                     print("\n\n")
                     sfx.first_jam.play() # oh no! 33 percent blocked
@@ -132,6 +131,7 @@ class P2:
                                 time.sleep(0.03)
                             if i == 33:
                                 break
+                    time.sleep(2)
                     pygame.mixer.stop()
                     sfx.fail_corrupt()
                     sfx.first_jam_check.play() # gotta do the check!
@@ -159,10 +159,11 @@ class P2:
                             bar()
                             if i == 66:
                                 break
+                    time.sleep(2)
                     pygame.mixer.stop()
                     sfx.second_jam_blocked.play() #angry! 66 percent!
                     sfx.fail_corrupt()
-                    time.sleep(3)
+                    time.sleep(4)
                     sfx.gentle_lofi()
                     print("\n\n")
                     ascii_prog = pyfiglet.figlet_format(
@@ -178,7 +179,6 @@ class P2:
                     print("\n\n")
                     sfx.third_jam_start.play()
                     sfx.loading_loop()
-                    sfx.fourth_jam_final.play()
                     with alive_bar(
                         total=100, length=100, bar="smooth"
                     ) as bar:  # default setting
@@ -195,10 +195,12 @@ class P2:
                     sfx.fail_corrupt()
                     time.sleep(1.5)
                     sfx.gentle_lofi()
+                    sfx.fourth_jam_final.play()
                     print("\n\n")
                     ascii_prog = pyfiglet.figlet_format(
                         "DECRYPTION:\n99% COMPLETE"
                     )
+                    time.sleep(3)
                     sfx.gentle_ui()
                     print(ascii_prog)
                     print("FIREWALL CHECK ENGAGED: HARD (.35 SECOND RESPONSE)")
@@ -351,7 +353,7 @@ class P2:
             letters.reverse()
 
         number = "".join(letters)
-        print(str(number))
+        #print(str(number))
         """for playtesting purposes"""
         time.sleep(2)
         sfx.gentle_lofi()
@@ -405,6 +407,7 @@ class P2:
 
             for index in range(digits):
                 if input_crack[index] == number[index]:
+                    clues.append("ALIGNED ACCESS TOKEN DETECTED\n")
                     aligned_count += 1
                 elif input_crack[index] in number:
                     clues.append("MISALIGNED ACCESS TOKEN DETECTED\n")
@@ -720,6 +723,7 @@ class P2:
                 sfx.gentle_ui()
                 time.sleep(1)
                 print("The NEXUS KEY is decrypting!")
+                sfx.three_aligned.play()
                 sfx.gentle_ui()
                 time.sleep(1)
                 sfx.gentle_ui()
@@ -733,7 +737,6 @@ class P2:
                 )
                 time.sleep(2)
                 sfx.gentle_ui()
-                sfx.three_aligned.play()
                 warning = input(
                     """-----------------------------------------------------------------------
 It looks like the firewall has increased its security for the decryption.
@@ -775,13 +778,13 @@ Press ENTER one more time if you understand the risks, and are ready to finish t
                 print(ascii_win)
                 sfx.omg_did_it.play() # wow! you did it!
                 sfx.gentle_ui()
-                time.sleep(3)
+                time.sleep(4)
                 print("Welcome... to the Nexus.")
                 sfx.gentle_ui()
                 ascii_win = pyfiglet.figlet_format("GREAT JOB")
+                sfx.good_hacker.play()
                 time.sleep(6)
                 sfx.gentle_ui()
-                sfx.good_hacker.play()
                 print("You are the best hacker I've ever seen.")
                 time.sleep(3)
                 sfx.gentle_ui()
