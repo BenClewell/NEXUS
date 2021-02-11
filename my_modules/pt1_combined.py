@@ -38,7 +38,7 @@ class P1:
     low_keys = 3
     high_keys = 3  # you can make three low guesses, and three high guesses.
     #
-    #
+    # 
     #
     firstchance = True  # to track if this is the player's first move
     extra_chance = True  # has the user burnt their bonus 'close' chance?
@@ -182,6 +182,7 @@ class P1:
             ):  # alert user they have found the nexus key and alert them of the risks
                 time.sleep(0.5)
                 sfx.enable_firewall.play()
+                sfx.found_node.play() # you are on the node. be careful!
                 print("\nALERT: NEXUS KEY HAS BEEN TARGETED")
                 time.sleep(0.5)
                 sfx.sonar.play()
@@ -1104,7 +1105,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        # print(P1.entry_key)  # for playtesting
+        print(P1.entry_key)  # for playtesting
         print(
             random.choice(
                 (
@@ -1275,6 +1276,7 @@ class P1:
             sfx.gentle_ui()
             ascii_win = pyfiglet.figlet_format("KEY ACQUIRED")
             print(ascii_win)
+            sfx.voice_nexus_found() # voice line found key!
             time.sleep(5)
             print("Excellent job.")
             time.sleep(2)

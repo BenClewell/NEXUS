@@ -120,6 +120,7 @@ class P2:
                 time.sleep(2)
                 if P2.final_roundcount == 1:
                     print("\n\n")
+                    sfx.first_jam.play() # oh no! 33 percent blocked
                     sfx.loading_loop()
                     with alive_bar(
                         total=100, length=100, bar="smooth"
@@ -133,7 +134,8 @@ class P2:
                                 break
                     pygame.mixer.stop()
                     sfx.fail_corrupt()
-                    time.sleep(1.5)
+                    sfx.first_jam_check.play() # gotta do the check!
+                    time.sleep(4)
                     sfx.gentle_lofi()
                     print("\n\n")
                     ascii_prog = pyfiglet.figlet_format(
@@ -145,6 +147,7 @@ class P2:
                     threshold = 0.5
                 if P2.final_roundcount == 2:
                     print("\n\n")
+                    sfx.second_jam_start.play() # begin the journey to 66 percent
                     sfx.loading_loop()
                     with alive_bar(
                         total=100, length=100, bar="smooth"
@@ -157,8 +160,9 @@ class P2:
                             if i == 66:
                                 break
                     pygame.mixer.stop()
+                    sfx.second_jam_blocked.play() #angry! 66 percent!
                     sfx.fail_corrupt()
-                    time.sleep(1.5)
+                    time.sleep(3)
                     sfx.gentle_lofi()
                     print("\n\n")
                     ascii_prog = pyfiglet.figlet_format(
@@ -172,7 +176,9 @@ class P2:
                     threshold = 0.4
                 if P2.final_roundcount == 3:
                     print("\n\n")
+                    sfx.third_jam_start.play()
                     sfx.loading_loop()
+                    sfx.fourth_jam_final.play()
                     with alive_bar(
                         total=100, length=100, bar="smooth"
                     ) as bar:  # default setting
@@ -201,10 +207,11 @@ class P2:
                 time.sleep(1)
             if P2.too_many_presses == False:
                 print("\n\nPREPARE TO RESPOND.")
+                sfx.voice_fw_check() # more fw checks
             time.sleep(0.5)
             if P2.too_many_presses == False:
                 print("<<<TEST BEGINNING SOON>>>")
-                time.sleep(random.randint(2, 5))
+                time.sleep(random.randint(3, 6))
             if P2.too_many_presses == False:
                 ascii_respond = pyfiglet.figlet_format("RESPOND")
                 sfx.burst_sound()
@@ -307,6 +314,7 @@ class P2:
         attempts = 10
         sfx.gentle_ui()
         sfx.success()
+        sfx.gotta_decrypt.play() # introduction
         print("I can't believe it. We found the Nexus Key's node.")
         print(
             "Our work is almost done, but we still need to decrypt the key before the system finds out we're here."
@@ -343,7 +351,7 @@ class P2:
             letters.reverse()
 
         number = "".join(letters)
-        # print(str(number))
+        print(str(number))
         """for playtesting purposes"""
         time.sleep(2)
         sfx.gentle_lofi()
@@ -397,7 +405,6 @@ class P2:
 
             for index in range(digits):
                 if input_crack[index] == number[index]:
-                    clues.append("ALIGNED ACCESS TOKEN DETECTED\n")
                     aligned_count += 1
                 elif input_crack[index] in number:
                     clues.append("MISALIGNED ACCESS TOKEN DETECTED\n")
@@ -487,6 +494,7 @@ class P2:
                                 start_insert + 11
                             )  # end for the insertion range
                             sfx.gentle_lofi()
+                            sfx.voice_alligned() # a token is aligned
                             print(
                                 "ALIGNED TOKEN: Security level {}".format(
                                     P2.node_progress_rank
@@ -615,7 +623,8 @@ class P2:
                 if P2.preemptive_press == False:
                     sfx.sonar.play()
                     print("<<<TEST BEGINNING SOON>>>")
-                    time.sleep(random.randint(2, 5))
+                    sfx.voice_fw_check() # warn that test is beginning
+                    time.sleep(random.randint(3, 6))
                 if P2.preemptive_press == False:
                     ascii_respond = pyfiglet.figlet_format("RESPOND")
                     sfx.burst_sound()
@@ -724,6 +733,7 @@ class P2:
                 )
                 time.sleep(2)
                 sfx.gentle_ui()
+                sfx.three_aligned.play()
                 warning = input(
                     """-----------------------------------------------------------------------
 It looks like the firewall has increased its security for the decryption.
@@ -763,6 +773,7 @@ Press ENTER one more time if you understand the risks, and are ready to finish t
                     "DECRYPTION:\n100% COMPLETE"
                 )
                 print(ascii_win)
+                sfx.omg_did_it.play() # wow! you did it!
                 sfx.gentle_ui()
                 time.sleep(3)
                 print("Welcome... to the Nexus.")
@@ -770,8 +781,9 @@ Press ENTER one more time if you understand the risks, and are ready to finish t
                 ascii_win = pyfiglet.figlet_format("GREAT JOB")
                 time.sleep(6)
                 sfx.gentle_ui()
+                sfx.good_hacker.play()
                 print("You are the best hacker I've ever seen.")
-                time.sleep(7)
+                time.sleep(3)
                 sfx.gentle_ui()
                 print("NEXUS: A GAME BY BENJAMIN CLEWELL")
                 print(ascii_win)
@@ -779,7 +791,8 @@ Press ENTER one more time if you understand the risks, and are ready to finish t
                 print(
                     "Thank you so much for playing. I hope it was fun and thrilling!"
                 )
-                time.sleep(3)
+                sfx.welcome_nexus.play()
+                time.sleep(7)
                 sfx.success()
                 title_screen.show_victory()
 

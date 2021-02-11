@@ -34,7 +34,20 @@ sonar = pygame.mixer.Sound("sounds/alarms/sonar.wav")
 # for part 2...
 enable_firewall = pygame.mixer.Sound("sounds/appear_blips/enable.wav")
 
-
+# ONE LINERS FOR THE ENDING SEQUENCE:
+gotta_decrypt = pygame.mixer.Sound("sounds/narration/one_liners/pt2_start.wav")
+three_aligned = pygame.mixer.Sound("sounds/narration/one_liners/all_aligned.wav") #start pt3
+found_node = pygame.mixer.Sound("sounds/narration/one_liners/pt1_nodefound.wav") #on the nexus node
+first_jam = pygame.mixer.Sound("sounds/narration/one_liners/firstjam.wav") #33 percent
+first_jam_check = pygame.mixer.Sound("sounds/narration/one_liners/firstjam_check.wav") #more firewall. oh no!
+second_jam_start = pygame.mixer.Sound("sounds/narration/one_liners/secondjam_start.wav") #hack again
+second_jam_blocked = pygame.mixer.Sound("sounds/narration/one_liners/secondjam_blocked.wav") #stopped at 66!
+third_jam_start = pygame.mixer.Sound("sounds/narration/one_liners/thirdjam_start.wav") #hack again
+third_jam_blocked = pygame.mixer.Sound("sounds/narration/one_liners/thirdjam_blocked.wav") #stopped at 99!
+fourth_jam_final = pygame.mixer.Sound("sounds/narration/one_liners/fourthjam_final.wav") #encourage!
+omg_did_it = pygame.mixer.Sound("sounds/narration/one_liners/omg.wav") #encourage!
+good_hacker = pygame.mixer.Sound("sounds/narration/one_liners/compliment_player.wav") #amazing job!
+welcome_nexus = pygame.mixer.Sound("sounds/narration/one_liners/WELCOME.wav") #WELCOME TO THE NEXUS
 def hack_node():
     """ access all calculation sounds, and pick one randomly using random module"""
     calc_sound_number = random.randint(1, 21)
@@ -106,7 +119,7 @@ def voice_nodehack():
 def voice_node_fail():
     """ failed to hack"""
     sound_number = random.randint(1, 9)
-    # how many variations of burst_sounds that there are
+    # how many variation s of burst_sounds that there are
     burst_sound = pygame.mixer.Sound(
         "sounds/narration/jammer_fail/node_fail (" + str(sound_number) + ").wav"
     )
@@ -147,6 +160,36 @@ def voice_warning_low_entries():
     burst_sound.play()
     #
     #
+def voice_nexus_found():
+    """ nexus key acquired"""
+    sound_number = random.randint(1, 3)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/key_found/found_" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
+    #
+    #  
+def voice_fw_check():
+    """ fw check incoming"""
+    sound_number = random.randint(1, 8)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/fw_check/fwcheck_-00" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
+    #
+    #  
+def voice_alligned():
+    """ token aligned"""
+    sound_number = random.randint(1, 6)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/alignment/oneliner-00" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
+    #
+    #  
 def success():
     """ pick one of ten burst sounds """
     sound_number = random.randint(1, 3)
