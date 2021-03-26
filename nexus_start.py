@@ -54,7 +54,6 @@ def run_game():
     time.sleep(.5)
     sfx.voice_introduction()
     print(ascii_nexus)
-
     if pt1.P1.game():
         os.system("cls" if os.name == "nt" else "clear")
         # clear the output in the terminal

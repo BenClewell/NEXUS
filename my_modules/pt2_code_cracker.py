@@ -26,7 +26,11 @@ from importlib import reload
 
 class P2:
     """house all methods and unify all global variables"""
-
+    #
+    my_timer = 300 # timer for part 2
+    out_of_time = False
+    correct_key = False
+    #
     guess_list = []  # user can track all entries
     preemptive_press = (
         False  # start of p2, monitor enter presses (multithread)
@@ -68,7 +72,7 @@ class P2:
             sfx.gentle_ui()
             time.sleep(0.5)
             print("--------------------------" * 3)
-
+            print("SYS TRACE IN PROGRESS:// MINUTES BEFORE LOCKDOWN: " + str(round((P2.my_timer/60),2)))
             print("\nEntry Information:")
             if P2.guess_list == []:
                 print("NO ENTRIES COMMITTED YET")
@@ -78,7 +82,7 @@ class P2:
             print("\nReturning to hacking interface...")
             time.sleep(1)
             status_splash = False
-
+    
     def final_hack_success():
         def on_press(key):
             if key == keyboard.Key.enter and P2.allowed_range == True:
@@ -261,54 +265,6 @@ class P2:
         if P2.too_many_presses == True:
             pygame.mixer.music.fadeout(4)
             return False
-        """
-        def countdown():
-            # multithreading timer. DISABLED FOR NOW, MIGHT IMPLEMENT LATER
-            my_timer = 55
-            for x in range(55):
-                my_timer = my_timer -1
-                time.sleep(1)
-            print("OUT OF TIME")
-            time_is_up = True
-        countdown_thread = threading.Thread(target = countdown)
-        countdown_thread.start()
-
-
-        while my_timer > 0:
-            time.sleep(1)
-            final_challenge()
-            time.sleep(1)
-        print('You have finished.')
-        time_is_up = True
-        """
-        #
-        '''
-        def monitor_enter_key():  # 0x0D is enter
-            """track the number of enter presses"""
-            P2.enter_count = 0
-            while (
-                P2.final_roundcount <= 3
-                and P2.enter_count < 2
-                and P2.too_many_presses == False
-            ):
-                a = win32api.GetKeyState(0x0D)
-                if a < 0:
-                    P2.enter_count += 1
-                    time.sleep(1)
-            while P2.final_roundcount <= 3:
-                if P2.enter_count > 1:
-                    print("YOU HAVE PRESSED ENTER OUTSIDE A TEST")
-                    time.sleep(2)
-                    print("REPORTING YOU TO THE NEXUS...")
-                    P2.too_many_presses = True
-                    return
-
-        while (
-            P2.too_many_presses == False
-            and P2.too_slow == False
-            and P2.rounds_done == False
-        ):
-        '''
 
     def decode_key():
 
@@ -373,14 +329,38 @@ class P2:
             "If an ACCESS TOKEN is ALIGNED, you will have to perform increasingly high-security hacks for each aligned node."
         )
         print('Press "0" to view your hacking history at any time.')
+        time.sleep(.5)
+        sfx.enable_firewall.play()
+        print('\n\nSYS TRACE PREPARED:// TRACKING INTRUDER 5 MINUTES AFTER FIRST ENTRY')
         counter = 1
+        P2.start_timer = False
         # print(number)
-
-        while True:
+        #
+        #
+        def countdown():
+            P2.my_timer = 300
+            for i in range(300):
+                P2.my_timer = P2.my_timer-1
+                time.sleep(1)
+            P2.out_of_time = True
+            sfx.enable_firewall.play()
+            print('[I FOUND YOU] SYS TRACE COMPLETE:// TERMINATING SYSTEMS AT THE END OF KEY ENTRY')
+        #
+        #
+        while True:  
             sfx.gentle_ui()
             time.sleep(2)
             print("\nATTEMPT #" + str(counter) + "\n" + "-" * 20 + "\n\n")
             input_crack = input()
+            if input_crack == number: # allow user to finish their round before shutdown
+                P2.correct_key = True
+            if P2.start_timer == False:
+                sfx.enable_firewall.play()
+                print('SYS:// BEGINNING TRACE. TERMINATING INTRUSION IN 5 MINUTES.')
+                time.sleep(2)
+                countdown_thread = threading.Thread(target = countdown)
+                countdown_thread.start()
+                P2.start_timer = True   
             sfx.gentle_lofi()
             time.sleep(1)
             print(
@@ -584,6 +564,25 @@ class P2:
                 print(
                     "ENSURE THAT DURING THESE CHECKS, YOU ONLY PRESS ENTER ONE TIME, OR YOU WILL BE LOCKED OUT."
                 )
+            if P2.out_of_time == True:
+                if P2.correct_key == False: #don't penalize player if they found the key
+                    sfx.burst_sound()
+                    print('THE SYSTEM HAS DETECTED THAT YOU HAVE RUN OUT OF TIME.')
+                    sfx.fail_corrupt()
+                    ascii_locked = pyfiglet.figlet_format(
+                        "TIME HAS EXPIRED: FIREWALL DEPLOYED"
+                    )
+                    print(ascii_locked)
+                    sfx.fail_corrupt()
+                    ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                    print(ascii_locked)
+                    print("THANK YOU FOR VISITING.")
+                    time.sleep(8)
+                    pygame.mixer.music.fadeout(4)
+                    return False
+                else:
+                    pass
+
 
             def initial_on_press(key):
                 if (
@@ -670,7 +669,6 @@ class P2:
                     print("THANK YOU FOR VISITING.")
                     time.sleep(8)
                     pygame.mixer.music.fadeout(4)
-                    return False
                     return False
                 if P2.initial_not_fail == True:
                     return True
