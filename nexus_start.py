@@ -73,8 +73,10 @@ def run_game():
     sfx.appear_blip()
     print(ascii_nexus)
     if pt2.P2.decode_key():
+        pt2.P2.current_stage_timer = False #kill thread by alerting timer function 
         pass
     else:
+        pt2.P2.current_stage_timer = False #kill thread by alerting timer function 
         os.system("cls" if os.name == "nt" else "clear")
         reload(pt2)
         reload(pt1)

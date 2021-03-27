@@ -28,6 +28,7 @@ class P2:
     """house all methods and unify all global variables"""
     #
     my_timer = 300 # timer for part 2
+    current_stage_timer = False # in stage 2, where timer applies
     out_of_time = False
     correct_key = False
     #
@@ -340,11 +341,15 @@ class P2:
         def countdown():
             P2.my_timer = 300
             for i in range(300):
-                P2.my_timer = P2.my_timer-1
-                time.sleep(1)
-            P2.out_of_time = True
-            sfx.enable_firewall.play()
-            print('[I FOUND YOU] SYS TRACE COMPLETE:// TERMINATING SYSTEMS AT THE END OF KEY ENTRY')
+                if P2.current_stage_timer == True: # only punish if in the right part
+                    P2.my_timer = P2.my_timer-1
+                    time.sleep(1)
+            if P2.current_stage_timer == True: # only punish if in the right part
+                P2.out_of_time = True
+                sfx.enable_firewall.play()
+                print('[I FOUND YOU] SYS TRACE COMPLETE:// TERMINATING SYSTEMS AT THE END OF KEY ENTRY')
+            else:
+                pass
         #
         #
         while True:  
@@ -358,6 +363,7 @@ class P2:
                 sfx.enable_firewall.play()
                 print('SYS:// BEGINNING TRACE. TERMINATING INTRUSION IN 5 MINUTES.')
                 time.sleep(2)
+                P2.current_stage_timer = True # allow the timer to be mischievous
                 countdown_thread = threading.Thread(target = countdown)
                 countdown_thread.start()
                 P2.start_timer = True   
@@ -717,6 +723,7 @@ class P2:
                 else:
                     return False
             if input_crack == number:
+                P2.current_stage_timer = False #kill thread by alerting timer function 
                 print("Wait a second...")
                 sfx.gentle_ui()
                 time.sleep(1)
