@@ -1,5 +1,5 @@
 # NEXUS: An Exciting Hacking Adventure!
-
+![Title Card](demo_resources/2021-06-02%2014-38-55.gif)
 In NEXUS, you're playing as a professional hacker who is trying to search for the NEXUS KEY, a data packet that contains all the information you need to gain access to the network you're trying to infiltrate. 
 
 In a blend between longer-term decision making, and short-term problem solving and reaction measurement, you'll be facing  all manner of challenges at the hands of the system's security, which is determined to lock you out of the NEXUS forever.
