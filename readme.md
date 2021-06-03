@@ -34,7 +34,10 @@ In the first part of the experience, you are trying to locate a node that contai
 
 * * * 
 ###  ROUND ONE
-In the first round, you will have no information available to you. You must simply select a node (between 1 and 100) to begin your first hack.
+In the first round, you are introduced to an early obstacle: the ANTIVIRUS. For the first two rounds of gameplay, you may only makes entries based on an INSERTION POOL that is provided to you at the start of the game. 
+* MECHANIC: ANTIVIRUS
+                
+        To introduce more variety into the early game, you must adhere to the rules of the antivirus-- which will allow you to enter (2) TWO-DIGIT entries comprised of numbers in the INSERTION POOL. Once one number is consumed, you will only have TWO REMAINING digits for round two. Mind your consumption carefully.
 
 STRATEGY:
 
@@ -73,9 +76,11 @@ POINTERS:
 
 * You must balance your HIGH and LOW entries appropriately. If you are consistently high, or consistently low, the game can end early before all 5 rounds have been completed. (You can be high 3 times before the game is over, and low 3 times before the game is over.)
 
+* Consider your entry balance when creating your initial two entries from the Antivirus INSERTION POOL.
+
 * * * 
 ###  ROUND TWO
-After your first round, you will notice that you have unlocked SPECIAL SONAR, which is a modification on the more generalized SONAR. 
+After your first round, you will notice that you have unlocked SPECIAL SONAR, which is a modification on the more generalized SONAR. Additionally, you will only have two numbers in which to construct your next node entry.  
 
 
 
@@ -146,3 +151,31 @@ If you succeed at the resultant NODE ENTRY CHALLENGE, you will move to the next 
 You MUST succeed the node entry challenge to access the **Nexus Key**.
 
 Good luck!
+#
+## PART TWO: DECRYPTING THE KEY
+There are fewer mechanics to consider in Part 2, but it is important to understand how the three main mechanics function. You will have to code-crack along the lines of Mastermind, or more aptly, 'Fermi Pico Bagels'! (Which is directly where this section finds inspiration in core mechanics. )
+
+
+
+**CORE GAMEPLAY LOOP**
+* You must enter a three-digit code of non-repeating numbers between ZERO and NINE. You will receive text notifications regarding each of your character entries. 'MISALIGNED TOKEN' refers to correct integers in the wrong spot. 'ALIGNED TOKEN' refers to correct integers in the right spot. Additionally, you will have to complete a generally-easy NODE ENTRY CHALLENGE, like in Part 1-- that progressively becomes more difficult.
+
+* After your first entry, a 5-MINUTE TIMER will be activated. Once this timer runs out, your run will end as a loss after the next entry reaches completion.
+
+* You will have access to your HACKER HISTORY (Pressing '0'), which will show current timer conditions and previous entries, as well as their associated clues.
+
+**LATER GAMEPLAY**
+        
+* After THREE ENTRIES, you will have to complete FIREWALL CHECKS after each completed entry. When you see the word 'RESPOND' appear after a randomly-generated wait time, press ENTER as quickly as possible to avoid being locked out of the NEXUS. You will receive a visual and auditory warning prior to the FIREWALL CHECK.
+  * Firewall checks will become increasingly challenging over time.  
+
+**ENDGAME**
+
+* Once you have matched your TOKEN ENTRY to the NEXUS KEY, you will enter the final section of the game-- which in my opinion, is super fun! With the game's assistant nervously coaching you through a final decryption, you'll complete a series of subsequent FIREWALL CHECKS until the NEXUS KEY is 100% decrypted, and you've hacked the system!
+
+
+# FOOTNOTES
+Overall, I look forward to you exploring NEXUS! I've worked hard on coming up with a lot of fun mechanics to the best of my ability. 
+
+I hope you have a great time playing! :) 
+
