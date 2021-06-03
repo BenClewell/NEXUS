@@ -38,7 +38,8 @@ from my_modules import pt2_code_cracker as pt2
 # import the second half of the game, decrypting nexus key!q
 from importlib import reload
 
-import curses # make sure you can press enter after the reload
+import curses  # make sure you can press enter after the reload
+
 
 def run_game():
 
@@ -51,7 +52,7 @@ def run_game():
 
     ascii_nexus = pyfiglet.figlet_format("THE    NEXUS")
     sfx.appear_blip()
-    time.sleep(.5)
+    time.sleep(0.5)
     sfx.voice_introduction()
     print(ascii_nexus)
     if pt1.P1.game():
@@ -73,10 +74,10 @@ def run_game():
     sfx.appear_blip()
     print(ascii_nexus)
     if pt2.P2.decode_key():
-        pt2.P2.current_stage_timer = False #kill thread by alerting timer function 
+        pt2.P2.current_stage_timer = False  # kill thread by alerting timer function
         pass
     else:
-        pt2.P2.current_stage_timer = False #kill thread by alerting timer function 
+        pt2.P2.current_stage_timer = False  # kill thread by alerting timer function
         os.system("cls" if os.name == "nt" else "clear")
         reload(pt2)
         reload(pt1)

@@ -12,7 +12,7 @@ from pynput import keyboard
 import curses
 from random import sample, shuffle, choice
 from random import randint
-import string # generate random lets 
+import string  # generate random lets
 
 from my_modules import sfx
 
@@ -20,6 +20,9 @@ from my_modules import sfx
 
 
 class P1:
+    given_digits = 4
+    allowed_list = sample("0123456789", given_digits)
+    #
     node_vulnerable = False  # prevent hacking outside of the specified range
     node_progress_rank = 1
     node_failed_state = False  # has the user failed the last node hack?
@@ -38,7 +41,7 @@ class P1:
     low_keys = 3
     high_keys = 3  # you can make three low guesses, and three high guesses.
     #
-    # 
+    #
     #
     firstchance = True  # to track if this is the player's first move
     extra_chance = True  # has the user burnt their bonus 'close' chance?
@@ -46,15 +49,14 @@ class P1:
     #
     #
     guess = ""  # placeholder for player guess value
+    guess_string = ""  # text only
     guess_list = []
     sonar = False  # begin the game with no use of sonar
     sonar_list = []  # store information about a player's game history
     special_sonar = False  # give player the option to use SPECIAL SONAR
     special_sonar_limit = 0
     # USING PYFIGLET TO CREATE COOL TEXT TITLES:
-    ascii_sonar_status = pyfiglet.figlet_format(
-        "SONAR", font="digital"
-    )  # sonar title
+    ascii_sonar_status = pyfiglet.figlet_format("SONAR", font="digital")  # sonar title
     ascii_jam_online = pyfiglet.figlet_format(
         "JAMMER   ONLINE", font="bubble"
     )  # init jammer
@@ -86,9 +88,7 @@ class P1:
 
     tripwire = False
     # has the user set off the defense range?
-    tripwire_tracker = (
-        False  # if the player sets off tripwire on nexus key, kill them
-    )
+    tripwire_tracker = False  # if the player sets off tripwire on nexus key, kill them
     collapse = random.randint(2, 2)
     # multiple ints can be passed to collapse for multiple results
 
@@ -142,6 +142,12 @@ class P1:
         print(
             "---------------------------------------------------\nENTER A NODE (between 1 and 100):"
         )
+        if P1.allowed_list != []:
+            print(
+                "SYS:// [ANTIVIRUS ACTIVE] ::: INSERTION POOL: {}".format(
+                    P1.allowed_list
+                )
+            )
         if (
             P1.sonar == True
             and P1.special_sonar == True
@@ -161,17 +167,86 @@ class P1:
         else:
             print("---------------------------------------------------\n")
         try:
-            valid = True
-            P1.guess = int(input())
-            if len(str(P1.guess)) > 3 or P1.guess > 101:
+            P1.guess_string = str(input())
+            P1.guess = int(P1.guess_string)
+            if (len(str(P1.guess))) > 3 or int(P1.guess) > 101:
                 valid = False
                 print("This node is TOO HIGH.")
                 print("PLEASE ENTER A VALID NODE.")
-                P1.make_guess()
+
+            else:
+                if P1.guess != 0 and P1.guess < 101:  # barrier for special stuff
+                    if P1.allowed_list != []:
+                        duplicates = {}
+                        charpass = True  # did character check pass
+                        dupes_caught = False
+                        string_guess = str(P1.guess)  # i guess this redundant lol
+                        for char in P1.guess_string:
+                            if char in P1.allowed_list and len(P1.guess_string) == 1:
+                                valid = False
+                                charpass = False
+                                print("[ANTIVIRUS]: BLOCKED ACTION")
+                                print(
+                                    "ERROR: TWO NODES from the INTEGER POOL must be entered to BYPASS ANTIVIRUS"
+                                    "\nPlease disable ANTIVIRUS to permit SINGLE-INTEGER ENTRIES"
+                                )
+
+                            if char in duplicates:
+                                valid = False
+                                charpass = False
+                                print("[ANTIVIRUS]: BLOCKED ACTION")
+                                print(
+                                    "ERROR: NO DUPLICATE NODES are allowed to be used for your initial entries."
+                                    "\nPlease disable ANTIVIRUS to permit DUPLICATE ENTRIES."
+                                )
+                                dupes_caught = True
+
+                            else:
+                                duplicates[char] = 1
+                                #
+                                #
+                            if char not in P1.allowed_list and dupes_caught == False:
+                                valid = False
+                                charpass = False
+                                print("[ANTIVIRUS]: FORBIDDEN ENTRY")
+                                print(
+                                    "ERROR: You do not have PERMISSION to access those NODE INTEGERS."
+                                    "\nPlease disable ANTIVIRUS to permit nodes outside of the INTEGER POOL."
+                                )
+
+                        if charpass == True and dupes_caught == False:
+                            valid = True
+                            for number in P1.guess_string:
+                                for i in P1.allowed_list:  # remove the used numbers
+                                    # PLAYTEST print(
+                                    #    "comparing guess int {} to list int {}".format(
+                                    #        number, i
+                                    #    )
+                                    # )
+                                    if i == number:
+                                        # PLAYTEST print("removing list int {}".format(i))
+                                        P1.allowed_list.remove(i)
+                            print(
+                                "[ANTIVIRUS]: VALID ENTRY! REMOVING ENTERED NODE FROM INSERTION POOL..."
+                            )
+                            time.sleep(1)
+                            if P1.allowed_list == []:
+                                time.sleep(0.5)
+                                sfx.gentle_lofi()
+                                print("/ INTEGER POOL SATISFIED \\")
+                                print("[**[ANTIVIRUS DISABLED]**]")
+                                time.sleep(1.5)
+                    else:
+                        valid = True
+                else:
+                    valid = True
+
         except:
             valid = False
             print("I don't understand this node.")
             print("PLEASE ENTER A VALID NODE.")
+            P1.make_guess()
+        if valid == False:
             P1.make_guess()
 
         if valid == True and P1.guess != 0 and P1.guess < 101:
@@ -182,7 +257,7 @@ class P1:
             ):  # alert user they have found the nexus key and alert them of the risks
                 time.sleep(0.5)
                 sfx.enable_firewall.play()
-                sfx.found_node.play() # you are on the node. be careful!
+                sfx.found_node.play()  # you are on the node. be careful!
                 print("\nALERT: NEXUS KEY HAS BEEN TARGETED")
                 time.sleep(0.5)
                 sfx.sonar.play()
@@ -251,9 +326,7 @@ class P1:
                 sfx.gentle_lofi()
                 time.sleep(1)
                 sfx.sonar.play()
-                print(
-                    "SPECIAL SONAR IS NOW EQUIPPED FOR YOUR NEXT NODE ENTRY.\n\n\n\n"
-                )
+                print("SPECIAL SONAR IS NOW EQUIPPED FOR YOUR NEXT NODE ENTRY.\n\n\n\n")
                 P1.special_sonar = True
                 return
 
@@ -312,7 +385,14 @@ class P1:
             else:
                 print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
                 print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
-
+            if P1.allowed_list == []:
+                print("SYS: ANTIVIRUS DISABLED. ALL NUMBERS AVAILABLE.")
+            else:
+                print(
+                    "SYS: ANTIVIRUS ENABLED. MUST USE INTEGER POOL: {}".format(
+                        P1.allowed_list
+                    )
+                )
             print("\nJAMMER Information:")
             if P1.jam_reveal == False:
                 print("JAMMER RANGE UNKNOWN. PROCEED WITH CAUTION.")
@@ -330,9 +410,7 @@ class P1:
             elif P1.chances <= 2 and P1.barrier_inside == 1:
                 print("The NEXUS KEY is OUTSIDE the jammer range.")
             else:
-                print(
-                    "We do not know if the NEXUS KEY is in the jammer range."
-                )
+                print("We do not know if the NEXUS KEY is in the jammer range.")
 
             print("\nSonar Information:")
             if P1.sonar == False:
@@ -374,19 +452,25 @@ class P1:
             Returns a math equation string as well as the answer
             """
             global operator
-            operator = random.randint(0, 5)
+            operator = random.randint(0, 6)
             if operator == 0:
                 scrambled_letters = string.ascii_lowercase
-                random_lets = random.sample(scrambled_letters, k = 4) # make a string randomly
+                random_lets = random.sample(
+                    scrambled_letters, k=4
+                )  # make a string randomly
                 answer_lets = ""
-                answer_lets = answer_lets.join(random_lets) # what the user sees when questioned
+                answer_lets = answer_lets.join(
+                    random_lets
+                )  # what the user sees when questioned
                 response_lets = sorted(random_lets)
                 joined_respond = ""
-                response_lets = joined_respond.join(response_lets) # what the user needs to type
-                answer = str(response_lets).upper() # user types to succeed
+                response_lets = joined_respond.join(
+                    response_lets
+                )  # what the user needs to type
+                answer = str(response_lets).upper()  # user types to succeed
                 return (
                     "ALPHABETIZE CODE: {}:".format(
-                        answer_lets.upper() # the string to rearrange
+                        answer_lets.upper()  # the string to rearrange
                     ),
                     answer,
                 )
@@ -414,9 +498,7 @@ class P1:
                 num_type_times = random.randint(10, 20)
                 answer = str("I" * num_type_times)
                 return (
-                    "DDOS ATTACK//: INPUT 'I' {} TIMES:".format(
-                        num_type_times
-                    ),
+                    "DDOS ATTACK//: INPUT 'I' {} TIMES:".format(num_type_times),
                     answer,
                 )
             elif operator == 4:
@@ -518,9 +600,7 @@ class P1:
                 third_number = random.randint(1, 9)
                 answer = first_number + second_number + third_number
                 return (
-                    "{} + {} + {} = ".format(
-                        first_number, second_number, third_number
-                    ),
+                    "{} + {} + {} = ".format(first_number, second_number, third_number),
                     answer,
                 )
 
@@ -537,9 +617,7 @@ class P1:
             enemy_jump = 5
 
             # get various x,y coordinates according to user's window size
-            start_x_title = int(
-                (width // 2) - (len(title) // 2) - len(title) % 2
-            )
+            start_x_title = int((width // 2) - (len(title) // 2) - len(title) % 2)
             start_y_title = int((height // 4) - 2)
 
             start_x_problem = int((width // 2) - 4)
@@ -574,9 +652,7 @@ class P1:
 
                 counter = 1
 
-                stdscr.nodelay(
-                    True
-                )  # make sure it doesnt stop to get a character
+                stdscr.nodelay(True)  # make sure it doesnt stop to get a character
 
                 user_answer = ""
                 alarm_limit = 1
@@ -641,8 +717,8 @@ class P1:
                                     "           ",
                                 )
                             stdscr.addstr(enemy_y, enemy_x, "*" * enemy_jump)
-                            enemy_x = (enemy_x + int(enemy_jump))
-                            enemy_jump+=5 # make the next wrong answer more punishing
+                            enemy_x = enemy_x + int(enemy_jump)
+                            enemy_jump += 5  # make the next wrong answer more punishing
 
                             sfx.bad_sound_hack.play()
 
@@ -650,9 +726,7 @@ class P1:
                                 sfx.alarm_loop(random.randint(5, 5))
                                 alarm_limit += 1
 
-                    elif (
-                        key == 127 or key == 8 or key == 263
-                    ):  # user presses backspace
+                    elif key == 127 or key == 8 or key == 263:  # user presses backspace
                         user_answer = user_answer[:-1]
                         if operator == 4 or operator == 5 or operator == 0:
                             stdscr.addstr(
@@ -768,9 +842,7 @@ class P1:
                 subtitle2 = "PRESS 'ENTER' TO BEGIN HACK."
                 pygame.mixer.unpause()
 
-                start_x_title = int(
-                    (width // 2) - (len(title) // 2) - len(title) % 2
-                )
+                start_x_title = int((width // 2) - (len(title) // 2) - len(title) % 2)
                 start_x_subtitle = int(
                     (width // 2) - (len(subtitle1) // 2) - len(subtitle1) % 2
                 )
@@ -850,7 +922,7 @@ class P1:
                 P1.chances -= 1
                 time.sleep(1.5)  # let the other thread finish first
                 sfx.gentle_ui()
-                sfx.voice_node_fail() #reassure player
+                sfx.voice_node_fail()  # reassure player
                 """punishment for landing in defense range"""
                 print("JAMMED: NO NODE INFORMATION POSSIBLE")
                 print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
@@ -918,9 +990,7 @@ class P1:
                 print(ascii_jam_offline)
                 time.sleep(1)
                 sfx.appear_blip()
-                P1.jam_reveal = (
-                    True  # update jammer coordinates in hacker history
-                )
+                P1.jam_reveal = True  # update jammer coordinates in hacker history
                 print(
                     "The JAMMER RANGE is covering "
                     + str(P1.barrier_low + 1)
@@ -960,11 +1030,7 @@ class P1:
 
             correct_input()
             if P1.sonar == True and (
-                (
-                    (P1.guess - input_sonar)
-                    <= P1.entry_key
-                    <= (P1.guess + input_sonar)
-                )
+                ((P1.guess - input_sonar) <= P1.entry_key <= (P1.guess + input_sonar))
                 and (0 < P1.guess < 101)
             ):
                 time.sleep(1)
@@ -973,10 +1039,7 @@ class P1:
                 sfx.sonar.play()
                 print("NEXUS KEY WITHIN " + str(input_sonar) + " NODES")
                 P1.sonar_list.append(
-                    "KEY WITHIN "
-                    + str(input_sonar)
-                    + " NODES OF "
-                    + str(P1.guess)
+                    "KEY WITHIN " + str(input_sonar) + " NODES OF " + str(P1.guess)
                 )
                 time.sleep(1)
                 print("SPECIAL SONAR IN-RANGE, AND CAN STILL BE USED LATER.")
@@ -986,11 +1049,7 @@ class P1:
                 print(" ")
                 print(P1.ascii_sonar_status)
                 sfx.sonar.play()
-                print(
-                    "NEXUS KEY FURTHER THAN "
-                    + str(input_sonar)
-                    + " NODES AWAY"
-                )
+                print("NEXUS KEY FURTHER THAN " + str(input_sonar) + " NODES AWAY")
                 P1.sonar_list.append(
                     "KEY MORE THAN "
                     + str(input_sonar)
@@ -998,9 +1057,7 @@ class P1:
                     + str(P1.guess)
                 )
                 time.sleep(1)
-                print(
-                    "SPECIAL SONAR OUT OF RANGE, AND IS NOW PERMANENTLY DISABLED."
-                )
+                print("SPECIAL SONAR OUT OF RANGE, AND IS NOW PERMANENTLY DISABLED.")
                 sfx.fail_corrupt()
 
                 P1.special_sonar_limit += 1  # make it impossible to resummon
@@ -1011,9 +1068,7 @@ class P1:
                 # enable special sonar
                 time.sleep(2)
                 sfx.enable_firewall.play()
-                print(
-                    "\nSPECIAL SONAR unlocked. (Type '101' to toggle ON/OFF)\n"
-                )
+                print("\nSPECIAL SONAR unlocked. (Type '101' to toggle ON/OFF)\n")
             if P1.chances == 3:
                 if P1.sonar == True and (
                     ((P1.guess - 30) <= P1.entry_key <= (P1.guess + 30))
@@ -1024,9 +1079,7 @@ class P1:
                     print(P1.ascii_sonar_status)
                     sfx.sonar.play()
                     print("NEXUS KEY WITHIN 30 NODES")
-                    P1.sonar_list.append(
-                        "KEY WITHIN 30 NODES OF " + str(P1.guess)
-                    )
+                    P1.sonar_list.append("KEY WITHIN 30 NODES OF " + str(P1.guess))
                 else:
                     time.sleep(1)
                     print(" ")
@@ -1047,18 +1100,14 @@ class P1:
                     print(P1.ascii_sonar_status)
                     sfx.sonar.play()
                     print("NEXUS KEY WITHIN 20 NODES")
-                    P1.sonar_list.append(
-                        "KEY WITHIN 20 NODES OF " + str(P1.guess)
-                    )
+                    P1.sonar_list.append("KEY WITHIN 20 NODES OF " + str(P1.guess))
                 else:
                     time.sleep(1)
                     print(" ")
                     print(P1.ascii_sonar_status)
                     sfx.sonar.play()
                     print("NEXUS KEY FURTHER THAN 20 NODES AWAY")
-                    P1.sonar_list.append(
-                        "KEY MORE THAN 20 NODES FROM " + str(P1.guess)
-                    )
+                    P1.sonar_list.append("KEY MORE THAN 20 NODES FROM " + str(P1.guess))
             if P1.chances == 1:
                 if P1.low_keys != 0 and P1.high_keys != 0:
                     print(
@@ -1074,9 +1123,7 @@ class P1:
                         print(P1.ascii_sonar_status)
                         sfx.sonar.play()
                         print("NEXUS KEY WITHIN 10 NODES")
-                        P1.sonar_list.append(
-                            "KEY WITHIN 10 NODES OF " + str(P1.guess)
-                        )
+                        P1.sonar_list.append("KEY WITHIN 10 NODES OF " + str(P1.guess))
                     else:
                         time.sleep(1)
                         print(" ")
@@ -1096,7 +1143,6 @@ class P1:
                 if P1.barrier_inside == 1:
                     print("It's outside the JAMMER RANGE!")
 
-
         if P1.special_sonar_limit > 0:
             P1.special_sonar = False
 
@@ -1105,7 +1151,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        #print(P1.entry_key)  # for playtesting
+        # print(P1.entry_key)  # for playtesting
         print(
             random.choice(
                 (
@@ -1118,6 +1164,12 @@ class P1:
             )
         )
         print('Press "0" to view your HACKER HISTORY at any time.')
+        print(
+            "For now, the ANTIVIRUS will prevent us from going outside of the INTEGER POOL."
+        )
+        print(
+            "Construct your NODE ENTRIES using these available integers. The ANTIVIRUS will be weakened as you construct VALID NODES."
+        )
         while P1.chances != 0 and P1.guess != P1.entry_key:
             P1.tripwire = False
             # make sure the tripwire starts with a false status, only started by failing hack
@@ -1163,12 +1215,10 @@ class P1:
                         P1.chances -= 1
                         time.sleep(1.5)  # let the other thread finish first
                         sfx.gentle_ui()
-                        sfx.voice_node_fail() #reassure player
+                        sfx.voice_node_fail()  # reassure player
                         """punishment for landing in defense range"""
                         print("JAMMED: NO NODE INFORMATION POSSIBLE")
-                        print(
-                            "REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF"
-                        )
+                        print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
                         time.sleep(3)
                         if P1.high_keys < P1.low_keys:
                             P1.low_keys -= 1
@@ -1193,9 +1243,7 @@ class P1:
                                     "APPROACHING LOW NODE OVERLOAD. ONE MORE LOW NODE WILL ENGAGE SYSTEM LOCK."
                                 )
                         elif P1.high_keys == P1.low_keys:
-                            print(
-                                "HIGH AND LOW NODES ARE EQUAL. DECIDING RANDOMLY..."
-                            )
+                            print("HIGH AND LOW NODES ARE EQUAL. DECIDING RANDOMLY...")
                             time.sleep(1)
                             coin_flip = random.randint(1, 2)
                             if coin_flip == 1:
@@ -1276,7 +1324,7 @@ class P1:
             sfx.gentle_ui()
             ascii_win = pyfiglet.figlet_format("KEY ACQUIRED")
             print(ascii_win)
-            sfx.voice_nexus_found() # voice line found key!
+            sfx.voice_nexus_found()  # voice line found key!
             time.sleep(5)
             print("Excellent job.")
             time.sleep(2)
@@ -1327,7 +1375,6 @@ class P1:
                 P1.make_guess()
                 P1.extra_chance = False
                 pygame.mixer.stop()
-
 
         if P1.guess == P1.entry_key:
             sfx.appear_blip()
