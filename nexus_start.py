@@ -19,16 +19,11 @@ import keyboard  # f11press
 from my_modules import sfx
 
 # sound effects forq system
-from my_modules import hacking_minigame
 
-# race game that can trigger when hacking a node
 from my_modules import title_screen
 
 # import the animations for the beginning and ending screens
-from my_modules import hacker_info as info
 
-# store important information about the user during gameplay, track health, etc.
-from my_modules import message_random as msg
 
 from my_modules import pt1_combined as pt1
 
