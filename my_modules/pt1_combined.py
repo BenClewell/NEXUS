@@ -144,13 +144,11 @@ class P1:
             "\n\n---------------------------------------------------\nENTER A NODE (between 1 and 100)\n"
         )
         if P1.allowed_list != []:
+            print("[ANTIVIRUS ACTIVE]\nINSERTION POOL: {}".format(P1.allowed_list))
+        if len(P1.allowed_list) == 1:
             print(
-                "[ANTIVIRUS ACTIVE]\nINSERTION POOL: {}".format(
-                    P1.allowed_list
-                )
+                "[ANTIVIRUS SHUTTING DOWN] ::: FINAL INTEGER FROM INSERTION POOL MAY BE PAIRED WITH ANY OTHER INTEGER"
             )
-        if len(P1.allowed_list) ==1:
-            print('[ANTIVIRUS SHUTTING DOWN] ::: FINAL INTEGER FROM INSERTION POOL MAY BE PAIRED WITH ANY OTHER INTEGER')
         if (
             P1.sonar == True
             and P1.special_sonar == True
@@ -185,7 +183,11 @@ class P1:
                         dupes_caught = False
                         string_guess = str(P1.guess)  # i guess this redundant lol
                         for char in P1.guess_string:
-                            if char in P1.allowed_list and len(P1.guess_string) == 1 and len(P1.allowed_list)!=1:
+                            if (
+                                char in P1.allowed_list
+                                and len(P1.guess_string) == 1
+                                and len(P1.allowed_list) != 1
+                            ):
                                 valid = False
                                 charpass = False
                                 sfx.fail_corrupt()
@@ -195,7 +197,7 @@ class P1:
                                     "\nPlease disable ANTIVIRUS to permit SINGLE-INTEGER ENTRIES"
                                 )
 
-                            if char in duplicates and len(P1.allowed_list)!=1:
+                            if char in duplicates and len(P1.allowed_list) != 1:
                                 valid = False
                                 charpass = False
                                 sfx.fail_corrupt()
@@ -210,11 +212,17 @@ class P1:
                                 duplicates[char] = 1
                                 #
                                 #
-                            increment_nonrepeat = 0 # prevent repeat messages, see increment
-                            if char not in P1.allowed_list and dupes_caught == False and len(P1.allowed_list)!=1:
+                            increment_nonrepeat = (
+                                0  # prevent repeat messages, see increment
+                            )
+                            if (
+                                char not in P1.allowed_list
+                                and dupes_caught == False
+                                and len(P1.allowed_list) != 1
+                            ):
                                 valid = False
                                 charpass = False
-                                sfx.fail_corrupt()                    
+                                sfx.fail_corrupt()
                                 if increment_nonrepeat == 0:
                                     print("[ANTIVIRUS]: FORBIDDEN ENTRY")
                                     print(
@@ -223,7 +231,9 @@ class P1:
                                     )
                                 else:
                                     pass
-                                increment_nonrepeat+=1 # prevent message from repeating two times
+                                increment_nonrepeat += (
+                                    1  # prevent message from repeating two times
+                                )
                             if len(P1.allowed_list) == 1:
                                 valid = False
                                 charpass = False
@@ -232,14 +242,14 @@ class P1:
                                 for number in P1.guess_string:
                                     for i in P1.allowed_list:
                                         if i == number:
-                                            valid = True # allow it to pass with any number combo
+                                            valid = True  # allow it to pass with any number combo
                                             charpass = True
-                                            no_error = True # don't show error message if stuff is good
+                                            no_error = True  # don't show error message if stuff is good
                                 if no_error == False:
                                     sfx.fail_corrupt()
-                                    print("[ANTIVIRUS]: FORBIDDEN ENTRY.\nONE INTEGER OF ENTRY MUST MATCH LAST REMAINING ITEM IN POOL")
-
-                                
+                                    print(
+                                        "[ANTIVIRUS]: FORBIDDEN ENTRY.\nONE INTEGER OF ENTRY MUST MATCH LAST REMAINING ITEM IN POOL"
+                                    )
 
                         if charpass == True and dupes_caught == False:
                             valid = True
@@ -264,7 +274,7 @@ class P1:
                                 sfx.gentle_lofi()
                                 sfx.success()
                                 print("/ INTEGER POOL SATISFIED \\")
-                                time.sleep(.5)
+                                time.sleep(0.5)
                                 print("[**[ANTIVIRUS DISABLED]**]")
                                 time.sleep(1.5)
                     else:
@@ -1011,24 +1021,24 @@ class P1:
                 print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
                 print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
             # Increase the value of chance by 1
-            if P1.chances == 3:
-                """disable defense protocol, tripmine"""
-                time.sleep(1)
-                sfx.gentle_ui()
-                ascii_jam_offline = pyfiglet.figlet_format(
-                    "JAMMER   REVEALED", font="bubble"
-                )
-                print(ascii_jam_offline)
-                time.sleep(1)
-                sfx.appear_blip()
-                P1.jam_reveal = True  # update jammer coordinates in hacker history
-                print(
-                    "The JAMMER RANGE is covering "
-                    + str(P1.barrier_low + 1)
-                    + " to "
-                    + str(P1.barrier_high)
-                    + ".\nThere is a 50% chance that the NEXUS KEY has appeared within this range."
-                )
+        if P1.chances == 3: #MOVED THIS BACK TO REVEAL NO MATTER WHAT
+            """disable defense protocol, tripmine"""
+            time.sleep(1)
+            sfx.gentle_ui()
+            ascii_jam_offline = pyfiglet.figlet_format(
+                "JAMMER   REVEALED", font="bubble"
+            )
+            print(ascii_jam_offline)
+            time.sleep(1)
+            sfx.appear_blip()
+            P1.jam_reveal = True  # update jammer coordinates in hacker history
+            print(
+                "The JAMMER RANGE is covering "
+                + str(P1.barrier_low + 1)
+                + " to "
+                + str(P1.barrier_high)
+                + ".\nThere is a 50% chance that the NEXUS KEY has appeared within this range."
+            )
 
     def sonar_alerts():
         """provide sonar, and end game if too many low or high chances"""
@@ -1102,15 +1112,21 @@ class P1:
                 print("\nSPECIAL SONAR unlocked. (Type '101' to toggle ON/OFF)\n")
                 extra_digit = 1
                 extra_motivation = 0
-                for i in P1.allowed_list: # give extra number to compensate for one-directional stuff 
-                    extra_motivation+=int(i)
-                if extra_motivation/2 <=4.5:
+                for (
+                    i
+                ) in (
+                    P1.allowed_list
+                ):  # give extra number to compensate for one-directional stuff
+                    extra_motivation += int(i)
+                if extra_motivation / 2 <= 4.5:
                     extra_option = sample("56789", extra_digit)
-                if extra_motivation/2 >4.5:
+                if extra_motivation / 2 > 4.5:
                     extra_option = sample("01234", extra_digit)
                 for i in extra_option:
                     added_number = str(i)
-                print('EXTRA INSERTION OPTION ADDED TO ANTIVIRUS: {}'.format(added_number))
+                print(
+                    "EXTRA INSERTION OPTION ADDED TO ANTIVIRUS: {}".format(added_number)
+                )
                 P1.allowed_list.append(added_number)
             if P1.chances == 3:
                 if P1.sonar == True and (
@@ -1194,7 +1210,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        #print(P1.entry_key)  # for playtesting
+        # print(P1.entry_key)  # for playtesting
         print(
             random.choice(
                 (
