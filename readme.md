@@ -30,6 +30,8 @@ soundfile==0.10.3.post1
 
 ## PART ONE: LOCATING THE NEXUS KEY
 
+CODE: https://github.com/BenClewell/NEXUS/blob/alpha/my_modules/pt1_combined.py
+
 In the first part of the experience, you are trying to locate a node that contains the **nexus key** (*the game's McGuffin!*)-- but in order to locate that node, you're going to have to use a couple of tools at your disposal. To start off the first part of the game, you're greeted by the soothing voice of the **network assistant**, who provides helpful audio cues and feedback as you conduct your hack on the network. You will be prompted to select a number between ONE and ONE HUNDRED, which dictates your selected node. Once you select your first node, you will start being introduced, round by round-- to new mechanics that will assist you in finding your prize!
 
 * * * 
@@ -153,6 +155,9 @@ You MUST succeed the node entry challenge to access the **Nexus Key**.
 Good luck!
 #
 ## PART TWO: DECRYPTING THE KEY
+
+CODE: https://github.com/BenClewell/NEXUS/blob/alpha/my_modules/pt2_code_cracker.py
+
 There are fewer mechanics to consider in Part 2, but it is important to understand how the three main mechanics function. You will have to code-crack along the lines of Mastermind, or more aptly, 'Fermi Pico Bagels'! (Which is directly where this section finds inspiration in core mechanics. )
 
 
