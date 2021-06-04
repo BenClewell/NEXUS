@@ -382,6 +382,7 @@ class P2:
                                 match = True
                             else:
                                 match = False
+                                sfx.fail_corrupt()
                                 print('[ANTIVIRUS]: INCORRECT SUM. ({}) ENSURE ALL ENTRY INTEGERS ADD TO THE PROPER NUMBER. ({})'.format(input_sum, antivirus_sum))
                                 continue
                         elif len(input_crack) != digits:
@@ -394,6 +395,7 @@ class P2:
                 else:
                     if counter == 3:
                         sfx.gentle_lofi()
+                        sfx.success()
                         print('\n[ANTIVIRUS DISABLED]: NO SUM REQUIREMENTS GOING FORWARD\n\n')
                     
                     input_crack = input()
@@ -793,10 +795,20 @@ class P2:
 It looks like the firewall has increased its security for the decryption.
 Going forward, it's going to be monitoring your keyboard constantly.
 You are going to be facing a series of FIREWALLS CHECKS consecutively.\n
-If you press 'enter' ANY TIME other than when it says to 'respond', you're going to be locked out immediately.\n
-Press ENTER one more time if you understand the risks, and are ready to finish this.
------------------------------------------------------------------------"""
-                )
+If you press 'enter' ANY TIME other than when it says to 'respond', you're going to be locked out immediately.\n\n
+Type 'I AM READY' and press ENTER if you understand the risks, and are ready to finish this.
+-----------------------------------------------------------------------\n""")
+                confirm_finale = 'foo' # placeholder
+                while 'I AM READY' not in confirm_finale.upper():
+                    confirm_finale = input("")
+                    if 'I AM READY' not in confirm_finale.upper():
+                        sfx.fail_corrupt()
+                        print('I need your acknowledgement. Are you READY?\nType "I AM READY" and press ENTER if you understand the risks, and are ready to finish this.\n\n')
+                    else:
+                        sfx.affirm_sound.play()
+                        pass
+
+                
                 sfx.hack_node()
                 time.sleep(2)
                 if P2.final_hack_success():
