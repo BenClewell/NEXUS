@@ -253,15 +253,18 @@ class P1:
                                     if i == number:
                                         # PLAYTEST print("removing list int {}".format(i))
                                         P1.allowed_list.remove(i)
+                            sfx.affirm_sound.play()
                             print(
-                                "[ANTIVIRUS]: VALID ENTRY! REMOVING ENTERED NODE FROM INSERTION POOL..."
+                                "[ANTIVIRUS]: PERMISSION GRANTED. REMOVING ENTERED NODE FROM INSERTION POOL..."
                             )
                             time.sleep(1)
 
                             if P1.allowed_list == []:
                                 time.sleep(0.5)
                                 sfx.gentle_lofi()
+                                sfx.success()
                                 print("/ INTEGER POOL SATISFIED \\")
+                                time.sleep(.5)
                                 print("[**[ANTIVIRUS DISABLED]**]")
                                 time.sleep(1.5)
                     else:
@@ -741,7 +744,7 @@ class P1:
                             else:
                                 stdscr.addstr(
                                     start_y_problem,
-                                    start_x_problem + 11,
+                                    start_x_problem + 12,
                                     "           ",
                                 )
                             stdscr.addstr(enemy_y, enemy_x, "*" * enemy_jump)
@@ -765,7 +768,7 @@ class P1:
                         else:
                             stdscr.addstr(
                                 start_y_problem,
-                                start_x_problem + 11,
+                                start_x_problem + 12,
                                 "           ",
                             )
 
@@ -778,7 +781,7 @@ class P1:
                         )  # update user answer
                     else:
                         stdscr.addstr(
-                            start_y_problem, start_x_problem + 11, user_answer
+                            start_y_problem, start_x_problem + 12, user_answer
                         )  # update user answer
 
                 finished = True

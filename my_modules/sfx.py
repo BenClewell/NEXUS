@@ -31,6 +31,7 @@ bad_sound_hack = pygame.mixer.Sound("sounds/bad_sounds/bad_sound.wav")
 
 sonar = pygame.mixer.Sound("sounds/alarms/sonar.wav")
 
+affirm_sound = pygame.mixer.Sound("sounds/affirms/affirm_1.wav")
 # for part 2...
 enable_firewall = pygame.mixer.Sound("sounds/appear_blips/enable.wav")
 

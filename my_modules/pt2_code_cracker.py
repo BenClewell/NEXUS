@@ -377,6 +377,7 @@ class P2:
                             if int(input_sum) == int(antivirus_sum): # compare to make sure they're the same
                                 time.sleep(1)
                                 sfx.gentle_lofi()
+                                sfx.affirm_sound.play()
                                 print(['SUM MATCHED SUCCESSFULLY: ANTIVIRUS BYPASSED'])
                                 match = True
                             else:
