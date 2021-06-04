@@ -164,6 +164,10 @@ There are fewer mechanics to consider in Part 2, but it is important to understa
 
 * You will have access to your HACKER HISTORY (Pressing '0'), which will show current timer conditions and previous entries, as well as their associated clues.
 
+**EARLY GAMPLAY**
+
+* While you will not be facing FIREWALL CHECKS, you will have to deal with the reactivation of the ANTIVIRUS. You will need all integers of your entry to add up to an amount specified by the ANTIVIRUS to proceed forward. Unfortunately, this can make your list of entries more disorganized-- but if you keep your methodology straight, this is no big issue.
+
 **LATER GAMEPLAY**
         
 * After THREE ENTRIES, you will have to complete FIREWALL CHECKS after each completed entry. When you see the word 'RESPOND' appear after a randomly-generated wait time, press ENTER as quickly as possible to avoid being locked out of the NEXUS. You will receive a visual and auditory warning prior to the FIREWALL CHECK.
