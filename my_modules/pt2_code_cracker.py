@@ -790,7 +790,7 @@ class P2:
                 )
                 time.sleep(2)
                 sfx.gentle_ui()
-                warning = input(
+                print(
                     """-----------------------------------------------------------------------
 It looks like the firewall has increased its security for the decryption.
 Going forward, it's going to be monitoring your keyboard constantly.
