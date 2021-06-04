@@ -138,16 +138,19 @@ class P1:
 
         """user enters a node guess to find the key
         rejected if entry is too long, or not valid"""
+        time.sleep(1)
         sfx.gentle_ui()
         print(
-            "---------------------------------------------------\nENTER A NODE (between 1 and 100):"
+            "\n\n---------------------------------------------------\nENTER A NODE (between 1 and 100)\n"
         )
         if P1.allowed_list != []:
             print(
-                "SYS:// [ANTIVIRUS ACTIVE] ::: INSERTION POOL: {}".format(
+                "[ANTIVIRUS ACTIVE]\nINSERTION POOL: {}".format(
                     P1.allowed_list
                 )
             )
+        if len(P1.allowed_list) ==1:
+            print('[ANTIVIRUS SHUTTING DOWN] ::: FINAL INTEGER FROM INSERTION POOL MAY BE PAIRED WITH ANY OTHER INTEGER')
         if (
             P1.sonar == True
             and P1.special_sonar == True
@@ -182,18 +185,20 @@ class P1:
                         dupes_caught = False
                         string_guess = str(P1.guess)  # i guess this redundant lol
                         for char in P1.guess_string:
-                            if char in P1.allowed_list and len(P1.guess_string) == 1:
+                            if char in P1.allowed_list and len(P1.guess_string) == 1 and len(P1.allowed_list)!=1:
                                 valid = False
                                 charpass = False
+                                sfx.fail_corrupt()
                                 print("[ANTIVIRUS]: BLOCKED ACTION")
                                 print(
                                     "ERROR: TWO NODES from the INTEGER POOL must be entered to BYPASS ANTIVIRUS"
                                     "\nPlease disable ANTIVIRUS to permit SINGLE-INTEGER ENTRIES"
                                 )
 
-                            if char in duplicates:
+                            if char in duplicates and len(P1.allowed_list)!=1:
                                 valid = False
                                 charpass = False
+                                sfx.fail_corrupt()
                                 print("[ANTIVIRUS]: BLOCKED ACTION")
                                 print(
                                     "ERROR: NO DUPLICATE NODES are allowed to be used for your initial entries."
@@ -205,14 +210,36 @@ class P1:
                                 duplicates[char] = 1
                                 #
                                 #
-                            if char not in P1.allowed_list and dupes_caught == False:
+                            increment_nonrepeat = 0 # prevent repeat messages, see increment
+                            if char not in P1.allowed_list and dupes_caught == False and len(P1.allowed_list)!=1:
                                 valid = False
                                 charpass = False
-                                print("[ANTIVIRUS]: FORBIDDEN ENTRY")
-                                print(
-                                    "ERROR: You do not have PERMISSION to access those NODE INTEGERS."
-                                    "\nPlease disable ANTIVIRUS to permit nodes outside of the INTEGER POOL."
-                                )
+                                sfx.fail_corrupt()                    
+                                if increment_nonrepeat == 0:
+                                    print("[ANTIVIRUS]: FORBIDDEN ENTRY")
+                                    print(
+                                        "ERROR: You do not have PERMISSION to access those NODE INTEGERS."
+                                        "\nPlease disable ANTIVIRUS to permit nodes outside of the INTEGER POOL."
+                                    )
+                                else:
+                                    pass
+                                increment_nonrepeat+=1 # prevent message from repeating two times
+                            if len(P1.allowed_list) == 1:
+                                valid = False
+                                charpass = False
+                                no_error = False
+
+                                for number in P1.guess_string:
+                                    for i in P1.allowed_list:
+                                        if i == number:
+                                            valid = True # allow it to pass with any number combo
+                                            charpass = True
+                                            no_error = True # don't show error message if stuff is good
+                                if no_error == False:
+                                    sfx.fail_corrupt()
+                                    print("[ANTIVIRUS]: FORBIDDEN ENTRY.\nONE INTEGER OF ENTRY MUST MATCH LAST REMAINING ITEM IN POOL")
+
+                                
 
                         if charpass == True and dupes_caught == False:
                             valid = True
@@ -230,6 +257,7 @@ class P1:
                                 "[ANTIVIRUS]: VALID ENTRY! REMOVING ENTERED NODE FROM INSERTION POOL..."
                             )
                             time.sleep(1)
+
                             if P1.allowed_list == []:
                                 time.sleep(0.5)
                                 sfx.gentle_lofi()
@@ -1069,6 +1097,18 @@ class P1:
                 time.sleep(2)
                 sfx.enable_firewall.play()
                 print("\nSPECIAL SONAR unlocked. (Type '101' to toggle ON/OFF)\n")
+                extra_digit = 1
+                extra_motivation = 0
+                for i in P1.allowed_list: # give extra number to compensate for one-directional stuff 
+                    extra_motivation+=int(i)
+                if extra_motivation/2 <=4.5:
+                    extra_option = sample("56789", extra_digit)
+                if extra_motivation/2 >4.5:
+                    extra_option = sample("01234", extra_digit)
+                for i in extra_option:
+                    added_number = str(i)
+                print('EXTRA INSERTION OPTION ADDED TO ANTIVIRUS: {}'.format(added_number))
+                P1.allowed_list.append(added_number)
             if P1.chances == 3:
                 if P1.sonar == True and (
                     ((P1.guess - 30) <= P1.entry_key <= (P1.guess + 30))
@@ -1168,7 +1208,7 @@ class P1:
             "For now, the ANTIVIRUS will prevent us from going outside of the INTEGER POOL."
         )
         print(
-            "Construct your NODE ENTRIES using these available integers. The ANTIVIRUS will be weakened as you construct VALID NODES."
+            "Construct your NODE ENTRIES using these available integers. The ANTIVIRUS will be weakened as you construct VALID NODES.\n\n"
         )
         while P1.chances != 0 and P1.guess != P1.entry_key:
             P1.tripwire = False
@@ -1433,13 +1473,16 @@ class P1:
                 print("LOCKING SYSTEM: HIGH ENTRY OVERLOAD")
             if P1.chances == 0:
                 print("MAXIMUM NODE ENTRIES REACHED")
+            time.sleep(1)
+            sfx.fail_corrupt()
+            ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+            print(ascii_locked)
             print(
                 "\n\n Denying Nexus entry.\n\nRELEASING KEY CODE: ",
                 P1.entry_key,
             )
             time.sleep(6)
-            ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-            print(ascii_locked)
+            sfx.fail_corrupt()
             print("THANK YOU FOR VISITING.")
             time.sleep(8)
             return False

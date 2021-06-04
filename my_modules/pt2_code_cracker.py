@@ -332,6 +332,8 @@ class P2:
         print('Press "0" to view your hacking history at any time.')
         time.sleep(.5)
         sfx.enable_firewall.play()
+        print('\nMAKE NOTE OF THE FOLLOWING:')
+        print('\n\n[ANTIVIRUS REACTIVATED]: FIRST TWO ENTRIES MUST HAVE INTEGERS THAT SUM TO A SPECIFIED NUMBER')
         print('\n\nSYS TRACE PREPARED:// TRACKING INTRUDER 5 MINUTES AFTER FIRST ENTRY')
         counter = 1
         P2.start_timer = False
@@ -352,231 +354,231 @@ class P2:
                 pass
         #
         #
+        antivirus_sum = random.randint(6,24)
         while True:  
             sfx.gentle_ui()
             time.sleep(2)
             print("\nATTEMPT #" + str(counter) + "\n" + "-" * 20 + "\n\n")
-            input_crack = input()
-            if input_crack == number: # allow user to finish their round before shutdown
-                P2.correct_key = True
-            if P2.start_timer == False:
-                sfx.enable_firewall.play()
-                print('SYS:// BEGINNING TRACE. TERMINATING INTRUSION IN 5 MINUTES.')
-                time.sleep(2)
-                P2.current_stage_timer = True # allow the timer to be mischievous
-                countdown_thread = threading.Thread(target = countdown)
-                countdown_thread.start()
-                P2.start_timer = True   
-            sfx.gentle_lofi()
-            time.sleep(1)
-            print(
-                "Do not press ENTER until prompted, or until the attempt is FINISHED.\n\n"
-            )
-            if input_crack == "0":
-                P2.hacker_history()
-                continue
+            try:
 
-            if len(input_crack) != digits:
-                time.sleep(1)
-                sfx.gentle_ui()
-                print(
-                    "That's not the right number of ACCESS TOKENS in the key..."
-                )
-                continue
+                if counter < 3: # only for the first two rounds...
 
-            # Create the clues.
-
-            clues = []
-            P2.guess_list.append(input_crack)
-            aligned_count = 0
-            misaligned_count = 0
-
-            for index in range(digits):
-                if input_crack[index] == number[index]:
-                    clues.append("ALIGNED ACCESS TOKEN DETECTED\n")
-                    aligned_count += 1
-                elif input_crack[index] in number:
-                    clues.append("MISALIGNED ACCESS TOKEN DETECTED\n")
-                    misaligned_count += 1
-            if aligned_count > 0:
-                P2.guess_list.append("ALIGNED: " + str(aligned_count))
-            if misaligned_count > 0:
-                P2.guess_list.append("MISALIGNED: " + str(misaligned_count))
-            if misaligned_count == 0 and aligned_count == 0:
-                P2.guess_list.append("NO TOKENS")
-            shuffle(clues)
-
-            if len(clues) == 0:
-                sfx.appear_blip()
-                print("NO ACCESS TOKENS DETECTED")
-            else:
-
-                for clue in clues:
-                    time.sleep(1.5)
-                    if P2.bad_insertion == False:
-                        if "MIS" in clue:
+                    print('[ANTIVIRUS]: SUM OF ENTRY MUST EQUAL {}\n\n'.format(antivirus_sum))
+                    input_crack = input()
+                    input_sum = 0
+                    match = False # numbers do not match
+                    if input_crack == "0":
+                        P2.hacker_history()
+                        continue
+                    else:
+                        if len(input_crack) == digits:
+                            for i in input_crack:
+                                input_sum+=int(i) # sum all the numbers in the user's input together
+                            if int(input_sum) == int(antivirus_sum): # compare to make sure they're the same
+                                time.sleep(1)
+                                sfx.gentle_lofi()
+                                print(['SUM MATCHED SUCCESSFULLY: ANTIVIRUS BYPASSED'])
+                                match = True
+                            else:
+                                match = False
+                                print('[ANTIVIRUS]: INCORRECT SUM. ({}) ENSURE ALL ENTRY INTEGERS ADD TO THE PROPER NUMBER. ({})'.format(input_sum, antivirus_sum))
+                                continue
+                        elif len(input_crack) != digits:
+                            time.sleep(1)
                             sfx.gentle_ui()
-                            sfx.gentle_lofi()
-                            print("MISALIGNED TOKEN: No security")
-                            sfx.loading_loop()
-                            with alive_bar(
-                                length=50,
-                                unknown="waves",
-                            ) as bar:  # default setting
-                                for i in range(100):
-                                    time.sleep(0.01)
-                                    bar()
-                            pygame.mixer.stop()
-                        if "ALIGNED" in clue and "MIS" not in clue:
-                            P2.insertion_finished = False  # fixes the previous isnertion_finished from last time
-
-                            def on_press(key):
-                                if (
-                                    key == keyboard.Key.enter
-                                    and P2.node_vulnerable == True
-                                ):
-                                    sfx.burst_sound()
-                                    P2.node_failed_state = (
-                                        False  # user hacked node successfully
-                                    )
-                                    P2.insertion_finished = True
-                                    time.sleep(1)
-                                    print("[INSERTION VALID]")
-                                if (
-                                    key == keyboard.Key.enter
-                                    and P2.node_vulnerable == False
-                                ):
-                                    sfx.burst_sound()
-                                    P2.node_failed_state = True
-                                    P2.insertion_finished = True
-                                    P2.bad_insertion = True
-                                    time.sleep(1)
-                                    print("[INSERTION INVALID]")
-
-                            #
-                            #
-                            #
-                            start_insert = (
-                                random.choice(
-                                    (
-                                        10,
-                                        15,
-                                        20,
-                                        25,
-                                        30,
-                                        35,
-                                        40,
-                                        45,
-                                        50,
-                                        55,
-                                        60,
-                                        65,
-                                        70,
-                                        75,
-                                        80,
-                                        85,
-                                    )
-                                )
-                                - 1
-                            )  # start for the insertion range
-                            end_insert = (
-                                start_insert + 11
-                            )  # end for the insertion range
-                            sfx.gentle_lofi()
-                            sfx.voice_alligned() # a token is aligned
                             print(
-                                "ALIGNED TOKEN: Security level {}".format(
-                                    P2.node_progress_rank
-                                )
+                                "That's not the right number of ACCESS TOKENS in the key..."
                             )
-                            print(
-                                "Press ENTER between {} and {} to avoid triggering firewall.".format(
-                                    (start_insert + 1), end_insert
-                                )
-                            )
-                            time.sleep(3)
-                            listener = keyboard.Listener(on_press=on_press)
-                            listener.start()
-                            sfx.loading_loop()
-                            with alive_bar(
-                                total=100,
-                                length=50,
-                                bar="squares",
-                                spinner="dots_waves2",
-                                enrich_print=False,
-                            ) as bar:  # default setting
-                                for i in range(100):
+                            continue
+                else:
+                    if counter == 3:
+                        sfx.gentle_lofi()
+                        print('\n[ANTIVIRUS DISABLED]: NO SUM REQUIREMENTS GOING FORWARD\n\n')
+                    
+                    input_crack = input()
+                    if input_crack == "0":
+                        P2.hacker_history()
+                        continue
+                    elif len(input_crack) != digits:
+                        time.sleep(1)
+                        sfx.gentle_ui()
+                        print(
+                            "That's not the right number of ACCESS TOKENS in the key..."
+                        )
+                        continue
+            except:
+                print('This does not appear to be a valid entry...')
+                continue
+            if match == True:
+                if input_crack == number: # allow user to finish their round before shutdown
+                    P2.correct_key = True
+                if P2.start_timer == False:
+                    sfx.enable_firewall.play()
+                    print('SYS:// BEGINNING TRACE. TERMINATING INTRUSION IN 5 MINUTES.')
+                    time.sleep(2)
+                    P2.current_stage_timer = True # allow the timer to be mischievous
+                    countdown_thread = threading.Thread(target = countdown)
+                    countdown_thread.start()
+                    P2.start_timer = True   
+                sfx.gentle_lofi()
+                time.sleep(1)
+                print(
+                    "Do not press ENTER until prompted, or until the attempt is FINISHED.\n\n"
+                )
 
-                                    if P2.insertion_finished == False:
-                                        if i in range(
-                                            start_insert, end_insert
-                                        ):
-                                            P2.node_vulnerable = True
-                                        else:
-                                            P2.node_vulnerable = False
-                                        time.sleep(P2.node_progress_speed)
+
+                
+                # Create the clues.
+
+                clues = []
+                P2.guess_list.append(input_crack)
+                aligned_count = 0
+                misaligned_count = 0
+
+                for index in range(digits):
+                    if input_crack[index] == number[index]:
+                        clues.append("ALIGNED ACCESS TOKEN DETECTED\n")
+                        aligned_count += 1
+                    elif input_crack[index] in number:
+                        clues.append("MISALIGNED ACCESS TOKEN DETECTED\n")
+                        misaligned_count += 1
+                if aligned_count > 0:
+                    P2.guess_list.append("ALIGNED: " + str(aligned_count))
+                if misaligned_count > 0:
+                    P2.guess_list.append("MISALIGNED: " + str(misaligned_count))
+                if misaligned_count == 0 and aligned_count == 0:
+                    P2.guess_list.append("NO TOKENS")
+                shuffle(clues)
+
+                if len(clues) == 0:
+                    sfx.appear_blip()
+                    print("NO ACCESS TOKENS DETECTED")
+                else:
+
+                    for clue in clues:
+                        time.sleep(1.5)
+                        if P2.bad_insertion == False:
+                            if "MIS" in clue:
+                                sfx.gentle_ui()
+                                sfx.gentle_lofi()
+                                print("MISALIGNED TOKEN: No security")
+                                sfx.loading_loop()
+                                with alive_bar(
+                                    length=50,
+                                    unknown="waves",
+                                ) as bar:  # default setting
+                                    for i in range(100):
+                                        time.sleep(0.01)
                                         bar()
-                            time.sleep(1.5)
-                            pygame.mixer.stop()
-                            if P2.node_progress_speed > 0.02:
-                                P2.node_progress_speed -= 0.01
-                                P2.node_progress_rank += 1
-                            listener.stop()
-                            absorb_input = input(
-                                ""
-                            )  # pressing enter to hack counts as entering a node, I guess lol
-                        #
-                        #
-                        print("\n")  # call after consuming one item
-                sfx.appear_blip()
+                                pygame.mixer.stop()
+                            if "ALIGNED" in clue and "MIS" not in clue:
+                                P2.insertion_finished = False  # fixes the previous isnertion_finished from last time
 
-            if P2.bad_insertion == True:
-                time.sleep(2)
-                sfx.fail_corrupt()
-                ascii_locked = pyfiglet.figlet_format(
-                    "FAILED TO ENTER ALIGNED KEY: FIREWALL DEPLOYED"
-                )
-                print(ascii_locked)
-                sfx.fail_corrupt()
-                ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
-                print(ascii_locked)
-                print("THANK YOU FOR VISITING.")
-                time.sleep(8)
-                pygame.mixer.music.fadeout(4)
-                return False
-            counter += 1
+                                def on_press(key):
+                                    if (
+                                        key == keyboard.Key.enter
+                                        and P2.node_vulnerable == True
+                                    ):
+                                        sfx.burst_sound()
+                                        P2.node_failed_state = (
+                                            False  # user hacked node successfully
+                                        )
+                                        P2.insertion_finished = True
+                                        time.sleep(1)
+                                        print("[INSERTION VALID]")
+                                    if (
+                                        key == keyboard.Key.enter
+                                        and P2.node_vulnerable == False
+                                    ):
+                                        sfx.burst_sound()
+                                        P2.node_failed_state = True
+                                        P2.insertion_finished = True
+                                        P2.bad_insertion = True
+                                        time.sleep(1)
+                                        print("[INSERTION INVALID]")
 
-            if counter == 4:
-                time.sleep(2)
-                ascii_fw_online = pyfiglet.figlet_format(
-                    "FIREWALL   ONLINE", font="bubble"
-                )
-                sfx.enable_firewall.play()
-                print(ascii_fw_online)
-                sfx.appear_blip()
-                print(
-                    "The system has found out we're in the Nexus Key's node."
-                )
-                time.sleep(1)
-                sfx.appear_blip()
-                print(
-                    "From here on out, you're going to have to bypass FIREWALL CHECKS."
-                )
-                time.sleep(1)
-                sfx.appear_blip()
-                print(
-                    'When the system tells you to "RESPOND", you need to press the "ENTER" key as quickly as possible.\nIf you are too slow, the system is going to LOCK THE SYSTEM before we can decode the Nexus Key.\n\nThe firewall will get MORE DIFFICULT TO BYPASS as time goes on.'
-                )
-                print(
-                    "ENSURE THAT DURING THESE CHECKS, YOU ONLY PRESS ENTER ONE TIME, OR YOU WILL BE LOCKED OUT."
-                )
-            if P2.out_of_time == True:
-                if P2.correct_key == False: #don't penalize player if they found the key
-                    sfx.burst_sound()
-                    print('THE SYSTEM HAS DETECTED THAT YOU HAVE RUN OUT OF TIME.')
+                                #
+                                #
+                                #
+                                start_insert = (
+                                    random.choice(
+                                        (
+                                            10,
+                                            15,
+                                            20,
+                                            25,
+                                            30,
+                                            35,
+                                            40,
+                                            45,
+                                            50,
+                                            55,
+                                            60,
+                                            65,
+                                            70,
+                                            75,
+                                            80,
+                                            85,
+                                        )
+                                    )
+                                    - 1
+                                )  # start for the insertion range
+                                end_insert = (
+                                    start_insert + 11
+                                )  # end for the insertion range
+                                sfx.gentle_lofi()
+                                sfx.voice_alligned() # a token is aligned
+                                print(
+                                    "ALIGNED TOKEN: Security level {}".format(
+                                        P2.node_progress_rank
+                                    )
+                                )
+                                print(
+                                    "Press ENTER between {} and {} to avoid triggering firewall.".format(
+                                        (start_insert + 1), end_insert
+                                    )
+                                )
+                                time.sleep(3)
+                                listener = keyboard.Listener(on_press=on_press)
+                                listener.start()
+                                sfx.loading_loop()
+                                with alive_bar(
+                                    total=100,
+                                    length=50,
+                                    bar="squares",
+                                    spinner="dots_waves2",
+                                    enrich_print=False,
+                                ) as bar:  # default setting
+                                    for i in range(100):
+
+                                        if P2.insertion_finished == False:
+                                            if i in range(
+                                                start_insert, end_insert
+                                            ):
+                                                P2.node_vulnerable = True
+                                            else:
+                                                P2.node_vulnerable = False
+                                            time.sleep(P2.node_progress_speed)
+                                            bar()
+                                time.sleep(1.5)
+                                pygame.mixer.stop()
+                                if P2.node_progress_speed > 0.02:
+                                    P2.node_progress_speed -= 0.01
+                                    P2.node_progress_rank += 1
+                                listener.stop()
+                                absorb_input = input(
+                                    ""
+                                )  # pressing enter to hack counts as entering a node, I guess lol
+                            #
+                            #
+                            print("\n")  # call after consuming one item
+                    sfx.appear_blip()
+
+                if P2.bad_insertion == True:
+                    time.sleep(2)
                     sfx.fail_corrupt()
                     ascii_locked = pyfiglet.figlet_format(
-                        "TIME HAS EXPIRED: FIREWALL DEPLOYED"
+                        "FAILED TO ENTER ALIGNED KEY: FIREWALL DEPLOYED"
                     )
                     print(ascii_locked)
                     sfx.fail_corrupt()
@@ -586,8 +588,51 @@ class P2:
                     time.sleep(8)
                     pygame.mixer.music.fadeout(4)
                     return False
-                else:
-                    pass
+                counter += 1
+                antivirus_sum = random.randint(6,24)
+
+                if counter == 4:
+                    time.sleep(2)
+                    ascii_fw_online = pyfiglet.figlet_format(
+                        "FIREWALL   ONLINE", font="bubble"
+                    )
+                    sfx.enable_firewall.play()
+                    print(ascii_fw_online)
+                    sfx.appear_blip()
+                    print(
+                        "The system has found out we're in the Nexus Key's node."
+                    )
+                    time.sleep(1)
+                    sfx.appear_blip()
+                    print(
+                        "From here on out, you're going to have to bypass FIREWALL CHECKS."
+                    )
+                    time.sleep(1)
+                    sfx.appear_blip()
+                    print(
+                        'When the system tells you to "RESPOND", you need to press the "ENTER" key as quickly as possible.\nIf you are too slow, the system is going to LOCK THE SYSTEM before we can decode the Nexus Key.\n\nThe firewall will get MORE DIFFICULT TO BYPASS as time goes on.'
+                    )
+                    print(
+                        "ENSURE THAT DURING THESE CHECKS, YOU ONLY PRESS ENTER ONE TIME, OR YOU WILL BE LOCKED OUT."
+                    )
+                if P2.out_of_time == True:
+                    if P2.correct_key == False: #don't penalize player if they found the key
+                        sfx.burst_sound()
+                        print('THE SYSTEM HAS DETECTED THAT YOU HAVE RUN OUT OF TIME.')
+                        sfx.fail_corrupt()
+                        ascii_locked = pyfiglet.figlet_format(
+                            "TIME HAS EXPIRED: FIREWALL DEPLOYED"
+                        )
+                        print(ascii_locked)
+                        sfx.fail_corrupt()
+                        ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
+                        print(ascii_locked)
+                        print("THANK YOU FOR VISITING.")
+                        time.sleep(8)
+                        pygame.mixer.music.fadeout(4)
+                        return False
+                    else:
+                        pass
 
 
             def initial_on_press(key):
