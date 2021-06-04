@@ -1,4 +1,4 @@
-# NEXUS: An Exciting Hacking Adventure!
+# NEXUS: A Simulated Hacking Experience in Python
 ![Title Card](demo_resources/ezgif.com-gif-maker.gif)
 In NEXUS, you are a professional hacker who is trying to search for the NEXUS KEY, a guarded data packet with information your organization needs.
 With countless novel gameplay mechanics that utilize the terminal in creative and exhilarating ways, you'll be facing difficult challenges at the hands of the system's security, which is determined to lock you out of the NEXUS forever.
