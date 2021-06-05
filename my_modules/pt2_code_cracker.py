@@ -349,6 +349,7 @@ class P2:
             if P2.current_stage_timer == True: # only punish if in the right part
                 P2.out_of_time = True
                 sfx.enable_firewall.play()
+                sfx.villian_timer_end()
                 print('[I FOUND YOU] SYS TRACE COMPLETE:// TERMINATING SYSTEMS AT THE END OF KEY ENTRY')
             else:
                 pass
@@ -418,6 +419,7 @@ class P2:
                 if P2.start_timer == False:
                     sfx.enable_firewall.play()
                     print('SYS:// BEGINNING TRACE. TERMINATING INTRUSION IN 5 MINUTES.')
+                    sfx.villian_timer_start()
                     time.sleep(2)
                     P2.current_stage_timer = True # allow the timer to be mischievous
                     countdown_thread = threading.Thread(target = countdown)
@@ -587,6 +589,7 @@ class P2:
                     sfx.fail_corrupt()
                     ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                     print(ascii_locked)
+                    sfx.villian_system_lock()
                     print("THANK YOU FOR VISITING.")
                     time.sleep(8)
                     pygame.mixer.music.fadeout(4)
@@ -630,6 +633,7 @@ class P2:
                         sfx.fail_corrupt()
                         ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                         print(ascii_locked)
+                        sfx.villian_system_lock()
                         print("THANK YOU FOR VISITING.")
                         time.sleep(8)
                         pygame.mixer.music.fadeout(4)
@@ -720,6 +724,7 @@ class P2:
                     sfx.fail_corrupt()
                     ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                     print(ascii_locked)
+                    sfx.villian_system_lock()
                     print("THANK YOU FOR VISITING.")
                     time.sleep(8)
                     pygame.mixer.music.fadeout(4)
@@ -734,6 +739,7 @@ class P2:
                     sfx.fail_corrupt()
                     ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                     print(ascii_locked)
+                    sfx.villian_system_lock()
                     print("THANK YOU FOR VISITING.")
                     time.sleep(8)
                     pygame.mixer.music.fadeout(4)
@@ -821,6 +827,7 @@ Type 'I AM READY' and press ENTER if you understand the risks, and are ready to 
                     sfx.fail_corrupt()
                     ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                     print(ascii_locked)
+                    sfx.villian_system_lock()
                     print("THANK YOU FOR VISITING.")
                     time.sleep(8)
                     return False
@@ -871,6 +878,7 @@ Type 'I AM READY' and press ENTER if you understand the risks, and are ready to 
                 time.sleep(5)
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                 print(ascii_locked)
+                sfx.villian_system_lock()
                 print("THANK YOU FOR VISITING.")
                 time.sleep(8)
                 return False

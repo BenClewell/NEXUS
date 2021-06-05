@@ -652,6 +652,7 @@ class P1:
             """
             stdscr.clear()
             sfx.alarm_loop(6)
+            sfx.villian_jammer_active()
             # Get window height & width
             height, width = stdscr.getmaxyx()
             title = "COUNTERMEASURES IN PROGRESS"
@@ -1255,6 +1256,7 @@ class P1:
                                 "JAMMER ENGAGED", font="bubble"
                             )
                             print(ascii_jammer)
+                            sfx.villian_jammerland()
                             sfx.appear_blip()
                             print(
                                 "\n\nENTRY DETECTED IN JAMMER RANGE. ENGAGING COUNTERMEASURES\n\n"
@@ -1364,6 +1366,7 @@ class P1:
                 sfx.fail_corrupt()
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                 print(ascii_locked)
+                sfx.villian_system_lock()
                 print("THANK YOU FOR VISITING.")
                 time.sleep(8)
                 return False
@@ -1458,6 +1461,7 @@ class P1:
                 sfx.fail_corrupt()
                 ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
                 print(ascii_locked)
+                sfx.villian_system_lock()
                 print("THANK YOU FOR VISITING.")
                 time.sleep(8)
                 return False
@@ -1496,6 +1500,7 @@ class P1:
             sfx.fail_corrupt()
             ascii_locked = pyfiglet.figlet_format("SYSTEMS LOCKED")
             print(ascii_locked)
+            sfx.villian_system_lock()
             print(
                 "\n\n Denying Nexus entry.\n\nRELEASING KEY CODE: ",
                 P1.entry_key,

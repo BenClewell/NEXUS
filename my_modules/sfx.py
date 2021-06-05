@@ -250,3 +250,53 @@ def play_p2_bgm():
     pygame.mixer.music.stop()
     pygame.mixer.music.load(track)
     pygame.mixer.music.play(-1)
+
+def villian_jammerland():
+    """ token aligned"""
+    sound_number = random.randint(1, 7)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/villain/jammer_landed-00" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
+    #
+def villian_jammer_active():
+    """ token aligned"""
+    sound_number = random.randint(1, 12)
+    # how many variations of burst_sounds that there are
+    if sound_number>0 and sound_number<10:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/villain/jammer_active-00" + str(sound_number) + ".wav"
+        )
+    else:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/villain/jammer_active-0" + str(sound_number) + ".wav"
+        )
+    burst_sound.play()
+
+def villian_timer_start():
+    """ token aligned"""
+    sound_number = random.randint(1, 3)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/villain/timer_start-00" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
+    #
+def villian_timer_end():
+    """ token aligned"""
+    sound_number = random.randint(1, 2)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/villain/timer_over-00" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
+    #
+def villian_system_lock():
+    """ token aligned"""
+    sound_number = random.randint(1, 6)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/villain/sytem_lock-00" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
