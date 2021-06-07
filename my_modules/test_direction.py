@@ -16,7 +16,7 @@ import string  # generate random lets
 
 
 going = True
-number_turns = 1
+number_turns = 3
 while going == True:
     chosen_direction = randint(1,4)
     if chosen_direction == 1:
@@ -30,8 +30,9 @@ while going == True:
     else:
         pass
 
-    print('\nDATA PACKET ({})\n'.format(number_turns))
+    print('\nDATA PACKET ({}00)\n'.format(number_turns))
     print('--ORIENTED {}--'.format(direction))
+    random_variance = number_turns + randint(-2, 2)
     deplete = number_turns # lower number as we go
     turn_list = []
     while deplete>0:
@@ -72,7 +73,13 @@ while going == True:
     print('LOG: {}'.format(turn_list))
     where_am_i = input('PACKET TRAJECTORY: ')
     if where_am_i == direction:
-        print('correct')
+        print('CONFIRMED: COLLECTING {}00 DATA'.format(random_variance))
     else:
-        print('incorrect: IT IS {}'.format(direction))
+        print('ERROR: TRAJECTORY IS {}'.format(direction))
     number_turns+=1
+
+    '''
+    good jammer = +200
+    bad jammer -200
+
+    '''

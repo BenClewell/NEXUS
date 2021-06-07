@@ -1,0 +1,108 @@
+           print('Before we move forward, target systems are COMPROMISED. We have THIRTY SECONDS to harvest DATA.')
+            time.sleep(1)
+            print('Data is transmitted globally USING CARDINAL DIRECTIONS: North, East, South, and West.'
+                  'I will provide a LEDGER of where a data packet has moved. You must respond with N, E, S, or W to triangulate each data packet.'
+                  'RIGHT TURNS move CLOCKWISE around the compass. LEFT TURNS move COUNTERCLOCKWISE. Finally, REVERSE MOVEMENTS move you OPPOSITE on the compass.'
+                  'LOST DATA will SUBTRACT the total value of the FAILED TARGET. So be careful.')
+            ready_to_start = input('\nPress ENTER when ready to begin DATA HARVESTING.')
+            if P1.start_timer == False:
+                sfx.enable_firewall.play()
+                print('SYS:// PATCHING VULNERABILITY. TERMINATING INTRUSION IN 30 SECONDS.')
+                sfx.villian_timer_start()
+                time.sleep(2)
+                P1.current_stage_timer = True # allow the timer to be mischievous
+                countdown_thread = threading.Thread(target = countdown)
+                countdown_thread.start()
+                P1.start_timer = True   
+            def countdown():
+                P1.my_timer = 30
+                for i in range(30):
+                    if P1.current_stage_timer == True: # only punish if in the right part
+                        P1.my_timer = P1.my_timer-1
+                        time.sleep(1)
+                if P1.current_stage_timer == True: # only punish if in the right part
+                    P1.out_of_time = True
+                    sfx.enable_firewall.play()
+                    sfx.villian_timer_end()
+                    print('PATCH COMPLETE:// SECURING INTERNATIONAL DATA. NO FURTHER ENTRIES WILL BE VALID.')
+                else:
+                    pass
+            number_turns = 3
+            while P1.out_of_time == False:
+                chosen_direction = randint(1,4)
+                if chosen_direction == 1:
+                    direction = 'NORTH'
+                elif chosen_direction ==2:
+                    direction = 'EAST'
+                elif chosen_direction ==3:
+                    direction = 'SOUTH'
+                elif chosen_direction == 4:
+                    direction = 'WEST' 
+                else:
+                    pass
+
+                print('\nDATA PACKET ({}00)\n'.format(number_turns))
+                print('--ORIENTED {}--'.format(direction))
+                random_variance = number_turns + randint(-2, 2)
+                deplete = random_variance # lower number as we go
+                turn_list = []
+                while deplete>0:
+                    if number_turns <=5:
+                        turn = randint(0,1)
+                    if number_turns >5:
+                        turn = randint(0,2)
+                    if turn ==0:
+                        turn_list.append('LEFT')
+                        chosen_direction-=1
+                        if chosen_direction ==0:
+                            chosen_direction = 4 # reset to west
+
+                    elif turn ==1:
+                        turn_list.append('RIGHT')
+                        chosen_direction+=1
+                        if chosen_direction ==5:
+                            chosen_direction = 1 #reset to north
+                    else:
+                        turn_list.append('REVERSED')
+                        chosen_direction+=2
+                        if chosen_direction ==5:
+                            chosen_direction = 1
+                        if chosen_direction ==6:
+                            chosen_direction = 2
+                    deplete -=1
+                if chosen_direction == 1:
+                    direction = 'NORTH'
+                elif chosen_direction ==2:
+                    direction = 'EAST'
+                elif chosen_direction ==3:
+                    direction = 'SOUTH'
+                elif chosen_direction == 4:
+                    direction = 'WEST' 
+                else:
+                    pass
+                print('LOG: {}'.format(turn_list))
+                where_am_i = input('PACKET TRAJECTORY: ')
+                acceptable_trajectory = False
+                while acceptable_trajectory == False: # keep in loop until valid response
+                    if where_am_i[0].lower() != 'n' or where_am_i[0].lower() != 'e' or where_am_i[0].lower() != 's' or where_am_i[0].lower() != 'w':
+                        acceptable_trajectory = False
+                        sfx.fail_corrupt() # bad sound
+                        print('INVALID RESPONSE. PLEASE ENTER AGAIN.')
+                        where_am_i = input('PACKET TRAJECTORY: ')
+                    else:
+                        acceptable_trajectory = True
+                bonus_to_data = random_variance *100
+                if where_am_i[0].lower() == direction[0].lower() and P1.out_of_time == False:
+                    print('CONFIRMED: COLLECTING {}00 DATA'.format(random_variance))
+                    P1.data_score+=bonus_to_data
+                else:
+                    if P1.out_of_time == False:
+                        print('ERROR: TRAJECTORY IS {}; {} DATA LOST'.format(direction, bonus_to_data))
+                    else:
+                        print('THIS DATA HAS BEEN LOCKED AND CANNOT BE COLLECTED.')
+                number_turns+=1
+            time.sleep(1)
+            print('MOVING TO NEXT SYSTEM...')
+            print('CURRENT DATA:{}'.format(P1.data_score))
+            time.sleep(4)
+            return True

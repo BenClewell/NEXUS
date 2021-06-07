@@ -13,15 +13,23 @@ import curses
 from random import sample, shuffle, choice
 from random import randint
 import string  # generate random lets
-
+import threading # for the timer
 from my_modules import sfx
 
 # not yet ## from my_modules import help_guide
 
 
 class P1:
+    #
+    my_timer = 30 # timer for part 2
+    start_timer = False
+    current_stage_timer = False # in stage 2, where timer applies
+    out_of_time = False
+    #
+    data_score = 2000 # STARTING DATA SCORE
     given_digits = 4
-    allowed_list = sample("0123456789", given_digits)
+    allowed_list = [] #playtest
+    #allowed_list = sample("0123456789", given_digits)
     #
     node_vulnerable = False  # prevent hacking outside of the specified range
     node_progress_rank = 1
@@ -390,7 +398,20 @@ class P1:
             sfx.fail_corrupt()
             print(
                 "ERROR: YOUR SPECIAL SONAR HAS BEEN DISABLED DUE TO OVEREXTENDED RANGE."
+                "YOU MAY RESTORE IT FOR 1000 DATA"
             )
+            restore_ss = input("REBOOT FUNCTIONALITY FOR 1000 DATA? (y/n)")
+            while 'y' not in restore_ss.lower() or 'n' not in restore_ss.lower():
+                sfx.gentle_lofi()
+                restore_ss = input("REBOOT FUNCTIONALITY FOR 1000 DATA? (y/n)\nRESPONSE: ")
+            if 'y' in restore_ss.lower():
+                P1.data_score-=1000
+                sfx.success()
+                P1.special_sonar_limit-=1
+                print('SPECIAL SONAR ABILITY REBOOTED.')
+            if 'n' in restore_ss.lower():
+                sfx.gentle_lofi()
+                print('UNDERSTOOD. SPECIAL SONAR WILL REMAIN OFFLINE.')
             time.sleep(1)
 
     #
@@ -399,6 +420,7 @@ class P1:
         """provide history of choices"""
         status_splash = True
         while status_splash == True:
+            #playtest
             sfx.gentle_ui()
             ascii_intel = pyfiglet.figlet_format("HACKING HISTORY")
             print(ascii_intel)
@@ -412,7 +434,7 @@ class P1:
             sfx.gentle_ui()
             time.sleep(0.5)
             print("--------------------------" * 3)
-
+            print("DATA ACQUIRED: {}".format(P1.data_score))
             print("\nEntry Information:")
             if P1.guess_list == []:
                 print("NO ENTRIES COMMITTED YET")
@@ -473,7 +495,8 @@ class P1:
                     print("SPECIAL SONAR IS INACTIVE ('101' to EQUIP).")
                 if P1.special_sonar_limit > 0:
                     print(
-                        "SPECIAL SONAR HAS BEEN DISABLED PERMANENTLY (OVEREXTENDED RANGE)"
+                        "SPECIAL SONAR HAS BEEN DISABLED  (OVEREXTENDED RANGE)"
+                        "IT MAY BE REBOOTED FOR 1000 DATA (ENTER 101 TO REBOOT)"
                     )
             if P1.sonar_list == []:
                 print("NO SONAR HISTORY")
@@ -803,8 +826,8 @@ class P1:
             stdscr.clear()
 
             if winner == True:
-                title = "NODE ENTRY GAINED"
-                subtitle = "[System] Security has been HEIGHTENED."
+                title = "NODE ENTRY GAINED; 200 DATA GAINED"
+                subtitle = "[System] Security has been HEIGHTENED. Press ENTER to proceed."
                 pygame.mixer.stop()
                 sfx.success()
                 sfx.burst_sound()
@@ -813,13 +836,14 @@ class P1:
                     P1.fw_difficulty -= 500  # can't go to zero
                 # make the enemy move faster
                 P1.fw_level += 1
+                P1.data_score+=200
                 # increase the 'level difficulty' by one
                 curses.endwin()
 
             else:
                 sfx.fail_corrupt()
-                title = "NODE ENTRY DENIED"
-                subtitle = "[System] Security has been LOWERED."
+                title = "NODE ENTRY DENIED; 100 DATA LOST"
+                subtitle = "[System] Security has been LOWERED. Press ENTER to proceed."
                 # nexus_main.num_denials -=1
                 pygame.mixer.stop()
                 sfx.burst_sound()
@@ -828,6 +852,7 @@ class P1:
                 P1.fw_difficulty += 1000
                 # make the enemy move slower
                 P1.fw_level -= 2
+                P1.data_score-=100
                 # reduce the 'level difficulty' by one
                 P1.tripwire = True
                 curses.endwin()
@@ -1099,7 +1124,7 @@ class P1:
                     + str(P1.guess)
                 )
                 time.sleep(1)
-                print("SPECIAL SONAR OUT OF RANGE, AND IS NOW PERMANENTLY DISABLED.")
+                print("SPECIAL SONAR OUT OF RANGE, AND IS NOW DISABLED. PRESS '101' TO TROUBLESHOOT.")
                 sfx.fail_corrupt()
 
                 P1.special_sonar_limit += 1  # make it impossible to resummon
@@ -1211,7 +1236,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        # print(P1.entry_key)  # for playtesting
+        print(P1.entry_key)  # for playtesting
         print(
             random.choice(
                 (
@@ -1266,7 +1291,7 @@ class P1:
                             P1.node_hacking_minigame()
                             if P1.hack_success == False:
                                 # reduce hack chances by one.
-                                print("NODE INFORMATION JAMMED.")
+                                print("NODE INFORMATION JAMMED")
                         else:
                             time.sleep(1.5)  # let other threads finish
                             sfx.appear_blip()
@@ -1389,7 +1414,125 @@ class P1:
             sfx.voice_nexus_found()  # voice line found key!
             time.sleep(5)
             print("Excellent job.")
-            time.sleep(2)
+            time.sleep(1)
+            print('Before we move forward, target systems are COMPROMISED. We have THIRTY SECONDS to harvest DATA.')
+            time.sleep(1)
+            print('Data is transmitted globally USING CARDINAL DIRECTIONS: North, East, South, and West.'
+                  'I will provide a LEDGER of where a data packet has moved. You must respond with N, E, S, or W to triangulate each data packet.'
+                  'RIGHT TURNS move CLOCKWISE around the compass. LEFT TURNS move COUNTERCLOCKWISE. Finally, REVERSE MOVEMENTS move you OPPOSITE on the compass.'
+                  'LOST DATA will SUBTRACT the total value of the FAILED TARGET. So be careful.')
+            ready_to_start = input('\nPress ENTER when ready to begin DATA HARVESTING.')
+            def countdown():
+                P1.my_timer = 30
+                for i in range(30):
+                    if P1.current_stage_timer == True: # only punish if in the right part
+                        P1.my_timer = P1.my_timer-1
+                        time.sleep(1)
+                if P1.current_stage_timer == True: # only punish if in the right part
+                    P1.out_of_time = True
+                    sfx.enable_firewall.play()
+                    sfx.villian_timer_end()
+                    print('PATCH COMPLETE:// SECURING INTERNATIONAL DATA. NO FURTHER ENTRIES WILL BE VALID.')
+                else:
+                    pass
+            if P1.start_timer == False:
+                sfx.enable_firewall.play()
+                print('SYS:// PATCHING VULNERABILITY. TERMINATING INTRUSION IN 30 SECONDS.')
+                sfx.villian_timer_start()
+                time.sleep(2)
+                P1.current_stage_timer = True # allow the timer to be mischievous
+                countdown_thread = threading.Thread(target = countdown)
+                countdown_thread.start()
+                P1.start_timer = True   
+            number_turns = 3
+            while P1.out_of_time == False:
+                chosen_direction = randint(1,4)
+                if chosen_direction == 1:
+                    direction = 'NORTH'
+                elif chosen_direction ==2:
+                    direction = 'EAST'
+                elif chosen_direction ==3:
+                    direction = 'SOUTH'
+                elif chosen_direction == 4:
+                    direction = 'WEST' 
+                else:
+                    pass
+
+                print('\nDATA PACKET ({}00)\n'.format(number_turns))
+                print('--ORIENTED {}--'.format(direction))
+                random_variance = number_turns + randint(-2, 2)
+                deplete = number_turns # lower number as we go
+                turn_list = []
+                while deplete>0:
+                    if number_turns <4:
+                        turn = randint(0,1)
+                    if number_turns >3:
+                        turn = randint(0,2)
+                    if turn ==0:
+                        turn_list.append('LEFT')
+                        chosen_direction-=1
+                        if chosen_direction ==0:
+                            chosen_direction = 4 # reset to west
+
+                    elif turn ==1:
+                        turn_list.append('RIGHT')
+                        chosen_direction+=1
+                        if chosen_direction ==5:
+                            chosen_direction = 1 #reset to north
+                    else:
+                        turn_list.append('REVERSED')
+                        chosen_direction+=2
+                        if chosen_direction ==5:
+                            chosen_direction = 1
+                        if chosen_direction ==6:
+                            chosen_direction = 2
+
+                    deplete -=1
+                if chosen_direction == 1:
+                        direction = 'NORTH'
+                elif chosen_direction ==2:
+                    direction = 'EAST'
+                elif chosen_direction ==3:
+                    direction = 'SOUTH'
+                elif chosen_direction == 4:
+                    direction = 'WEST' 
+                else:
+                    pass
+                print('LOG: {}'.format(turn_list))
+                where_am_i = input('PACKET TRAJECTORY: ')
+                #
+                acceptable_trajectory = False
+                while acceptable_trajectory == False: # keep in loop until valid response
+                    if where_am_i == "": # catch blank entries
+                        acceptable_trajectory = False
+                        sfx.fail_corrupt() # bad sound
+                        print('INVALID RESPONSE. PLEASE ENTER AGAIN.')
+                        where_am_i = input('PACKET TRAJECTORY: ')
+                    if where_am_i[0].lower() != 'n' and where_am_i[0].lower() != 'e' and where_am_i[0].lower() != 's' and where_am_i[0].lower() != 'w':
+                        print(where_am_i[0])
+                        acceptable_trajectory = False
+                        sfx.fail_corrupt() # bad sound
+                        print('INVALID RESPONSE. PLEASE ENTER AGAIN.')
+                        where_am_i = input('PACKET TRAJECTORY: ')
+                    else:
+                        acceptable_trajectory = True
+                bonus_to_data = random_variance *100
+                if where_am_i[0].lower() == direction[0].lower() and P1.out_of_time == False:
+                    print('CONFIRMED: COLLECTING {}00 DATA'.format(random_variance))
+                    
+                    P1.data_score+=bonus_to_data
+                else:
+                    if P1.out_of_time == False:
+                        print('ERROR: TRAJECTORY IS {}; {} DATA LOST'.format(direction, bonus_to_data))
+                    else:
+                        print('THIS DATA HAS BEEN LOCKED AND CANNOT BE COLLECTED.')
+                number_turns+=1
+            time.sleep(1)
+            print('MOVING TO NEXT SYSTEM...')
+            print('CURRENT DATA:{}'.format(P1.data_score))
+            print('MOVING TO NEXT SYSTEM...')
+            time.sleep(3)
+
             return True
             # move forward
 
@@ -1484,9 +1627,7 @@ class P1:
             print(ascii_win)
             time.sleep(5)
             print("Excellent job.")
-            time.sleep(2)
-            return True
-            # move forward
+            time.sleep(1)
 
         if (P1.chances == 0) and (P1.guess != P1.entry_key):
             """kill the game if guesses run out"""
