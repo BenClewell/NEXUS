@@ -38,8 +38,8 @@ class P1:
     #
     data_score = 2000  # STARTING DATA SCORE
     given_digits = 4
-    # allowed_list = []  # playtest
-    allowed_list = sample("0123456789", given_digits)
+    allowed_list = []  # playtest
+    # allowed_list = sample("0123456789", given_digits)
     #
     node_vulnerable = False  # prevent hacking outside of the specified range
     node_progress_rank = 1
@@ -63,6 +63,7 @@ class P1:
     #
     firstchance = True  # to track if this is the player's first move
     extra_chance = True  # has the user burnt their bonus 'close' chance?
+    barter_complete = False  # have you been offered even/odd information
     #
     #
     #
@@ -1250,41 +1251,13 @@ class P1:
                         P1.sonar_list.append(
                             "KEY MORE THAN 10 NODES FROM " + str(P1.guess)
                         )
-                        if P1.chances == 1:
-                            if P1.low_keys != 0 and P1.high_keys != 0:
-                                print(
-                                    "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
-                                )
-                                barter_even_odd = input(
-                                    "LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\n RESPONSE: "
-                                )
-                                while (
-                                    "n" not in barter_even_odd.lower()
-                                    and "y" not in barter_even_odd.lower()
-                                ):
-                                    print("YOU MUST REPLY TO THE OFFER.")
-                                    sfx.fail_corrupt()
-                                    barter_even_odd = input(
-                                        "LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\nRESPONSE: "
-                                    )
-                                if "y" in barter_even_odd:
-                                    P1.is_even_reveal = True
-                                    time.sleep(1)
-                                    sfx.affirm_sound.play()
-                                    P1.data_score -= 500
-                                    sfx.affirm_sound.play()
-                                    if P1.entry_key % 2 == 0:
-                                        print("THE NEXUS KEY IS EVEN (500 DATA LOST)")
-                                    else:
-                                        print("THE NEXUS KEY IS ODD.")
-                                    time.sleep(2)
-                                if "n" in barter_even_odd:
-                                    time.sleep(1)
-                                    sfx.affirm_sound.play()
-                                    print("OFFER RESCINDED. (DATA RETAINED)")
-                                    time.sleep(2)
-                    barter_complete = False  # this has not happened yet
-                    if barter_complete == False:
+                    if P1.chances == 1:
+                        if P1.low_keys != 0 and P1.high_keys != 0:
+                            print(
+                                "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
+                            )
+
+                    if P1.barter_complete == False:
                         barter_even_odd = input(
                             "[SYSTEM NEGOTIATION]:\nLOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\n RESPONSE: "
                         )
@@ -1313,7 +1286,7 @@ class P1:
                             sfx.affirm_sound.play()
                             print("OFFER RESCINDED. (DATA RETAINED)")
                             time.sleep(2)
-                        barter_complete = True
+                        P1.barter_complete = True
         if P1.chances == 2:
             if P1.low_keys != 0 and P1.high_keys != 0:
                 time.sleep(1)
@@ -1563,9 +1536,9 @@ class P1:
                 else:
                     pass
                 sfx.burst_sound()
-                print("\nDATA PACKET ({}00)\n".format(number_turns))
-                print("--ORIENTED {}--".format(direction))
                 random_variance = number_turns + randint(-2, 2)
+                print("\nDATA PACKET ({}00)\n".format(random_variance))
+                print("--ORIENTED {}--".format(direction))
                 deplete = number_turns  # lower number as we go
                 turn_list = []
                 while deplete > 0:
@@ -1615,23 +1588,25 @@ class P1:
                         sfx.fail_corrupt()  # bad sound
                         if P1.out_of_time == False:
                             print("INVALID RESPONSE. PLEASE ENTER AGAIN.")
+                            where_am_i = input("PACKET TRAJECTORY: ")
                         if P1.out_of_time == True:
                             where_am_i = input("")
                             where_am_i = "e"
 
-                    if (
-                        where_am_i[0].lower() != "n"
-                        and where_am_i[0].lower() != "e"
-                        and where_am_i[0].lower() != "s"
-                        and where_am_i[0].lower() != "w"
-                    ):
-                        print(where_am_i[0])
-                        acceptable_trajectory = False
-                        sfx.fail_corrupt()  # bad sound
-                        print("INVALID RESPONSE. PLEASE ENTER AGAIN.")
-                        where_am_i = input("PACKET TRAJECTORY: ")
-                    else:
-                        acceptable_trajectory = True
+                    if where_am_i != "":
+                        if (
+                            where_am_i[0].lower() != "n"
+                            and where_am_i[0].lower() != "e"
+                            and where_am_i[0].lower() != "s"
+                            and where_am_i[0].lower() != "w"
+                        ):
+                            print(where_am_i[0])
+                            acceptable_trajectory = False
+                            sfx.fail_corrupt()  # bad sound
+                            print("INVALID RESPONSE. PLEASE ENTER AGAIN.")
+                            where_am_i = input("PACKET TRAJECTORY: ")
+                        else:
+                            acceptable_trajectory = True
                 bonus_to_data = random_variance * 100
                 if (
                     where_am_i[0].lower() == direction[0].lower()
@@ -1827,9 +1802,9 @@ class P1:
                 else:
                     pass
                 sfx.burst_sound()
-                print("\nDATA PACKET ({}00)\n".format(number_turns))
-                print("--ORIENTED {}--".format(direction))
                 random_variance = number_turns + randint(-2, 2)
+                print("\nDATA PACKET ({}00)\n".format(random_variance))
+                print("--ORIENTED {}--".format(direction))
                 deplete = number_turns  # lower number as we go
                 turn_list = []
                 while deplete > 0:
@@ -1879,23 +1854,24 @@ class P1:
                         sfx.fail_corrupt()  # bad sound
                         if P1.out_of_time == False:
                             print("INVALID RESPONSE. PLEASE ENTER AGAIN.")
+                            where_am_i = input("PACKET TRAJECTORY: ")
                         if P1.out_of_time == True:
                             where_am_i = input("")
                             where_am_i = "e"
-
-                    if (
-                        where_am_i[0].lower() != "n"
-                        and where_am_i[0].lower() != "e"
-                        and where_am_i[0].lower() != "s"
-                        and where_am_i[0].lower() != "w"
-                    ):
-                        print(where_am_i[0])
-                        acceptable_trajectory = False
-                        sfx.fail_corrupt()  # bad sound
-                        print("INVALID RESPONSE. PLEASE ENTER AGAIN.")
-                        where_am_i = input("PACKET TRAJECTORY: ")
-                    else:
-                        acceptable_trajectory = True
+                    if where_am_i != "":
+                        if (
+                            where_am_i[0].lower() != "n"
+                            and where_am_i[0].lower() != "e"
+                            and where_am_i[0].lower() != "s"
+                            and where_am_i[0].lower() != "w"
+                        ):
+                            print(where_am_i[0])
+                            acceptable_trajectory = False
+                            sfx.fail_corrupt()  # bad sound
+                            print("INVALID RESPONSE. PLEASE ENTER AGAIN.")
+                            where_am_i = input("PACKET TRAJECTORY: ")
+                        else:
+                            acceptable_trajectory = True
                 bonus_to_data = random_variance * 100
                 if (
                     where_am_i[0].lower() == direction[0].lower()

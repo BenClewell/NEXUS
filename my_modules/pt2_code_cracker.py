@@ -902,9 +902,9 @@ class P2:
                     else:
                         pass
                     sfx.burst_sound()
-                    print("\nDATA PACKET ({}00)\n".format(number_turns))
-                    print("--ORIENTED {}--".format(direction))
                     random_variance = number_turns + randint(-2, 2)
+                    print("\nDATA PACKET ({}00)\n".format(random_variance))
+                    print("--ORIENTED {}--".format(direction))
                     deplete = number_turns  # lower number as we go
                     turn_list = []
                     while deplete > 0:
@@ -954,23 +954,25 @@ class P2:
                             sfx.fail_corrupt()  # bad sound
                             if P2.data_out_of_time == False:
                                 print("INVALID RESPONSE. PLEASE ENTER AGAIN.")
+                                where_am_i = input("PACKET TRAJECTORY: ")
                             if P2.data_out_of_time == True:
                                 where_am_i = input("")
                                 where_am_i = "e"
 
-                        if (
-                            where_am_i[0].lower() != "n"
-                            and where_am_i[0].lower() != "e"
-                            and where_am_i[0].lower() != "s"
-                            and where_am_i[0].lower() != "w"
-                        ):
-                            print(where_am_i[0])
-                            acceptable_trajectory = False
-                            sfx.fail_corrupt()  # bad sound
-                            print("INVALID RESPONSE. PLEASE ENTER AGAIN.")
-                            where_am_i = input("PACKET TRAJECTORY: ")
-                        else:
-                            acceptable_trajectory = True
+                        if where_am_i != "":
+                            if (
+                                where_am_i[0].lower() != "n"
+                                and where_am_i[0].lower() != "e"
+                                and where_am_i[0].lower() != "s"
+                                and where_am_i[0].lower() != "w"
+                            ):
+                                print(where_am_i[0])
+                                acceptable_trajectory = False
+                                sfx.fail_corrupt()  # bad sound
+                                print("INVALID RESPONSE. PLEASE ENTER AGAIN.")
+                                where_am_i = input("PACKET TRAJECTORY: ")
+                            else:
+                                acceptable_trajectory = True
                     bonus_to_data = random_variance * 100
                     if (
                         where_am_i[0].lower() == direction[0].lower()
