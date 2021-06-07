@@ -160,35 +160,31 @@ class P1:
         rejected if entry is too long, or not valid"""
         time.sleep(1)
         sfx.gentle_ui()
-        print(
-            "\n\n---------------------------------------------------\nENTER A NODE (between 1 and 100)\n"
-        )
+        print("\n\n---------------------------------------------------\n")
         if P1.allowed_list != []:
-            print("[ANTIVIRUS ACTIVE]\nINSERTION POOL: {}".format(P1.allowed_list))
+            print("<<ANTIVIRUS ACTIVE>>\nINSERTION POOL: {}".format(P1.allowed_list))
         if len(P1.allowed_list) == 1:
             print(
-                "[ANTIVIRUS SHUTTING DOWN] ::: FINAL INTEGER FROM INSERTION POOL MAY BE PAIRED WITH ANY OTHER INTEGER"
+                "<<ANTIVIRUS SHUTTING DOWN>> ::: FINAL INTEGER FROM INSERTION POOL MAY BE PAIRED WITH ANY OTHER INTEGER"
             )
         if (
             P1.sonar == True
             and P1.special_sonar == True
             and P1.special_sonar_limit == 0
         ):
-            print(
-                "[SPECIAL SONAR: EQUIPPED]\n---------------------------------------------------\n"
-            )
+            print("[SPECIAL SONAR: EQUIPPED]\n\n")
+
         elif (
             P1.sonar == True
             and P1.special_sonar == False
             and P1.special_sonar_limit == 0
         ):
-            print(
-                "[SPECIAL SONAR: INACTIVE]\n---------------------------------------------------\n"
-            )
+            print("[SPECIAL SONAR: INACTIVE]\n\n")
         else:
-            print("---------------------------------------------------\n")
+            print("\n\n")
+        print("SYS:// ENTER NODE\n---------------------------------------------------")
         try:
-            P1.guess_string = str(input())
+            P1.guess_string = str(input("INPUT:  "))
             P1.guess = int(P1.guess_string)
             if (len(str(P1.guess))) > 3 or int(P1.guess) > 101:
                 valid = False
@@ -1014,7 +1010,7 @@ class P1:
                 sfx.gentle_ui()
                 sfx.voice_node_fail()  # reassure player
                 """punishment for landing in defense range"""
-                print("JAMMED: NO NODE INFORMATION POSSIBLE")
+                print("NODE INFORMATION JAMMED\n*******************\n")
                 print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
                 time.sleep(3)
                 if P1.high_keys < P1.low_keys:
@@ -1069,6 +1065,7 @@ class P1:
                 P1.tripwire = False  # disa
                 print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
                 print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
+                print("\n************************\n")
             # Increase the value of chance by 1
         if P1.chances == 3:  # MOVED THIS BACK TO REVEAL NO MATTER WHAT
             """disable defense protocol, tripmine"""
@@ -1160,7 +1157,13 @@ class P1:
                 # enable special sonar
                 time.sleep(2)
                 sfx.enable_firewall.play()
-                print("\nSPECIAL SONAR unlocked. (Type '101' to toggle ON/OFF)\n")
+                ascii_special_unlocked = pyfiglet.figlet_format(
+                    "SPECIAL SONAR ONLINE", font="digital"
+                )
+                print(ascii_special_unlocked)
+                print(
+                    "\nSPECIAL SONAR unlocked. (Type '101' to toggle ON/OFF)\nOut-of-range use will DISABLE Special Sonar."
+                )
                 extra_digit = 1
                 extra_motivation = 0
                 for (
@@ -1176,7 +1179,9 @@ class P1:
                 for i in extra_option:
                     added_number = str(i)
                 print(
-                    "EXTRA INSERTION OPTION ADDED TO ANTIVIRUS: {}".format(added_number)
+                    "\n[ANTIVIRUS] EXTRA INTEGER ADDED TO INSERTION POOL: {}".format(
+                        added_number
+                    )
                 )
                 P1.allowed_list.append(added_number)
             if P1.chances == 3:
@@ -1223,34 +1228,6 @@ class P1:
                     print(
                         "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
                     )
-                    barter_even_odd = input(
-                        "LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\n RESPONSE: "
-                    )
-                    while (
-                        "n" not in barter_even_odd.lower()
-                        and "y" not in barter_even_odd.lower()
-                    ):
-                        print("YOU MUST REPLY TO THE OFFER.")
-                        sfx.fail_corrupt()
-                        barter_even_odd = input(
-                            "LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\nRESPONSE: "
-                        )
-                    if "y" in barter_even_odd:
-                        P1.is_even_reveal = True
-                        time.sleep(1)
-                        sfx.affirm_sound.play()
-                        P1.data_score -= 500
-                        sfx.affirm_sound.play()
-                        if P1.entry_key % 2 == 0:
-                            print("THE NEXUS KEY IS EVEN (500 DATA LOST)")
-                        else:
-                            print("THE NEXUS KEY IS ODD.")
-                        time.sleep(2)
-                    if "n" in barter_even_odd:
-                        time.sleep(1)
-                        sfx.affirm_sound.play()
-                        print("OFFER RESCINDED. (DATA RETAINED)")
-                        time.sleep(2)
                     #
                     #
                     if P1.sonar == True and (
@@ -1273,6 +1250,70 @@ class P1:
                         P1.sonar_list.append(
                             "KEY MORE THAN 10 NODES FROM " + str(P1.guess)
                         )
+                        if P1.chances == 1:
+                            if P1.low_keys != 0 and P1.high_keys != 0:
+                                print(
+                                    "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
+                                )
+                                barter_even_odd = input(
+                                    "LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\n RESPONSE: "
+                                )
+                                while (
+                                    "n" not in barter_even_odd.lower()
+                                    and "y" not in barter_even_odd.lower()
+                                ):
+                                    print("YOU MUST REPLY TO THE OFFER.")
+                                    sfx.fail_corrupt()
+                                    barter_even_odd = input(
+                                        "LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\nRESPONSE: "
+                                    )
+                                if "y" in barter_even_odd:
+                                    P1.is_even_reveal = True
+                                    time.sleep(1)
+                                    sfx.affirm_sound.play()
+                                    P1.data_score -= 500
+                                    sfx.affirm_sound.play()
+                                    if P1.entry_key % 2 == 0:
+                                        print("THE NEXUS KEY IS EVEN (500 DATA LOST)")
+                                    else:
+                                        print("THE NEXUS KEY IS ODD.")
+                                    time.sleep(2)
+                                if "n" in barter_even_odd:
+                                    time.sleep(1)
+                                    sfx.affirm_sound.play()
+                                    print("OFFER RESCINDED. (DATA RETAINED)")
+                                    time.sleep(2)
+                    barter_complete = False  # this has not happened yet
+                    if barter_complete == False:
+                        barter_even_odd = input(
+                            "[SYSTEM NEGOTIATION]:\nLOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\n RESPONSE: "
+                        )
+                        while (
+                            "n" not in barter_even_odd.lower()
+                            and "y" not in barter_even_odd.lower()
+                        ):
+                            print("YOU MUST REPLY TO THE OFFER.")
+                            sfx.fail_corrupt()
+                            barter_even_odd = input(
+                                "LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\nRESPONSE: "
+                            )
+                        if "y" in barter_even_odd:
+                            P1.is_even_reveal = True
+                            time.sleep(1)
+                            sfx.affirm_sound.play()
+                            P1.data_score -= 500
+                            sfx.affirm_sound.play()
+                            if P1.entry_key % 2 == 0:
+                                print("THE NEXUS KEY IS EVEN (500 DATA LOST)")
+                            else:
+                                print("THE NEXUS KEY IS ODD.")
+                            time.sleep(2)
+                        if "n" in barter_even_odd:
+                            time.sleep(1)
+                            sfx.affirm_sound.play()
+                            print("OFFER RESCINDED. (DATA RETAINED)")
+                            time.sleep(2)
+                        barter_complete = True
         if P1.chances == 2:
             if P1.low_keys != 0 and P1.high_keys != 0:
                 time.sleep(1)
@@ -1291,7 +1332,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        # print(P1.entry_key)  # for playtesting
+        print(P1.entry_key)  # for playtesting
         print(
             random.choice(
                 (
@@ -1346,7 +1387,7 @@ class P1:
                             P1.node_hacking_minigame()
                             if P1.hack_success == False:
                                 # reduce hack chances by one.
-                                print("NODE INFORMATION JAMMED")
+                                print("NODE INFORMATION JAMMED\n*******************\n")
                         else:
                             time.sleep(1.5)  # let other threads finish
                             sfx.appear_blip()
@@ -1358,7 +1399,7 @@ class P1:
                         sfx.gentle_ui()
                         sfx.voice_node_fail()  # reassure player
                         """punishment for landing in defense range"""
-                        print("JAMMED: NO NODE INFORMATION POSSIBLE")
+                        print("NODE INFORMATION JAMMED\n*******************\n")
                         print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
                         time.sleep(3)
                         if P1.high_keys < P1.low_keys:
@@ -1413,7 +1454,7 @@ class P1:
                         # P1.tripwire = False   # disabled so you can assess the guess
                         print("LOW ENTRIES REMAINING: " + str(P1.high_keys))
                         print("HIGH ENTRIES REMAINING: " + str(P1.low_keys))
-
+                        print("\n***********************\n")
                     # CONDITIONAL EVENTS BASED ON WHAT CHANCE YOU ARE AT
                     # for testing, distable tripwire
                     P1.assess_guess()
@@ -1899,6 +1940,7 @@ class P1:
             P1.data_score += efficiency_bonus
             print("LOCATIONAL EFFICIENCY BONUS: {}".format(efficiency_bonus))
             sfx.success()
+            time.sleep(1)
             sfx.gentle_lofi()
             print("CURRENT DATA:{}".format(P1.data_score))
             score_file = open("scores.json", "r")

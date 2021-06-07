@@ -249,8 +249,11 @@ class P2:
                         + str(timeSpent)
                         + ") \nCONTINUING..."
                     )
-                    if timeSpent < 0.25:
-                        print("PERFECT RESPONSE: +750 DATA")
+                    if timeSpent < 0.225:
+                        print("PERFECT RESPONSE: +1000 DATA")
+                        P2.data_score += 1000
+                    elif timeSpent < 0.25:
+                        print("PHENOMENAL RESPONSE: +750 DATA")
                         P2.data_score += 750
                     elif timeSpent < 0.3:
                         print("EXCEPTIONAL RESPONSE: +500 DATA")
@@ -333,7 +336,7 @@ class P2:
             letters.reverse()
 
         number = "".join(letters)
-        # print(str(number))
+        print(str(number))
         """for playtesting purposes"""
         time.sleep(2)
         sfx.gentle_lofi()
@@ -360,6 +363,14 @@ class P2:
             "\n\n[ANTIVIRUS REACTIVATED]: FIRST TWO ENTRIES MUST HAVE INTEGERS THAT SUM TO A SPECIFIED NUMBER"
         )
         print("\n\nSYS TRACE PREPARED:// TRACKING INTRUDER 5 MINUTES AFTER FIRST ENTRY")
+        score_file = open("scores.json", "r")
+        scores = json.load(score_file)
+        for key in scores[
+            "data_scores"
+        ]:  # assign current player score in json to variable
+            for i in key:
+                key[i] = int(key[i])
+                P2.data_score = key[i]  # reassign data value to update things to part 1
         print("\n\nDATA GATHERED: {}".format(P2.data_score))
         counter = 1
         P2.start_timer = False
