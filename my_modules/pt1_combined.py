@@ -15,11 +15,18 @@ from random import randint
 import string  # generate random lets
 import threading # for the timer
 from my_modules import sfx
-
+import json # read score information
 # not yet ## from my_modules import help_guide
 
 
 class P1:
+    score_file = open('scores.json', 'r')
+    scores = json.load(score_file)
+    for key in scores['data_scores']: # for reagent in reagent list
+        key['data'] = 2000
+    with open('scores.json', 'w') as f:
+        json.dump(score_file, f, indent = 2)
+    is_even_reveal = False
     #
     my_timer = 30 # timer for part 2
     start_timer = False
@@ -136,13 +143,15 @@ class P1:
                 P1.node_failed_state = False  # user hacked node successfully
                 P1.insertion_finished = True
                 time.sleep(1)
-                print("[INSERTION VALID]")
+                print("[INSERTION VALID (+100 DATA)]")
+                P1.data_score+=100
             if key == keyboard.Key.enter and P1.node_vulnerable == False:
                 sfx.burst_sound()
                 P1.node_failed_state = True
                 P1.insertion_finished = True
                 time.sleep(1)
-                print("[INVALID TEST RESPONSE]")
+                print("[INVALID TEST RESPONSE (-100 DATA)]")
+                P1.data_score-=100
 
         """user enters a node guess to find the key
         rejected if entry is too long, or not valid"""
@@ -502,6 +511,12 @@ class P1:
                 print("NO SONAR HISTORY")
             if P1.sonar_list != []:
                 print("SONAR HISTORY: " + str(P1.sonar_list))
+            if P1.is_even_reveal == True:
+                if P1.entry_key%2 == 0:
+                    print('\nTHE NEXUS KEY IS AN EVEN NUMBER')
+                else:
+                    print('\nTHE NEXUS KEY IS AN ODD NUMBER')
+            
 
             time.sleep(2)
             print("\nReturning to hacking interface...")
@@ -826,7 +841,7 @@ class P1:
             stdscr.clear()
 
             if winner == True:
-                title = "NODE ENTRY GAINED; 200 DATA GAINED"
+                title = "JAMMER ENTRY GAINED; 100 DATA GAINED"
                 subtitle = "[System] Security has been HEIGHTENED. Press ENTER to proceed."
                 pygame.mixer.stop()
                 sfx.success()
@@ -836,13 +851,13 @@ class P1:
                     P1.fw_difficulty -= 500  # can't go to zero
                 # make the enemy move faster
                 P1.fw_level += 1
-                P1.data_score+=200
+                P1.data_score+=100
                 # increase the 'level difficulty' by one
                 curses.endwin()
 
             else:
                 sfx.fail_corrupt()
-                title = "NODE ENTRY DENIED; 100 DATA LOST"
+                title = "JAMMER ENTRY DENIED; 100 DATA LOST"
                 subtitle = "[System] Security has been LOWERED. Press ENTER to proceed."
                 # nexus_main.num_denials -=1
                 pygame.mixer.stop()
@@ -1198,6 +1213,29 @@ class P1:
                     print(
                         "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
                     )
+                    barter_even_odd = input('LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\n RESPONSE: ')
+                    while 'n' not in barter_even_odd.lower() and 'y' not in barter_even_odd.lower():
+                        print('YOU MUST REPLY TO THE OFFER.')
+                        sfx.fail_corrupt()
+                        barter_even_odd = input('LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\nRESPONSE: ')
+                    if 'y' in barter_even_odd:
+                        P1.is_even_reveal= True
+                        time.sleep(1)
+                        sfx.affirm_sound.play()
+                        P1.data_score-=500
+                        sfx.affirm_sound.play()
+                        if P1.entry_key%2 == 0:
+                            print('THE NEXUS KEY IS EVEN (500 DATA LOST)')
+                        else:
+                            print('THE NEXUS KEY IS ODD.')         
+                        time.sleep(2)                  
+                    if 'n' in barter_even_odd:
+                        time.sleep(1)
+                        sfx.affirm_sound.play()
+                        print('OFFER RESCINDED. (DATA RETAINED)')
+                        time.sleep(2) 
+                    #
+                    #
                     if P1.sonar == True and (
                         ((P1.guess - 10) <= P1.entry_key <= (P1.guess + 10))
                         and (0 < P1.guess < 101)
@@ -1396,16 +1434,6 @@ class P1:
                 time.sleep(8)
                 return False
             sfx.gentle_ui()
-            sfx.hack_node()
-            print("EXTRACTING DATA\n")
-            with alive_bar(
-                total=100,
-                length=75,
-                bar="smooth",
-            ) as bar:  # default setting
-                for i in range(100):
-                    time.sleep(0.03)
-                    bar()  # call after consuming one item
             print("\n")
             time.sleep(1)
             sfx.gentle_ui()
@@ -1415,13 +1443,16 @@ class P1:
             time.sleep(5)
             print("Excellent job.")
             time.sleep(1)
+            sfx.voice_found_data()
             print('Before we move forward, target systems are COMPROMISED. We have THIRTY SECONDS to harvest DATA.')
-            time.sleep(1)
+            time.sleep(3)
+            sfx.gentle_ui()
             print('Data is transmitted globally USING CARDINAL DIRECTIONS: North, East, South, and West.'
-                  'I will provide a LEDGER of where a data packet has moved. You must respond with N, E, S, or W to triangulate each data packet.'
-                  'RIGHT TURNS move CLOCKWISE around the compass. LEFT TURNS move COUNTERCLOCKWISE. Finally, REVERSE MOVEMENTS move you OPPOSITE on the compass.'
+                  '\nI will provide a LEDGER of where a data packet has moved.\nYou must respond with N, E, S, or W to triangulate each data packet.\n\n'
+                  'RIGHT TURNS move CLOCKWISE around the compass.\nLEFT TURNS move COUNTERCLOCKWISE.\nFinally, REVERSE MOVEMENTS move you OPPOSITE on the compass.\n\n'
                   'LOST DATA will SUBTRACT the total value of the FAILED TARGET. So be careful.')
             ready_to_start = input('\nPress ENTER when ready to begin DATA HARVESTING.')
+            sfx.gentle_lofi()
             def countdown():
                 P1.my_timer = 30
                 for i in range(30):
@@ -1432,18 +1463,19 @@ class P1:
                     P1.out_of_time = True
                     sfx.enable_firewall.play()
                     sfx.villian_timer_end()
-                    print('PATCH COMPLETE:// SECURING INTERNATIONAL DATA. NO FURTHER ENTRIES WILL BE VALID.')
+                    print('PATCH COMPLETE:// SECURING INTERNATIONAL DATA. NO FURTHER ENTRIES WILL BE VALID.\n\nPress ENTER TWICE to CONTINUE.')
                 else:
                     pass
             if P1.start_timer == False:
                 sfx.enable_firewall.play()
                 print('SYS:// PATCHING VULNERABILITY. TERMINATING INTRUSION IN 30 SECONDS.')
+                sfx.data_loop()
                 sfx.villian_timer_start()
                 time.sleep(2)
                 P1.current_stage_timer = True # allow the timer to be mischievous
                 countdown_thread = threading.Thread(target = countdown)
                 countdown_thread.start()
-                P1.start_timer = True   
+                P1.start_timer = True  
             number_turns = 3
             while P1.out_of_time == False:
                 chosen_direction = randint(1,4)
@@ -1457,7 +1489,7 @@ class P1:
                     direction = 'WEST' 
                 else:
                     pass
-
+                sfx.burst_sound()
                 print('\nDATA PACKET ({}00)\n'.format(number_turns))
                 print('--ORIENTED {}--'.format(direction))
                 random_variance = number_turns + randint(-2, 2)
@@ -1506,8 +1538,12 @@ class P1:
                     if where_am_i == "": # catch blank entries
                         acceptable_trajectory = False
                         sfx.fail_corrupt() # bad sound
-                        print('INVALID RESPONSE. PLEASE ENTER AGAIN.')
-                        where_am_i = input('PACKET TRAJECTORY: ')
+                        if P1.out_of_time == False:
+                            print('INVALID RESPONSE. PLEASE ENTER AGAIN.')
+                        if P1.out_of_time == True:                            
+                            where_am_i = input('')
+                            where_am_i = 'e'
+
                     if where_am_i[0].lower() != 'n' and where_am_i[0].lower() != 'e' and where_am_i[0].lower() != 's' and where_am_i[0].lower() != 'w':
                         print(where_am_i[0])
                         acceptable_trajectory = False
@@ -1518,20 +1554,47 @@ class P1:
                         acceptable_trajectory = True
                 bonus_to_data = random_variance *100
                 if where_am_i[0].lower() == direction[0].lower() and P1.out_of_time == False:
+                    sfx.affirm_sound.play()
                     print('CONFIRMED: COLLECTING {}00 DATA'.format(random_variance))
-                    
                     P1.data_score+=bonus_to_data
                 else:
                     if P1.out_of_time == False:
+                        sfx.fail_corrupt()
                         print('ERROR: TRAJECTORY IS {}; {} DATA LOST'.format(direction, bonus_to_data))
                     else:
-                        print('THIS DATA HAS BEEN LOCKED AND CANNOT BE COLLECTED.')
+                        sfx.success()
+                        print('DATA HAS BEEN LOCKED AND CANNOT BE COLLECTED FURTHER.')
                 number_turns+=1
+                time.sleep(1)
             time.sleep(1)
-            print('MOVING TO NEXT SYSTEM...')
+            pygame.mixer.stop()
+            time.sleep(1)
+            sfx.voice_done_data()
+            print('DATA BREACH HAS BEEN HALTED. COMITTING DATA...')
+            time.sleep(2)
+            sfx.hack_node()
+            print("EXTRACTING DATA\n")
+            with alive_bar(
+                total=100,
+                length=75,
+                bar="smooth",
+            ) as bar:  # default setting
+                for i in range(100):
+                    time.sleep(0.03)
+                    bar()  # call after consuming one item
+            efficiency_bonus = P1.chances*100
+            P1.data_score+=efficiency_bonus
+            print('LOCATIONAL EFFICIENCY BONUS: {}'.format(efficiency_bonus))
+            sfx.success()
+            sfx.gentle_lofi()
             print('CURRENT DATA:{}'.format(P1.data_score))
-            print('MOVING TO NEXT SYSTEM...')
-            time.sleep(3)
+            
+            P1.scores['data'] = P1.data_score
+            with open('scores.json', 'w') as f:
+                json.dump(P1.score_file, f, indent = 2)
+            time.sleep(1)
+            print('ENTERING THE NEXUS NODE IN TEN SECONDS...')
+            time.sleep(10)
 
             return True
             # move forward

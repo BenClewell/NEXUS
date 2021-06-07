@@ -190,7 +190,23 @@ def voice_alligned():
     )
     burst_sound.play()
     #
-    #  
+def voice_found_data():
+    """ token aligned"""
+    sound_number = random.randint(1, 9)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/data_found/found_data-00" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
+    #
+def voice_done_data():
+    """ token aligned"""
+    sound_number = random.randint(1, 8)
+    # how many variations of burst_sounds that there are
+    burst_sound = pygame.mixer.Sound(
+        "sounds/narration/data_done/done_data-00" + str(sound_number) + ".wav"
+    )
+    burst_sound.play()
 def success():
     """ pick one of ten burst sounds """
     sound_number = random.randint(1, 3)
@@ -217,7 +233,12 @@ def loading_loop():
         "sounds/bar_loops/bar_loop (" + str(sound_number) + ").wav"
     )
     alarm_sound.play(-1)
-
+def data_loop():
+    """for loading bars in-game"""
+    alarm_sound = pygame.mixer.Sound(
+        "sounds/bar_loops/intercept.wav"
+    )
+    alarm_sound.play(-1)
 def appear_blip():
     """ pick one of ten burst sounds """
     sound_number = random.randint(1, 10)
