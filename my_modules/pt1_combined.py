@@ -38,8 +38,8 @@ class P1:
     #
     data_score = 2000  # STARTING DATA SCORE
     given_digits = 4
-    allowed_list = []  # playtest
-    # allowed_list = sample("0123456789", given_digits)
+    # allowed_list = []  # playtest
+    allowed_list = sample("0123456789", given_digits)
     #
     node_vulnerable = False  # prevent hacking outside of the specified range
     node_progress_rank = 1
@@ -1305,7 +1305,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        print(P1.entry_key)  # for playtesting
+        # print(P1.entry_key)  # for playtesting
         print(
             random.choice(
                 (
