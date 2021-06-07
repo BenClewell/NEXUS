@@ -50,10 +50,10 @@ def run_game():
     time.sleep(0.5)
     sfx.voice_introduction()
     print(ascii_nexus)
-    #PLAYTEST
-    #if pt2.P2.decode_key():
+    # PLAYTEST
+    # if pt2.P2.decode_key():
     #    pass
-    #PLAYTEST
+    # PLAYTEST
     if pt1.P1.game():
         os.system("cls" if os.name == "nt" else "clear")
         # clear the output in the terminal
