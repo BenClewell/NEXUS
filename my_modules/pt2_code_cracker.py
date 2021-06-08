@@ -336,7 +336,7 @@ class P2:
             letters.reverse()
 
         number = "".join(letters)
-        # print(str(number))
+        #print(str(number))
         """for playtesting purposes"""
         time.sleep(2)
         sfx.gentle_lofi()
@@ -830,11 +830,36 @@ class P2:
                 sfx.gentle_ui()
                 time.sleep(1)
                 print("The NEXUS KEY is decrypting!")
+                final_timer_str = str(round((P2.my_timer / 60), 2))
+                print(
+                    "\n\nSYSTEM:// FINAL TRACE TIME REMAINING: {}".format(
+                        final_timer_str
+                    )
+                )
+                if P2.out_of_time == False:
+                    print("THE SYSTEM FAILED TO LOCATE YOU: +1000 DATA BONUS")
+                    P2.data_score += 1000
+                else:
+                    print("THE SYSTEM TRIANGULATED YOU: NO BONUS DATA AWARDED")
+                if final_timer_str[0] == "4":
+                    print("OVER FOUR MINUTES REMAINING: +1000 DATA BONUS")
+                    P2.data_score += 1000
+                elif final_timer_str[0] == "3":
+                    print("OVER THREE MINUTES REMAINING:  +800 DATA BONUS")
+                    P2.data_score += 800
+                elif final_timer_str[0] == "2":
+                    print("OVER TWO MINUTES REMAINING:  +600 DATA BONUS")
+                    P2.data_score += 600
+                elif final_timer_str[0] == "1":
+                    print("OVER ONE MINUTE REMAINING:  +400 DATA BONUS")
+                    P2.data_score += 400
                 sfx.gentle_ui()
                 time.sleep(1)
+                print("CURRENT DATA ACQUIRED: {}\n\n".format(P2.data_score))
+                time.sleep(4)
                 sfx.gentle_ui()
-                print("But first, It looks like I found more INTERNATIONAL DATA...")
-                time.sleep(2)
+                print("It looks like I found more INTERNATIONAL DATA...")
+                time.sleep(1)
                 sfx.voice_found_data()
                 print(
                     "Yet again, target systems are COMPROMISED. We have ONE MINUTE to harvest DATA."
