@@ -905,7 +905,7 @@ class P2:
                     random_variance = number_turns + randint(-2, 2)
                     print("\nDATA PACKET ({}00)\n".format(random_variance))
                     print("--ORIENTED {}--".format(direction))
-                    deplete = number_turns  # lower number as we go
+                    deplete = random_variance  # lower number as we go
                     turn_list = []
                     while deplete > 0:
                         if number_turns < 4:

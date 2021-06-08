@@ -1226,11 +1226,6 @@ class P1:
                     P1.sonar_list.append("KEY MORE THAN 20 NODES FROM " + str(P1.guess))
             if P1.chances == 1:
                 if P1.low_keys != 0 and P1.high_keys != 0:
-                    print(
-                        "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
-                    )
-                    #
-                    #
                     if P1.sonar == True and (
                         ((P1.guess - 10) <= P1.entry_key <= (P1.guess + 10))
                         and (0 < P1.guess < 101)
@@ -1250,43 +1245,43 @@ class P1:
                         print("NEXUS KEY FURTHER THAN 10 NODES AWAY")
                         P1.sonar_list.append(
                             "KEY MORE THAN 10 NODES FROM " + str(P1.guess)
-                        )
-                    if P1.chances == 1:
-                        if P1.low_keys != 0 and P1.high_keys != 0:
-                            print(
-                                "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
-                            )
+            )
+        if P1.chances == 1:
+            if P1.low_keys != 0 and P1.high_keys != 0:
+                print(
+                    "\nFINAL NODE ENTRY REACHED. LOCKING SYSTEM UPON NEXT FAILURE TO LOCATE NEXUS KEY.\n"
+                )
 
-                    if P1.barter_complete == False:
-                        barter_even_odd = input(
-                            "[SYSTEM NEGOTIATION]:\nLOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\n RESPONSE: "
-                        )
-                        while (
-                            "n" not in barter_even_odd.lower()
-                            and "y" not in barter_even_odd.lower()
-                        ):
-                            print("YOU MUST REPLY TO THE OFFER.")
-                            sfx.fail_corrupt()
-                            barter_even_odd = input(
-                                "LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\nRESPONSE: "
-                            )
-                        if "y" in barter_even_odd:
-                            P1.is_even_reveal = True
-                            time.sleep(1)
-                            sfx.affirm_sound.play()
-                            P1.data_score -= 500
-                            sfx.affirm_sound.play()
-                            if P1.entry_key % 2 == 0:
-                                print("THE NEXUS KEY IS EVEN (500 DATA LOST)")
-                            else:
-                                print("THE NEXUS KEY IS ODD.")
-                            time.sleep(2)
-                        if "n" in barter_even_odd:
-                            time.sleep(1)
-                            sfx.affirm_sound.play()
-                            print("OFFER RESCINDED. (DATA RETAINED)")
-                            time.sleep(2)
-                        P1.barter_complete = True
+            if P1.barter_complete == False:
+                barter_even_odd = input(
+                    "[SYSTEM NEGOTIATION]:\nLOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\n RESPONSE: "
+                )
+                while (
+                    "n" not in barter_even_odd.lower()
+                    and "y" not in barter_even_odd.lower()
+                ):
+                    print("YOU MUST REPLY TO THE OFFER.")
+                    sfx.fail_corrupt()
+                    barter_even_odd = input(
+                        "LOSE 500 DATA TO LEARN IF NEXUS NODE IS EVEN OR ODD? (y/n)\n\nRESPONSE: "
+                    )
+                if "y" in barter_even_odd:
+                    P1.is_even_reveal = True
+                    time.sleep(1)
+                    sfx.affirm_sound.play()
+                    P1.data_score -= 500
+                    sfx.affirm_sound.play()
+                    if P1.entry_key % 2 == 0:
+                        print("THE NEXUS KEY IS EVEN (500 DATA LOST)")
+                    else:
+                        print("THE NEXUS KEY IS ODD.")
+                    time.sleep(2)
+                if "n" in barter_even_odd:
+                    time.sleep(1)
+                    sfx.affirm_sound.play()
+                    print("OFFER RESCINDED. (DATA RETAINED)")
+                    time.sleep(2)
+                P1.barter_complete = True
         if P1.chances == 2:
             if P1.low_keys != 0 and P1.high_keys != 0:
                 time.sleep(1)
@@ -1539,7 +1534,7 @@ class P1:
                 random_variance = number_turns + randint(-2, 2)
                 print("\nDATA PACKET ({}00)\n".format(random_variance))
                 print("--ORIENTED {}--".format(direction))
-                deplete = number_turns  # lower number as we go
+                deplete = random_variance  # lower number as we go
                 turn_list = []
                 while deplete > 0:
                     if number_turns < 4:
@@ -1805,7 +1800,7 @@ class P1:
                 random_variance = number_turns + randint(-2, 2)
                 print("\nDATA PACKET ({}00)\n".format(random_variance))
                 print("--ORIENTED {}--".format(direction))
-                deplete = number_turns  # lower number as we go
+                deplete = random_variance  # lower number as we go
                 turn_list = []
                 while deplete > 0:
                     if number_turns < 4:
