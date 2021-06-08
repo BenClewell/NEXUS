@@ -29,16 +29,21 @@ soundfile==0.10.3.post1
 
 ## PART ONE: LOCATING THE NEXUS KEY
 
-CODE: https://github.com/BenClewell/NEXUS/blob/alpha/my_modules/pt1_combined.py
+CODE: https://github.com/BenClewell/NEXUS/blob/alpha2/my_modules/pt1_combined.py
 
 In the first part of the experience, you are trying to locate a node that contains the **nexus key** (*the game's McGuffin!*)-- but in order to locate that node, you're going to have to use a couple of tools at your disposal. To start off the first part of the game, you're greeted by the soothing voice of the **network assistant**, who provides helpful audio cues and feedback as you conduct your hack on the network. You will be prompted to select a number between ONE and ONE HUNDRED, which dictates your selected node. Once you select your first node, you will start being introduced, round by round-- to new mechanics that will assist you in finding your prize!
+
+Additionally, you will initially receive 2000 DATA, which is used to measure performance and skill in your hacking abilities. 
+
+You will receive and lose data depending on your performance as you go through your playtrhough.
 
 * * * 
 ###  ROUND ONE
 In the first round, you are introduced to an early obstacle: the ANTIVIRUS. For the first two rounds of gameplay, you may only makes entries based on an INSERTION POOL that is provided to you at the start of the game. 
+
 * MECHANIC: ANTIVIRUS
                 
-        To introduce more variety into the early game, you must adhere to the rules of the antivirus-- which will allow you to enter (2) TWO-DIGIT entries comprised of numbers in the INSERTION POOL. Once one number is consumed, you will only have TWO REMAINING digits for round two. Mind your consumption carefully.
+        To introduce more variety into the early game, you must adhere to the rules of the antivirus-- which will allow you to enter (2) TWO-DIGIT entries comprised of numbers in the INSERTION POOL. Once one number is consumed, you will only have THREE REMAINING digits for round two, and ONE DIGIT for round three. Mind your consumption carefully.
 
 STRATEGY:
 
@@ -63,12 +68,14 @@ STRATEGY:
 
             'Intermediate Security' is the default speed for the firewall. High security is easier, low security is more difficult.
 
+            You will gain or lose data based on your performance. 
+
 
 RESULTS:
 
 * You will be faced with a NODE ENTRY CHALLENGE. This is a result of every attempted hack. You are given an insertion range briefing (a ten-digit range of numbers) to press the ENTER KEY within. Shortly thereafter, you will be given a SECURITY LEVEL, which is the speed that the challenge will proceed at. (1 is slowest, 9 is fastest).
 
-* If you either FAIL the NODE ENTRY CHALLENGE, or lose against a JAMMER FIREWALL (if applicable), you will not learn directionality of the **Nexus Key**. However, if you SUCCEED, you will learn whether your entry is **higher** or **lower** than the **Nexus Key**.
+* If you either FAIL the NODE ENTRY CHALLENGE, or lose against a JAMMER FIREWALL (if applicable), you will not learn directionality of the **Nexus Key**. However, if you SUCCEED, you will learn whether your entry is **higher** or **lower** than the **Nexus Key**. You will gain or lose DATA based on your performance.
 
 * You will then notice that either your HIGH or LOW chances have been diminished by ONE. If you succeeded at your NODE ENTRY CHALLENGE and any applicable JAMMERS, this will be relative to your directionality to the **Nexus Key**. If you did not find out directionality of the **Key**, you will lose one chance from whichever set of chances you have more of-- and if both chances have equivilent amounts, either a high or a low guess will be randomly lost. 
 
@@ -100,7 +107,7 @@ STRATEGY:
 
         (For example, if I enter '5' as my SPECIAL SONAR, I will learn if my TARGET NODE is within 5 nodes of the NEXUS KEY.)
 
-        SPECIAL SONAR is disabled  for the rest of the game if the NEXUS key is outside of the range that you provided. 
+        SPECIAL SONAR is disabled if the NEXUS key is outside of the range that you provided. It may be rebooted for DATA when lost. 
 
 RESULTS:
 * In addition to directionality, you will now receive a SONAR READING. Sonar will activate whether or not you have failed or succeeded at ascertaining direction of the **Nexus Key**. 
@@ -111,6 +118,7 @@ POINTERS:
 * It is important to consider when it is worth taking the risk to enable SPECIAL SONAR (By entering '101' as your node to toggle it on and off), and when it is better to go with the default sonar range progression-- which can be seen as a forecast in HACKER HISTORY.
 
 * Remember, there is a 50% chance that the key will spawn the **Jammer Range**. If the range is very narrow or wide, you can make important decisions in focusing your future entries, now knowing concrete limits to the range.
+
 
 * * * 
 ###  ROUND THREE
@@ -133,7 +141,7 @@ STRATEGY:
 * Be very mindful of your HIGH and LOW chances at this point. Although your information bank should be large, you can easily end your run early by failing to balance your node entries. 
 * * * 
 ###  FINAL ROUND
-If you have balanced HIGH and LOW ENTRIES up to this point, the assistant will warn you that this is your LAST ATTEMPT. You will have one final opportunity to locate the **Nexus Key** before you are locked out of the system, and the game is over. 
+If you have balanced HIGH and LOW ENTRIES up to this point, the assistant will warn you that this is your LAST ATTEMPT. You will have one final opportunity to locate the **Nexus Key** before you are locked out of the system, and the game is over. Additionally, you will be given the option to forfeit DATA in exchange for knowledge on whether the NEXUS NODE is EVEN or ODD. 
 
 MECHANIC: FINAL CHANCE
         
@@ -153,9 +161,22 @@ You MUST succeed the node entry challenge to access the **Nexus Key**.
 
 Good luck!
 #
+## TRANSITION: DATA BREACH
+
+When you locate the NEXUS KEY, you will be given a short amount of time to gather  DATA. 
+
+Data is transmitted globally USING CARDINAL DIRECTIONS: North, East, South, and West.
+The system will provide a LEDGER of where a data packet has moved. You must respond with N, E, S, or W to triangulate each data packet.
+RIGHT TURNS move CLOCKWISE around the compass.
+LEFT TURNS move COUNTERCLOCKWISE.
+Finally, REVERSE MOVEMENTS move you OPPOSITE on the compass.
+LOST DATA will SUBTRACT the total value of the FAILED TARGET. (So be careful.)
+
+When the system tracks your position, you will be unable to harvest any more data, and will move onto PART TWO. 
+
 ## PART TWO: DECRYPTING THE KEY
 
-CODE: https://github.com/BenClewell/NEXUS/blob/alpha/my_modules/pt2_code_cracker.py
+CODE: https://github.com/BenClewell/NEXUS/blob/alpha2/my_modules/pt2_code_cracker.py
 
 There are fewer mechanics to consider in Part 2, but it is important to understand how the three main mechanics function. You will have to code-crack along the lines of Mastermind, or more aptly, 'Fermi Pico Bagels'! (Which is directly where this section finds inspiration in core mechanics. )
 
@@ -177,9 +198,15 @@ There are fewer mechanics to consider in Part 2, but it is important to understa
 * After THREE ENTRIES, you will have to complete FIREWALL CHECKS after each completed entry. When you see the word 'RESPOND' appear after a randomly-generated wait time, press ENTER as quickly as possible to avoid being locked out of the NEXUS. You will receive a visual and auditory warning prior to the FIREWALL CHECK.
   * Firewall checks will become increasingly challenging over time.  
 
+**TRANSITION: DATA BREACH**
+
+* You will receive a DATA BONUS if the system did not locate you before you decrypted the key, and further bonuses for performing the decryption faster. As in the first part, you will have another opportunity to collect DATA via a data breach event. This opportunity is a temporary condition, and will eventually end before the game's final sequence. 
+
 **ENDGAME**
 
 * Once you have matched your TOKEN ENTRY to the NEXUS KEY, you will enter the final section of the game-- which in my opinion, is super fun! With the game's assistant nervously coaching you through a final decryption, you'll complete a series of subsequent FIREWALL CHECKS until the NEXUS KEY is 100% decrypted, and you've hacked the system!
+
+  * You will then be able to enter your NAME and record your DATA SCORE in the included JSON file, so you can track your hacking proficiency as you revisit the NEXUS again!
 
 
 # FOOTNOTES
