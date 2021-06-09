@@ -73,6 +73,8 @@ STRATEGY:
 
 RESULTS:
 
+![Entry Node](/demo_resources/node_entry.JPG)
+
 * You will be faced with a NODE ENTRY CHALLENGE. This is a result of every attempted hack. You are given an insertion range briefing (a ten-digit range of numbers) to press the ENTER KEY within. Shortly thereafter, you will be given a SECURITY LEVEL, which is the speed that the challenge will proceed at. (1 is slowest, 9 is fastest).
 
 * If you either FAIL the NODE ENTRY CHALLENGE, or lose against a JAMMER FIREWALL (if applicable), you will not learn directionality of the **Nexus Key**. However, if you SUCCEED, you will learn whether your entry is **higher** or **lower** than the **Nexus Key**. You will gain or lose DATA based on your performance.

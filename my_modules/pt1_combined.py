@@ -1377,7 +1377,7 @@ class P1:
                             P1.node_hacking_minigame()
                             if P1.hack_success == False:
                                 # reduce hack chances by one.
-                                print("NODE INFORMATION JAMMED\n*******************\n")
+                                pass
                         else:
                             time.sleep(1.5)  # let other threads finish
                             sfx.appear_blip()
