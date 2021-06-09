@@ -121,7 +121,7 @@ def title_screen_show():
 
         screen.play(
             [PlasmaScene(screen)],
-            stop_on_resize=True,
+            stop_on_resize=False,
         )
 
     while True:
