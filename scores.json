@@ -1,18 +1,10 @@
 {
   "data_scores": [
     {
-      "data_total": 8750
+      "data_total": 2000
     }
   ],
   "champions": [
-    {
-      "name": "TEST_CHAMPION",
-      "score": 2000
-    },
-    {
-      "name": "TEST 2",
-      "score": 6900
-    },
     {
       "name": "Brian R.",
       "score": 5400
@@ -20,6 +12,11 @@
     {
       "name": "Ben C.",
       "score": 8750
+    }
+  ],
+  "parameters": [
+    {
+      "enemy_speed": 6000
     }
   ]
 }

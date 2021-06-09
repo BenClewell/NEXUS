@@ -4,7 +4,7 @@ import sys
 import os
 import pyfiglet
 import pyfiglet.fonts
-
+import json
 # more specific for pyinstaller
 
 from random import sample, shuffle, choice
@@ -46,10 +46,31 @@ def run_game():
     # display the title screen, calling from title_screen.py module
 
     ascii_nexus = pyfiglet.figlet_format("THE    NEXUS")
+
     sfx.appear_blip()
     time.sleep(0.5)
     sfx.voice_introduction()
     print(ascii_nexus)
+    with open("scores.json") as f:
+        champs = json.load(f)
+        temp = champs["champions"]
+    champs_sorted = sorted(temp, key = lambda k: k['score'], reverse= True)
+    champ_iterator = 1
+    print('\nTOP FIVE SYSTEM ADMINISTRATORS')
+    print('********************************')
+    for champ in champs_sorted[0:5]:
+        if champ_iterator == 1:
+            print('1) NEXUS CHAMPION: {} (DATA: {})'.format(champ['name'], champ['score']))
+        elif champ_iterator == 2:
+            print('2) CHIEF OF SECURITY: {} (DATA: {})'.format(champ['name'], champ['score']))
+        elif champ_iterator == 3:
+            print('3) INTRUSION ANALYST: {} (DATA: {})'.format(champ['name'], champ['score']))
+        elif champ_iterator == 4:
+            print('4) MALWARE ENGINEER: {} (DATA: {})'.format(champ['name'], champ['score']))
+        else:
+            print('5) ENCRYPTION DEVELOPER: {} (DATA: {})'.format(champ['name'], champ['score']))
+        champ_iterator +=1
+    print('********************************\n\n')
     # PLAYTEST
     # if pt2.P2.decode_key():
     #    pass

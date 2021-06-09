@@ -46,11 +46,17 @@ class P1:
     node_failed_state = False  # has the user failed the last node hack?
     node_progress_speed = 0.1  # become faster each hack
     insertion_finished = False
+    entered_node = 0 # track what player has entered
     # hacking minigame
     hack_success = True
     hack_chances = 3
-    fw_difficulty = 6000
+    with open("scores.json") as f:
+        fw_speed = json.load(f)
+        params = fw_speed["parameters"]
+        sp_assign = params[0]['enemy_speed']
+    fw_difficulty = int(sp_assign) # set firewall speed to parameter
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
+    # PLAYTEST print(fw_difficulty)
     fw_level = 0
     # inform the user what level firewall the AI is using.
     #
@@ -142,13 +148,24 @@ class P1:
         """the area in which you can perform a node hack"""
 
         def on_press(key):
+            insert_middle = start_insert+6
             if key == keyboard.Key.enter and P1.node_vulnerable == True:
                 sfx.burst_sound()
                 P1.node_failed_state = False  # user hacked node successfully
                 P1.insertion_finished = True
                 time.sleep(1)
-                print("[INSERTION VALID (+100 DATA)]")
-                P1.data_score += 100
+                if P1.entered_node == insert_middle:
+                    print("[PERFECT INSERTION (+500 DATA)]")
+                    P1.data_score += 500
+                elif ((insert_middle + 1) == P1.entered_node) or ((insert_middle - 1) == P1.entered_node):
+                    print("[PRECISE INSERTION (+250 DATA)]")
+                    P1.data_score += 250
+                elif ((insert_middle + 2) == P1.entered_node) or ((insert_middle - 2) == P1.entered_node):
+                    print("[GOOD INSERTION (+150 DATA)]")
+                    P1.data_score += 150
+                else:
+                    print("[VALID INSERTION (+100 DATA)]")
+                    P1.data_score+=100
             if key == keyboard.Key.enter and P1.node_vulnerable == False:
                 sfx.burst_sound()
                 P1.node_failed_state = True
@@ -328,8 +345,9 @@ class P1:
                 time.sleep(3)
             sfx.burst_sound()
             print("Node security level {}".format(P1.node_progress_rank))
+            print('|| DATA LOCUS: {} ||'.format(end_insert-5))
             print(
-                "Press ENTER between {} and {} to hack node.".format(
+                "\nPress ENTER between {} and {} to enter node.".format(
                     (start_insert + 1), (end_insert)
                 )
             )  # +1, to expand range
@@ -356,6 +374,7 @@ class P1:
                             P1.node_vulnerable = False
                         time.sleep(P1.node_progress_speed)
                         bar()
+                        P1.entered_node = i+1 # know what node the player entered
             time.sleep(1.5)
             pygame.mixer.stop()
             if P1.node_progress_speed > 0.02:
@@ -422,6 +441,8 @@ class P1:
                 sfx.success()
                 P1.special_sonar_limit -= 1
                 print("SPECIAL SONAR ABILITY REBOOTED. (1500 DATA LOST)")
+                P1.special_sonar = True
+                print("(It has been automatically REACTIVATED. Press '101' to DISABLE.)")
             if "n" in restore_ss.lower():
                 sfx.gentle_lofi()
                 print("UNDERSTOOD. SPECIAL SONAR WILL REMAIN OFFLINE. (NO DATA LOST)")
@@ -509,7 +530,7 @@ class P1:
                 if P1.special_sonar_limit > 0:
                     print(
                         "SPECIAL SONAR HAS BEEN DISABLED  (OVEREXTENDED RANGE)"
-                        "IT MAY BE REBOOTED FOR 1500 DATA (ENTER 101 TO REBOOT)"
+                        "\nIT MAY BE REBOOTED FOR 1500 DATA (ENTER 101 TO REBOOT)"
                     )
             if P1.sonar_list == []:
                 print("NO SONAR HISTORY")
@@ -1089,7 +1110,7 @@ class P1:
 
     def sonar_alerts():
         """provide sonar, and end game if too many low or high chances"""
-        if P1.special_sonar == True:
+        if P1.special_sonar == True and (P1.guess != P1.entry_key):
             sfx.enable_firewall.play()
             print("\n")
             ascii_ss = pyfiglet.figlet_format("SPECIAL SONAR")
@@ -1158,6 +1179,7 @@ class P1:
                 # enable special sonar
                 time.sleep(2)
                 sfx.enable_firewall.play()
+                print("\n\n")
                 ascii_special_unlocked = pyfiglet.figlet_format(
                     "SPECIAL SONAR ONLINE", font="digital"
                 )
@@ -1642,7 +1664,7 @@ class P1:
                 for i in range(100):
                     time.sleep(0.03)
                     bar()  # call after consuming one item
-            efficiency_bonus = P1.chances * 100
+            efficiency_bonus = P1.chances * 250
             P1.data_score += efficiency_bonus
             print("LOCATIONAL EFFICIENCY BONUS: {}".format(efficiency_bonus))
             sfx.success()
