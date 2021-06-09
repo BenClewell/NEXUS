@@ -3,7 +3,8 @@
 In NEXUS, you are a professional hacker who is trying to search for the NEXUS KEY, a guarded data packet with information your organization needs.
 With countless novel gameplay mechanics that utilize the terminal in creative and exhilarating ways, you'll be facing difficult challenges at the hands of the system's security, which is determined to lock you out of the NEXUS forever.
 
-SEE IT PLAYED: https://www.youtube.com/watch?v=G2AnkkvMG0s
+## SEE IT PLAYED: https://www.youtube.com/watch?v=G2AnkkvMG0s
+
 This has been a very fun personal project for me, and I hope you feel the same heart-pumping excitement that I still feel when I play!
 
 
