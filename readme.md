@@ -48,7 +48,9 @@ In the first round, you are introduced to an early obstacle: the ANTIVIRUS. For 
 STRATEGY:
 
 * Every game, a range of numbers, clustered around the center of the 100-number range (the low end will be between 1 and 50, and the high end will be between 51 and 100)-- will be designated as the JAMMER RANGE. Selecting a node within this initially-unknown range will trigger the JAMMER (a minigame that pits you against the system's firewall in order to gain directional intelligence about your hack!), and make hacking the system more challenging for you.
-    
+m
+![countermeasures](/demo_resources/countermeasures.JPG)
+
     * MECHANIC: JAMMER
             
             There is a 50% chance of the NEXUS KEY spawning within  the JAMMER RANGE. Keep this in mind when evaluating probable locations. Jammer range is revealed after round 3.
