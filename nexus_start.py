@@ -55,10 +55,18 @@ def run_game():
         champs = json.load(f)
         temp = champs["champions"]
     champs_sorted = sorted(temp, key = lambda k: k['score'], reverse= True)
+    champs_unique = []
+    for entry in champs_sorted: # take list of top-to-bottom scores and look at each entry
+        value = entry['name'] # just the players' names
+        if value not in str(champs_unique): # if the player name isn't in the string of sorted players, add them
+            champs_unique.append(entry)
+        else:
+            pass # if the player isn't in the string, don't add them. now you only have unique players.
+    print(champs_unique)
     champ_iterator = 1
     print('\nTOP FIVE SYSTEM ADMINISTRATORS')
     print('********************************')
-    for champ in champs_sorted[0:5]:
+    for champ in champs_unique[0:5]:
         if champ_iterator == 1:
             print('1) NEXUS CHAMPION: {} (DATA: {})'.format(champ['name'], champ['score']))
         elif champ_iterator == 2:
