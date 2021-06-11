@@ -62,7 +62,6 @@ def run_game():
             champs_unique.append(entry)
         else:
             pass # if the player isn't in the string, don't add them. now you only have unique players.
-    print(champs_unique)
     champ_iterator = 1
     print('\nTOP FIVE SYSTEM ADMINISTRATORS')
     print('********************************')
