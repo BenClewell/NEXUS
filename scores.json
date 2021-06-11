@@ -1,7 +1,7 @@
 {
   "data_scores": [
     {
-      "data_total": 2000
+      "data_total": 9000
     }
   ],
   "champions": [
@@ -24,6 +24,26 @@
     {
       "name": "Ben C.",
       "score": 11750
+    },
+    {
+      "name": "Brian R.",
+      "score": 6250
+    },
+    {
+      "name": "Ben C.",
+      "score": 12000
+    },
+    {
+      "name": "Ben C.",
+      "score": 13700
+    },
+    {
+      "name": "Brian R.",
+      "score": 8850
+    },
+    {
+      "name": "Brian R.",
+      "score": 9000
     }
   ],
   "parameters": [
