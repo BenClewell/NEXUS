@@ -500,7 +500,7 @@ class P1:
                         P1.barrier_low + 1
                     )  # the +1 corrects the jammer range, since the lowest range point is outside jammer
                     + " to "
-                    + str(P1.barrier_high)
+                    + str(P1.barrier_high -1 ) # reduce the high end of the jammer to inclusive 
                 )
             if P1.chances <= 2 and P1.barrier_inside == 2:
                 print("The NEXUS KEY is INSIDE the jammer range.")
@@ -1104,7 +1104,7 @@ class P1:
                 "The JAMMER RANGE is covering "
                 + str(P1.barrier_low + 1)
                 + " to "
-                + str(P1.barrier_high)
+                + str(P1.barrier_high -1 )
                 + ".\nThere is a 50% chance that the NEXUS KEY has appeared within this range."
             )
 
