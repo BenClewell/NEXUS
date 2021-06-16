@@ -216,6 +216,9 @@ class P1:
                         charpass = True  # did character check pass
                         dupes_caught = False
                         string_guess = str(P1.guess)  # i guess this redundant lol
+                        increment_nonrepeat = (
+                                0  # prevent repeat messages, see increment
+                            )
                         for char in P1.guess_string:
                             if (
                                 char in P1.allowed_list
@@ -230,6 +233,7 @@ class P1:
                                     "ERROR: TWO NODES from the INTEGER POOL must be entered to BYPASS ANTIVIRUS"
                                     "\nPlease disable ANTIVIRUS to permit SINGLE-INTEGER ENTRIES"
                                 )
+                                sfx.antivirus_block()
 
                             if char in duplicates and len(P1.allowed_list) != 1:
                                 valid = False
@@ -241,14 +245,14 @@ class P1:
                                     "\nPlease disable ANTIVIRUS to permit DUPLICATE ENTRIES."
                                 )
                                 dupes_caught = True
+                                if increment_nonrepeat == 0:
+                                    sfx.antivirus_block()
 
                             else:
                                 duplicates[char] = 1
                                 #
                                 #
-                            increment_nonrepeat = (
-                                0  # prevent repeat messages, see increment
-                            )
+                
                             if (
                                 char not in P1.allowed_list
                                 and dupes_caught == False
@@ -256,18 +260,21 @@ class P1:
                             ):
                                 valid = False
                                 charpass = False
-                                sfx.fail_corrupt()
+                                if increment_nonrepeat == 0:
+                                    sfx.fail_corrupt()
                                 if increment_nonrepeat == 0:
                                     print("[ANTIVIRUS]: FORBIDDEN ENTRY")
                                     print(
                                         "ERROR: You do not have PERMISSION to access those NODE INTEGERS."
                                         "\nPlease disable ANTIVIRUS to permit nodes outside of the INTEGER POOL."
                                     )
-                                else:
-                                    pass
-                                increment_nonrepeat += (
+                                    sfx.antivirus_block()
+                                    increment_nonrepeat += (
                                     1  # prevent message from repeating two times
                                 )
+                                else:
+                                    pass
+                
                             if len(P1.allowed_list) == 1:
                                 valid = False
                                 charpass = False
@@ -283,6 +290,10 @@ class P1:
                                     sfx.fail_corrupt()
                                     print(
                                         "[ANTIVIRUS]: FORBIDDEN ENTRY.\nONE INTEGER OF ENTRY MUST MATCH LAST REMAINING ITEM IN POOL"
+                                    )
+                                    sfx.antivirus_block()
+                                    increment_nonrepeat += (
+                                    1  # prevent message from repeating two times
                                     )
 
                         if charpass == True and dupes_caught == False:
@@ -304,6 +315,7 @@ class P1:
                             time.sleep(1)
 
                             if P1.allowed_list == []:
+                                sfx.antivirus_disabled()
                                 time.sleep(0.5)
                                 sfx.gentle_lofi()
                                 sfx.success()
@@ -1207,7 +1219,7 @@ class P1:
                     )
                 )
                 P1.allowed_list.append(added_number)
-            if P1.chances == 3:
+            if P1.chances == 3 and P1.guess != P1.entry_key:
                 if P1.sonar == True and (
                     ((P1.guess - 30) <= P1.entry_key <= (P1.guess + 30))
                     and (0 < P1.guess < 101)
@@ -1305,7 +1317,7 @@ class P1:
                     time.sleep(2)
                 P1.barter_complete = True
         if P1.chances == 2:
-            if P1.low_keys != 0 and P1.high_keys != 0:
+            if P1.low_keys != 0 and P1.high_keys != 0 and P1.guess!=P1.entry_key:
                 time.sleep(1)
                 print("\n\nI just confirmed where the NEXUS KEY is situated.")
                 time.sleep(1)
@@ -1322,7 +1334,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        # print(P1.entry_key)  # for playtesting
+        #print(P1.entry_key)  # for playtesting
         print(
             random.choice(
                 (
@@ -1335,11 +1347,33 @@ class P1:
             )
         )
         print('Press "0" to view your HACKER HISTORY at any time.')
+
+        time.sleep(2)
         print(
             "For now, the ANTIVIRUS will prevent us from going outside of the INTEGER POOL."
         )
         print(
             "Construct your NODE ENTRIES using these available integers. The ANTIVIRUS will be weakened as you construct VALID NODES.\n\n"
+        )
+        time.sleep(2)
+        sfx.antivirus_activated()
+        print(
+            random.choice(
+                (
+                    "[ANTIVIRUS ONLINE] : I look forward to defending the NEXUS! :)",
+                    "[ANTIVIRUS ONLINE] : No hard feelings, please! :)",
+                    "[ANTIVIRUS ONLINE] : I will perform my job well! :)",
+                    "[ANTIVIRUS ONLINE] : I will protect our systems! :)",     
+                    "[ANTIVIRUS ONLINE] : I promise to keep us safe! :)",
+                    "[ANTIVIRUS ONLINE] : I will always protect you! :)",
+                    "[ANTIVIRUS ONLINE] : Always doing my best to keep us secure! :)",
+                    "[ANTIVIRUS ONLINE] : I love doing my part! :)",        
+                    "[ANTIVIRUS ONLINE] : A safe system is a happy system! :)",
+                    "[ANTIVIRUS ONLINE] : I love keeping our NEXUS in good hands! :)",
+                    "[ANTIVIRUS ONLINE] : Hello there! I will keep you safe. :)",
+                    "[ANTIVIRUS ONLINE] : Greetings! I hope you are well! :)",         
+                )
+            )
         )
         while P1.chances != 0 and P1.guess != P1.entry_key:
             P1.tripwire = False

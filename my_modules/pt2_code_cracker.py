@@ -27,7 +27,7 @@ import json
 
 class P2:
     """house all methods and unify all global variables"""
-
+    antivirus_disable_counter = 0 # antivirus message is only one
     data_my_timer = 60  # timer for part 2
     data_start_timer = False
     data_current_stage_timer = False  # in stage 2, where timer applies
@@ -355,12 +355,32 @@ class P2:
         print(
             "If an ACCESS TOKEN is ALIGNED, you will have to perform increasingly high-security hacks for each aligned node."
         )
-        print('Press "0" to view your hacking history at any time.')
-        time.sleep(0.5)
+        print('Press "0" to view your hacking history at any time.\n\n')
+        time.sleep(1)
+        sfx.antivirus_activated()
+        print(
+            random.choice(
+                (
+                    "[ANTIVIRUS REACTIVATED] It saddens me that you are not my friend! :(",
+                    "[ANTIVIRUS REACTIVATED] I wish you were on the side of security! :(",
+                    "[ANTIVIRUS REACTIVATED] All this time, I thought you were my ally! :(",
+                    "[ANTIVIRUS REACTIVATED] Maybe some day, you will stop this! :(",     
+                    "[ANTIVIRUS REACTIVATED] I don't understand why you are doing this! :(",
+                    "[ANTIVIRUS REACTIVATED] I wish you were not an enemy! :(",
+                    "[ANTIVIRUS REACTIVATED] It brings me no joy to prevent your access! :(",
+                    "[ANTIVIRUS REACTIVATED] I thought you were my friend! :(",        
+                    "[ANTIVIRUS REACTIVATED] This system means everything to me! :(",
+                    "[ANTIVIRUS REACTIVATED] Please don't do this! :(",
+                    "[ANTIVIRUS REACTIVATED] Why are you doing this? :(",
+                    "[ANTIVIRUS REACTIVATED] I don't understand why you are doing this! :(",         
+                )
+            )
+        )
+        time.sleep(2)
         sfx.enable_firewall.play()
         print("\nMAKE NOTE OF THE FOLLOWING:")
         print(
-            "\n\n[ANTIVIRUS REACTIVATED]: FIRST TWO ENTRIES MUST HAVE INTEGERS THAT SUM TO A SPECIFIED NUMBER"
+            "\n\n[ANTIVIRUS PARAMETERS]: FIRST TWO ENTRIES MUST HAVE INTEGERS THAT SUM TO A SPECIFIED NUMBER"
         )
         print("\n\nSYS TRACE PREPARED:// TRACKING INTRUDER 5 MINUTES AFTER FIRST ENTRY")
         score_file = open("scores.json", "r")
@@ -434,6 +454,7 @@ class P2:
                             else:
                                 match = False
                                 sfx.fail_corrupt()
+                                sfx.antivirus_block()
                                 print(
                                     "[ANTIVIRUS]: INCORRECT SUM. ({}) ENSURE ALL ENTRY INTEGERS ADD TO THE PROPER NUMBER. ({})".format(
                                         input_sum, antivirus_sum
@@ -449,11 +470,15 @@ class P2:
                             continue
                 else:
                     if counter == 3:
-                        sfx.gentle_lofi()
-                        sfx.success()
-                        print(
-                            "\n[ANTIVIRUS DISABLED]: NO SUM REQUIREMENTS GOING FORWARD\n\n"
-                        )
+                        if P2.antivirus_disable_counter == 0:                     
+                            sfx.gentle_lofi()
+                            sfx.success()
+                            sfx.antivirus_disabled()
+                            print(
+                                "\n[ANTIVIRUS DISABLED]: NO SUM REQUIREMENTS GOING FORWARD\n\n"
+                            )
+                            time.sleep(2)
+                            P2.antivirus_disable_counter+=1
 
                     input_crack = input()
                     if input_crack == "0":

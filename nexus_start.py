@@ -103,9 +103,9 @@ def run_game():
         champ_iterator += 1
     print("********************************\n\n")
     # PLAYTEST
-    # if pt2.P2.decode_key():
+    #if pt2.P2.decode_key():
     #    pass
-    # PLAYTEST
+    #PLAYTEST
     if pt1.P1.game():
         os.system("cls" if os.name == "nt" else "clear")
         # clear the output in the terminal
