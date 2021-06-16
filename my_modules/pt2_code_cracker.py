@@ -113,7 +113,7 @@ class P2:
                 print("FIREWALL DISABLING INFRASTRUCTURE...")
                 return
 
-        sfx.play_mp3_once("/bgm/bgm_8.mp3")
+        sfx.play_mp3_once("/bgm/bgm_final.mp3")
         sfx.burst_sound()
         ascii_no_touch = pyfiglet.figlet_format("DO NOT TOUCH\nTHE KEYBOARD")
         listener = keyboard.Listener(on_press=on_press)
@@ -336,7 +336,7 @@ class P2:
             letters.reverse()
 
         number = "".join(letters)
-        #print(str(number))
+        # print(str(number))
         """for playtesting purposes"""
         time.sleep(2)
         sfx.gentle_lofi()

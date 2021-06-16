@@ -15,10 +15,13 @@ def play_mp3(track):
     pygame.mixer.music.stop()
     pygame.mixer.music.load("sounds/" + track)
     pygame.mixer.music.play(-1)
+
+
 def play_mp3_once(track):
     pygame.mixer.music.stop()
     pygame.mixer.music.load("sounds/" + track)
     pygame.mixer.music.play(1)
+
 
 click = pygame.mixer.Sound("sounds/audio_16_bit/PM_FSSF_UI_CLICKS_1.wav")
 rumble = pygame.mixer.Sound(
@@ -37,26 +40,46 @@ enable_firewall = pygame.mixer.Sound("sounds/appear_blips/enable.wav")
 
 # ONE LINERS FOR THE ENDING SEQUENCE:
 gotta_decrypt = pygame.mixer.Sound("sounds/narration/one_liners/pt2_start.wav")
-three_aligned = pygame.mixer.Sound("sounds/narration/one_liners/all_aligned.wav") #start pt3
-found_node = pygame.mixer.Sound("sounds/narration/one_liners/pt1_nodefound.wav") #on the nexus node
-first_jam = pygame.mixer.Sound("sounds/narration/one_liners/firstjam.wav") #33 percent
-first_jam_check = pygame.mixer.Sound("sounds/narration/one_liners/firstjam_check.wav") #more firewall. oh no!
-second_jam_start = pygame.mixer.Sound("sounds/narration/one_liners/secondjam_start.wav") #hack again
-second_jam_blocked = pygame.mixer.Sound("sounds/narration/one_liners/secondjam_blocked.wav") #stopped at 66!
-third_jam_start = pygame.mixer.Sound("sounds/narration/one_liners/thirdjam_start.wav") #hack again
-third_jam_blocked = pygame.mixer.Sound("sounds/narration/one_liners/thirdjam_blocked.wav") #stopped at 99!
-fourth_jam_final = pygame.mixer.Sound("sounds/narration/one_liners/fourthjam_final.wav") #encourage!
-omg_did_it = pygame.mixer.Sound("sounds/narration/one_liners/omg.wav") #encourage!
-good_hacker = pygame.mixer.Sound("sounds/narration/one_liners/compliment_player.wav") #amazing job!
-welcome_nexus = pygame.mixer.Sound("sounds/narration/one_liners/WELCOME.wav") #WELCOME TO THE NEXUS
+three_aligned = pygame.mixer.Sound(
+    "sounds/narration/one_liners/all_aligned.wav"
+)  # start pt3
+found_node = pygame.mixer.Sound(
+    "sounds/narration/one_liners/pt1_nodefound.wav"
+)  # on the nexus node
+first_jam = pygame.mixer.Sound("sounds/narration/one_liners/firstjam.wav")  # 33 percent
+first_jam_check = pygame.mixer.Sound(
+    "sounds/narration/one_liners/firstjam_check.wav"
+)  # more firewall. oh no!
+second_jam_start = pygame.mixer.Sound(
+    "sounds/narration/one_liners/secondjam_start.wav"
+)  # hack again
+second_jam_blocked = pygame.mixer.Sound(
+    "sounds/narration/one_liners/secondjam_blocked.wav"
+)  # stopped at 66!
+third_jam_start = pygame.mixer.Sound(
+    "sounds/narration/one_liners/thirdjam_start.wav"
+)  # hack again
+third_jam_blocked = pygame.mixer.Sound(
+    "sounds/narration/one_liners/thirdjam_blocked.wav"
+)  # stopped at 99!
+fourth_jam_final = pygame.mixer.Sound(
+    "sounds/narration/one_liners/fourthjam_final.wav"
+)  # encourage!
+omg_did_it = pygame.mixer.Sound("sounds/narration/one_liners/omg.wav")  # encourage!
+good_hacker = pygame.mixer.Sound(
+    "sounds/narration/one_liners/compliment_player.wav"
+)  # amazing job!
+welcome_nexus = pygame.mixer.Sound(
+    "sounds/narration/one_liners/WELCOME.wav"
+)  # WELCOME TO THE NEXUS
+
+
 def hack_node():
     """ access all calculation sounds, and pick one randomly using random module"""
     calc_sound_number = random.randint(1, 21)
     # how many variations of calc_sounds that there are
     node_sound = pygame.mixer.Sound(
-        "sounds/audio_16_bit/PM_CSPH_Calculations_"
-        + str(calc_sound_number)
-        + ".wav"
+        "sounds/audio_16_bit/PM_CSPH_Calculations_" + str(calc_sound_number) + ".wav"
     )
     node_sound.play()
 
@@ -66,9 +89,7 @@ def burst_sound():
     sound_number = random.randint(1, 10)
     # how many variations of burst_sounds that there are
     burst_sound = pygame.mixer.Sound(
-        "sounds/burst_noise/PM_AG_"
-        + str(sound_number)
-        + "_1_ABSTRACT_GUNS.wav"
+        "sounds/burst_noise/PM_AG_" + str(sound_number) + "_1_ABSTRACT_GUNS.wav"
     )
     burst_sound.play()
 
@@ -81,6 +102,7 @@ def gentle_ui():
         "sounds/gentle_ui_sounds/gentle_ui (" + str(sound_number) + ").wav"
     )
     burst_sound.play()
+
 
 def gentle_lofi():
     """ pick one of eight lofi gentle sounds """
@@ -100,10 +122,12 @@ def fail_corrupt():
         "sounds/hack_sounds/fail (" + str(sound_number) + ").wav"
     )
     burst_sound.play()
+
+
 def voice_introduction():
     sound_number = random.randint(1, 21)
     # how many variations of burst_sounds that there are
-    if sound_number>0 and sound_number<10:
+    if sound_number > 0 and sound_number < 10:
         burst_sound = pygame.mixer.Sound(
             "sounds/narration/introductions/intro-00" + str(sound_number) + ".wav"
         )
@@ -113,6 +137,7 @@ def voice_introduction():
         )
     burst_sound.play()
 
+
 def voice_nodehack():
     """ play when hacking node"""
     sound_number = random.randint(2, 11)
@@ -121,6 +146,8 @@ def voice_nodehack():
         "sounds/narration/node_hacking/nodehack (" + str(sound_number) + ").wav"
     )
     burst_sound.play()
+
+
 def voice_node_fail():
     """ failed to hack"""
     sound_number = random.randint(2, 9)
@@ -129,6 +156,8 @@ def voice_node_fail():
         "sounds/narration/jammer_fail/node_fail (" + str(sound_number) + ").wav"
     )
     burst_sound.play()
+
+
 def voice_too_high():
     """ high entry"""
     sound_number = random.randint(1, 4)
@@ -137,6 +166,8 @@ def voice_too_high():
         "sounds/narration/too_high/too_high (" + str(sound_number) + ").wav"
     )
     burst_sound.play()
+
+
 def voice_too_low():
     """ low entry"""
     sound_number = random.randint(1, 4)
@@ -145,6 +176,8 @@ def voice_too_low():
         "sounds/narration/too_low/too_low (" + str(sound_number) + ").wav"
     )
     burst_sound.play()
+
+
 def voice_warning_high_entries():
     """ one more high entry"""
     sound_number = random.randint(1, 2)
@@ -155,6 +188,8 @@ def voice_warning_high_entries():
     burst_sound.play()
     #
     #
+
+
 def voice_warning_low_entries():
     """ one more low entry"""
     sound_number = random.randint(1, 2)
@@ -165,6 +200,8 @@ def voice_warning_low_entries():
     burst_sound.play()
     #
     #
+
+
 def voice_nexus_found():
     """ nexus key acquired"""
     sound_number = random.randint(1, 3)
@@ -174,7 +211,9 @@ def voice_nexus_found():
     )
     burst_sound.play()
     #
-    #  
+    #
+
+
 def voice_fw_check():
     """ fw check incoming"""
     sound_number = random.randint(1, 8)
@@ -184,7 +223,9 @@ def voice_fw_check():
     )
     burst_sound.play()
     #
-    #  
+    #
+
+
 def voice_alligned():
     """ token aligned"""
     sound_number = random.randint(1, 6)
@@ -194,6 +235,8 @@ def voice_alligned():
     )
     burst_sound.play()
     #
+
+
 def voice_found_data():
     """ token aligned"""
     sound_number = random.randint(1, 9)
@@ -203,6 +246,8 @@ def voice_found_data():
     )
     burst_sound.play()
     #
+
+
 def voice_done_data():
     """ token aligned"""
     sound_number = random.randint(1, 8)
@@ -211,6 +256,8 @@ def voice_done_data():
         "sounds/narration/data_done/done_data-00" + str(sound_number) + ".wav"
     )
     burst_sound.play()
+
+
 def success():
     """ pick one of ten burst sounds """
     sound_number = random.randint(1, 3)
@@ -228,6 +275,8 @@ def alarm_loop(alarm_type):
         "sounds/alarms/PM_CSPH_Alarms_" + str(alarm_type) + ".wav"
     )
     alarm_sound.play(-1)
+
+
 #
 #
 def loading_loop():
@@ -237,12 +286,14 @@ def loading_loop():
         "sounds/bar_loops/bar_loop (" + str(sound_number) + ").wav"
     )
     alarm_sound.play(-1)
+
+
 def data_loop():
     """for loading bars in-game"""
-    alarm_sound = pygame.mixer.Sound(
-        "sounds/bar_loops/intercept.wav"
-    )
+    alarm_sound = pygame.mixer.Sound("sounds/bar_loops/intercept.wav")
     alarm_sound.play(-1)
+
+
 def appear_blip():
     """ pick one of ten burst sounds """
     sound_number = random.randint(1, 10)
@@ -256,25 +307,24 @@ def appear_blip():
     sound_number = random.randint(1, 10)
     # how many variations of burst_sounds that there are
     burst_sound = pygame.mixer.Sound(
-        "sounds/burst_noise/PM_AG_"
-        + str(sound_number)
-        + "_1_ABSTRACT_GUNS.wav"
+        "sounds/burst_noise/PM_AG_" + str(sound_number) + "_1_ABSTRACT_GUNS.wav"
     )
     burst_sound.play()
 
 
 def play_p1_bgm():
-    track = "sounds/bgm/bgm_" + str(random.randint(-3, 3)) + ".mp3"
+    track = "sounds/bgm/bgm_" + str(random.randint(-5, 2)) + ".mp3"
     pygame.mixer.music.stop()
     pygame.mixer.music.load(track)
     pygame.mixer.music.play(-1)
 
 
 def play_p2_bgm():
-    track = "sounds/bgm/bgm_" + str(random.randint(4, 6)) + ".mp3"
+    track = "sounds/bgm/bgm_" + str(random.randint(3, 9)) + ".mp3"
     pygame.mixer.music.stop()
     pygame.mixer.music.load(track)
     pygame.mixer.music.play(-1)
+
 
 def villian_jammerland():
     """ token aligned"""
@@ -285,11 +335,13 @@ def villian_jammerland():
     )
     burst_sound.play()
     #
+
+
 def villian_jammer_active():
     """ token aligned"""
     sound_number = random.randint(1, 12)
     # how many variations of burst_sounds that there are
-    if sound_number>0 and sound_number<10:
+    if sound_number > 0 and sound_number < 10:
         burst_sound = pygame.mixer.Sound(
             "sounds/villain/jammer_active-00" + str(sound_number) + ".wav"
         )
@@ -298,6 +350,7 @@ def villian_jammer_active():
             "sounds/villain/jammer_active-0" + str(sound_number) + ".wav"
         )
     burst_sound.play()
+
 
 def villian_timer_start():
     """ token aligned"""
@@ -308,6 +361,8 @@ def villian_timer_start():
     )
     burst_sound.play()
     #
+
+
 def villian_timer_end():
     """ token aligned"""
     sound_number = random.randint(1, 2)
@@ -317,6 +372,8 @@ def villian_timer_end():
     )
     burst_sound.play()
     #
+
+
 def villian_system_lock():
     """ token aligned"""
     sound_number = random.randint(1, 6)
