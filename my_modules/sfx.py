@@ -101,12 +101,16 @@ def fail_corrupt():
     )
     burst_sound.play()
 def voice_introduction():
-    """ play at entry screen"""
-    sound_number = random.randint(1, 5)
+    sound_number = random.randint(1, 21)
     # how many variations of burst_sounds that there are
-    burst_sound = pygame.mixer.Sound(
-        "sounds/narration/introductions/intro_" + str(sound_number) + ".wav"
-    )
+    if sound_number>0 and sound_number<10:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/narration/introductions/intro-00" + str(sound_number) + ".wav"
+        )
+    else:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/narration/introductions/intro-0" + str(sound_number) + ".wav"
+        )
     burst_sound.play()
 
 def voice_nodehack():

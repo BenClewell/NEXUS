@@ -52,6 +52,7 @@ def run_game():
     time.sleep(0.5)
     sfx.voice_introduction()
     print(ascii_nexus)
+    time.sleep(2)
     with open("scores.json") as f:
         champs = json.load(f)
         temp = champs["champions"]
