@@ -21,6 +21,7 @@ import json  # read score information
 
 
 class P1:
+    distance_bonus = 0 # how far from jammer were you?
     score_file = open("scores.json", "r")
     scores = json.load(score_file)
     for key in scores["data_scores"]:  # for reagent in reagent list
@@ -291,7 +292,8 @@ class P1:
                                     print(
                                         "[ANTIVIRUS]: FORBIDDEN ENTRY.\nONE INTEGER OF ENTRY MUST MATCH LAST REMAINING ITEM IN POOL"
                                     )
-                                    sfx.antivirus_block()
+                                    if increment_nonrepeat == 0:
+                                        sfx.antivirus_block()
                                     increment_nonrepeat += (
                                     1  # prevent message from repeating two times
                                     )
@@ -314,8 +316,7 @@ class P1:
                             if P1.allowed_list == []:
                                 sfx.antivirus_disabled()
                                 time.sleep(0.5)
-                                sfx.gentle_lofi()
-                                sfx.success()
+                                sfx.gentle_lofi('Quiet')
                                 print("/ INTEGER POOL SATISFIED \\")
                                 time.sleep(0.5)
                                 print("[**[ANTIVIRUS DISABLED]**]")
@@ -335,6 +336,7 @@ class P1:
 
         if valid == True and P1.guess != 0 and P1.guess < 101:
             if P1.allowed_list != []:
+                time.sleep(.5)
                 sfx.antivirus_pass()
                 print(
                     random.choice(
@@ -346,7 +348,7 @@ class P1:
                             "[ANTIVIRUS APPROVAL] : You make my job worth doing! :)",
                             "[ANTIVIRUS APPROVAL] : This entry looks perfect! :)",
                             "[ANTIVIRUS APPROVAL] : I know you're one of the good ones! :)",
-                            "[ANTIVIRUS APPROVAL] : I knew you weren't a hacker! :)",        
+                            "[ANTIVIRUS APPROVAL] : Thanks for playing by the rules! :)",        
                             "[ANTIVIRUS APPROVAL] : Your entry looks great! :)",
                             "[ANTIVIRUS APPROVAL] : Beautiful entry! :)",
                             "[ANTIVIRUS APPROVAL] : Absolutely approved! :)",
@@ -898,7 +900,7 @@ class P1:
             stdscr.clear()
 
             if winner == True:
-                title = "JAMMER ENTRY GAINED; 200 DATA GAINED"
+                title = "JAMMER ENTRY GAINED."
                 subtitle = (
                     "[System] Security has been HEIGHTENED. Press ENTER to proceed."
                 )
@@ -909,14 +911,13 @@ class P1:
                 if P1.fw_difficulty > 500:
                     P1.fw_difficulty -= 500  # can't go to zero
                 # make the enemy move faster
-                P1.fw_level += 1
-                P1.data_score += 200
                 # increase the 'level difficulty' by one
+                P1.distance_bonus = (x_finish-enemy_x)
                 curses.endwin()
 
             else:
                 sfx.fail_corrupt()
-                title = "JAMMER ENTRY DENIED; 200 DATA LOST"
+                title = "JAMMER ENTRY DENIED. 200 DATA LOST."
                 subtitle = "[System] Security has been LOWERED. Press ENTER to proceed."
                 # nexus_main.num_denials -=1
                 pygame.mixer.stop()
@@ -949,6 +950,7 @@ class P1:
             stdscr.getch()
 
             # curses.wrapper(main)  # back to main function
+
 
         def main(stdscr):
 
@@ -1369,20 +1371,29 @@ class P1:
         )
         print('Press "0" to view your HACKER HISTORY at any time.')
 
-        time.sleep(2)
+        time.sleep(1.5)
+        sfx.gentle_lofi()
         print(
             "For now, the ANTIVIRUS will prevent us from going outside of the INTEGER POOL."
         )
         print(
             "Construct your NODE ENTRIES using these available integers. The ANTIVIRUS will be weakened as you construct VALID NODES.\n\n"
         )
-        time.sleep(2)
+        time.sleep(1.5)
+        print("------------------------------------------------------------------")
+        time.sleep(1.5)
+        sfx.gentle_lofi('Quiet')
+        print("------------------------------------------------------------------")
+        time.sleep(1.5)
+        sfx.gentle_lofi('Quiet')
+        print("------------------------------------------------------------------\n")
         sfx.antivirus_activated()
         print(
             random.choice(
                 (
                     "[ANTIVIRUS ONLINE] : I look forward to defending the NEXUS! :)",
-                    "[ANTIVIRUS ONLINE] : No hard feelings, please! :)",
+                    "[ANTIVIRUS ONLINE] : I'm so glad I can trust you! :)",
+                    "[ANTIVIRUS ONLINE] : I hope you consider us friends! :)",
                     "[ANTIVIRUS ONLINE] : I will perform my job well! :)",
                     "[ANTIVIRUS ONLINE] : I will protect our systems! :)",     
                     "[ANTIVIRUS ONLINE] : I promise to keep us safe! :)",
@@ -1433,6 +1444,31 @@ class P1:
                             if P1.hack_success == False:
                                 # reduce hack chances by one.
                                 pass
+                            else:
+                                time.sleep(1)
+                                sfx.gentle_ui()
+                                print("\n")
+                                print('JAMMER EVADED!')
+                                if P1.fw_level == 0:
+                                    print('INTERMEDIATE SECURITY DEFEATED: +150 DATA')
+                                    P1.data_score+=150
+                                elif P1.fw_level == 1:
+                                    print('HIGH SECURITY DEFEATED: +200 DATA')
+                                    P1.data_score+=200
+                                elif P1.fw_level == 2:
+                                    print('VERY HIGH SECURITY DEFEATED: +250 DATA')
+                                    P1.data_score+=250
+                                elif P1.fw_level > 2:
+                                    print('INCREDIBLY HIGH SECURITY DEFEATED: +250 DATA')
+                                    P1.data_score+=300
+                                elif P1.fw_level <0:
+                                    print('LOWER LEVEL SECURITY DEFEATED: +100 DATA')
+                                    P1.data_score+=100
+                                time.sleep(1)
+                                sfx.gentle_lofi()
+                                print('DOMINANCE BONUS: +{} DATA\n'.format(P1.distance_bonus*2))
+                                P1.data_score+=(P1.distance_bonus*2)
+                                P1.fw_level += 1
                         else:
                             time.sleep(1.5)  # let other threads finish
                             sfx.appear_blip()
@@ -1719,7 +1755,7 @@ class P1:
                 for i in range(100):
                     time.sleep(0.03)
                     bar()  # call after consuming one item
-            efficiency_bonus = P1.chances * 250
+            efficiency_bonus = P1.chances * 500
             P1.data_score += efficiency_bonus
             print("LOCATIONAL EFFICIENCY BONUS: {}".format(efficiency_bonus))
             sfx.success()

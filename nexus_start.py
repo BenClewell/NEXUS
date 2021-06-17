@@ -49,10 +49,10 @@ def run_game():
     ascii_nexus = pyfiglet.figlet_format("THE    NEXUS")
 
     sfx.appear_blip()
-    time.sleep(0.5)
-    sfx.voice_introduction()
+    time.sleep(.5)
+    sfx.antivirus_welcome()
     print(ascii_nexus)
-    time.sleep(2)
+    time.sleep(1.5)
     with open("scores.json") as f:
         champs = json.load(f)
         temp = champs["champions"]
@@ -72,6 +72,7 @@ def run_game():
     print("\nTOP FIVE SYSTEM ADMINISTRATORS")
     print("********************************")
     for champ in champs_unique[0:5]:
+        sfx.gentle_lofi('Quiet')
         if champ_iterator == 1:
             print(
                 "1) NEXUS CHAMPION: {} (DATA: {})".format(champ["name"], champ["score"])
@@ -101,7 +102,10 @@ def run_game():
                 )
             )
         champ_iterator += 1
+        time.sleep(.5)
     print("********************************\n\n")
+    time.sleep(2)
+    sfx.voice_introduction()
     # PLAYTEST
     #if pt2.P2.decode_key():
     #    pass

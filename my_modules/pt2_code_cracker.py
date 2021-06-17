@@ -891,17 +891,17 @@ class P2:
                 else:
                     print("THE SYSTEM TRIANGULATED YOU: NO BONUS DATA AWARDED")
                 if final_timer_str[0] == "4":
-                    print("OVER FOUR MINUTES REMAINING: +1000 DATA BONUS")
-                    P2.data_score += 1000
+                    print("OVER FOUR MINUTES REMAINING: +2000 DATA BONUS")
+                    P2.data_score += 2000
                 elif final_timer_str[0] == "3":
-                    print("OVER THREE MINUTES REMAINING:  +800 DATA BONUS")
-                    P2.data_score += 800
+                    print("OVER THREE MINUTES REMAINING:  +1600 DATA BONUS")
+                    P2.data_score += 1600
                 elif final_timer_str[0] == "2":
-                    print("OVER TWO MINUTES REMAINING:  +600 DATA BONUS")
-                    P2.data_score += 600
+                    print("OVER TWO MINUTES REMAINING:  +1200 DATA BONUS")
+                    P2.data_score += 1200
                 elif final_timer_str[0] == "1":
-                    print("OVER ONE MINUTE REMAINING:  +400 DATA BONUS")
-                    P2.data_score += 400
+                    print("OVER ONE MINUTE REMAINING:  +800 DATA BONUS")
+                    P2.data_score += 800
                 sfx.gentle_ui()
                 time.sleep(1)
                 print("CURRENT DATA ACQUIRED: {}\n\n".format(P2.data_score))

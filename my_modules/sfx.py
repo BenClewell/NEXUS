@@ -35,6 +35,7 @@ bad_sound_hack = pygame.mixer.Sound("sounds/bad_sounds/bad_sound.wav")
 sonar = pygame.mixer.Sound("sounds/alarms/sonar.wav")
 
 affirm_sound = pygame.mixer.Sound("sounds/affirms/affirm_1.wav")
+affirm_sound.set_volume(.6)
 # for part 2...
 enable_firewall = pygame.mixer.Sound("sounds/appear_blips/enable.wav")
 
@@ -91,6 +92,7 @@ def burst_sound():
     burst_sound = pygame.mixer.Sound(
         "sounds/burst_noise/PM_AG_" + str(sound_number) + "_1_ABSTRACT_GUNS.wav"
     )
+    burst_sound.set_volume(.4)
     burst_sound.play()
 
 
@@ -104,13 +106,15 @@ def gentle_ui():
     burst_sound.play()
 
 
-def gentle_lofi():
+def gentle_lofi(noise= 'none'):
     """ pick one of eight lofi gentle sounds """
     sound_number = random.randint(1, 8)
     # how many variations of burst_sounds that there are
     burst_sound = pygame.mixer.Sound(
         "sounds/gentle_ui_sounds/lofi_gentle (" + str(sound_number) + ").wav"
     )
+    if noise == 'Quiet':
+        burst_sound.set_volume(.2)
     burst_sound.play()
 
 
@@ -121,6 +125,7 @@ def fail_corrupt():
     burst_sound = pygame.mixer.Sound(
         "sounds/hack_sounds/fail (" + str(sound_number) + ").wav"
     )
+    burst_sound.set_volume(.4)
     burst_sound.play()
 
 
@@ -135,6 +140,7 @@ def voice_introduction():
         burst_sound = pygame.mixer.Sound(
             "sounds/narration/introductions/intro-0" + str(sound_number) + ".wav"
         )
+    burst_sound.set_volume(.8)
     burst_sound.play()
 
 
@@ -145,6 +151,7 @@ def voice_nodehack():
     burst_sound = pygame.mixer.Sound(
         "sounds/narration/node_hacking/nodehack (" + str(sound_number) + ").wav"
     )
+    burst_sound.set_volume(.8)
     burst_sound.play()
 
 
@@ -155,6 +162,7 @@ def voice_node_fail():
     burst_sound = pygame.mixer.Sound(
         "sounds/narration/jammer_fail/node_fail (" + str(sound_number) + ").wav"
     )
+    burst_sound.set_volume(.8)
     burst_sound.play()
 
 
@@ -165,6 +173,7 @@ def voice_too_high():
     burst_sound = pygame.mixer.Sound(
         "sounds/narration/too_high/too_high (" + str(sound_number) + ").wav"
     )
+    burst_sound.set_volume(.8)
     burst_sound.play()
 
 
@@ -175,6 +184,7 @@ def voice_too_low():
     burst_sound = pygame.mixer.Sound(
         "sounds/narration/too_low/too_low (" + str(sound_number) + ").wav"
     )
+    burst_sound.set_volume(.8)
     burst_sound.play()
 
 
@@ -185,6 +195,7 @@ def voice_warning_high_entries():
     burst_sound = pygame.mixer.Sound(
         "sounds/narration/warnings/warning_high_" + str(sound_number) + ".wav"
     )
+    burst_sound.set_volume(.8)
     burst_sound.play()
     #
     #
@@ -197,6 +208,7 @@ def voice_warning_low_entries():
     burst_sound = pygame.mixer.Sound(
         "sounds/narration/warnings/warning_low_" + str(sound_number) + ".wav"
     )
+    burst_sound.set_volume(.8)
     burst_sound.play()
     #
     #
@@ -209,6 +221,7 @@ def voice_nexus_found():
     burst_sound = pygame.mixer.Sound(
         "sounds/narration/key_found/found_" + str(sound_number) + ".wav"
     )
+    burst_sound.set_volume(.8)
     burst_sound.play()
     #
     #
@@ -396,6 +409,7 @@ def antivirus_activated():
         burst_sound = pygame.mixer.Sound(
             "sounds/antivirus/antivirus_intro/antivirus_voice-0" + str(sound_number) + ".wav"
         )
+    burst_sound.set_volume(10.00)
     burst_sound.play()
 
 def antivirus_block():
@@ -410,6 +424,7 @@ def antivirus_block():
         burst_sound = pygame.mixer.Sound(
             "sounds/antivirus/antivirus_errors/antivirus_voice-0" + str(sound_number) + ".wav"
         )
+    burst_sound.set_volume(10.00)
     burst_sound.play()
 def antivirus_disabled():
     """ token aligned"""
@@ -423,6 +438,7 @@ def antivirus_disabled():
         burst_sound = pygame.mixer.Sound(
             "sounds/antivirus/antivirus_defeat/antivirus_voice-0" + str(sound_number) + ".wav"
         )
+    burst_sound.set_volume(10.00)
     burst_sound.play()
 
 def antivirus_pass():
@@ -437,4 +453,19 @@ def antivirus_pass():
         burst_sound = pygame.mixer.Sound(
             "sounds/antivirus/antivirus_pass/antivirus_voice-0" + str(sound_number) + ".wav"
         )
+    burst_sound.set_volume(10.00)
+    burst_sound.play()
+def antivirus_welcome():
+    """ token aligned"""
+    sound_number = random.randint(1, 27)
+    # how many variations of burst_sounds that there are
+    if sound_number > 0 and sound_number < 10:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/antivirus/antivirus_greetings/antivirus_voice-00" + str(sound_number) + ".wav"
+        )
+    else:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/antivirus/antivirus_greetings/antivirus_voice-0" + str(sound_number) + ".wav"
+        )
+    burst_sound.set_volume(10.00)
     burst_sound.play()
