@@ -21,6 +21,7 @@ import json  # read score information
 
 
 class P1:
+    jammer_no_wrong = True
     distance_bonus = 0 # how far from jammer were you?
     score_file = open("scores.json", "r")
     scores = json.load(score_file)
@@ -747,6 +748,7 @@ class P1:
             """
             Play function
             """
+            P1.jammer_no_wrong = True # no answers wrong
             stdscr.clear()
             sfx.alarm_loop(6)
             sfx.villian_jammer_active()
@@ -862,6 +864,7 @@ class P1:
                             sfx.bad_sound_hack.play()
 
                             if alarm_limit == 1:
+                                P1.jammer_no_wrong = False
                                 sfx.alarm_loop(random.randint(5, 5))
                                 alarm_limit += 1
 
@@ -1466,13 +1469,17 @@ class P1:
                                     P1.data_score+=100
                                 time.sleep(1)
                                 sfx.gentle_lofi()
+                                if P1.jammer_no_wrong ==True:
+                                    print('ALL ANSWERS CORRECT: +50 DATA')
+                                    P1.data_score+=50
                                 print('DOMINANCE BONUS: +{} DATA\n'.format(P1.distance_bonus*2))
                                 P1.data_score+=(P1.distance_bonus*2)
                                 P1.fw_level += 1
                         else:
                             time.sleep(1.5)  # let other threads finish
                             sfx.appear_blip()
-                            print("JAMMER NOT ACTIVE ON THIS NODE")
+                            print("JAMMER NOT ACTIVE ON THIS NODE (+100 DATA)")
+                            P1.data_score +=100
                     if P1.node_failed_state == True:
                         """if the node if failed"""
                         P1.chances -= 1
