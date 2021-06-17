@@ -112,8 +112,8 @@ class P2:
                 sfx.burst_sound()
                 print("FIREWALL DISABLING INFRASTRUCTURE...")
                 return
-
-        sfx.play_mp3_once("/bgm/bgm_final.mp3")
+        random_final_song = randint(1,2)
+        sfx.play_mp3_once("/bgm/bgm_final_{}.mp3".format(random_final_song))
         sfx.burst_sound()
         ascii_no_touch = pyfiglet.figlet_format("DO NOT TOUCH\nTHE KEYBOARD")
         listener = keyboard.Listener(on_press=on_press)

@@ -321,7 +321,7 @@ class P1:
                                 print("/ INTEGER POOL SATISFIED \\")
                                 time.sleep(0.5)
                                 print("[**[ANTIVIRUS DISABLED]**]")
-                                time.sleep(1.5)
+                                time.sleep(2)
                     else:
                         valid = True
                 else:
