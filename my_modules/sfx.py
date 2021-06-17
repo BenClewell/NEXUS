@@ -386,7 +386,7 @@ def villian_system_lock():
 def antivirus_activated():
     # microsoft neerja online natural english indiea voicegenerator.io on microsoft edge
     """ token aligned"""
-    sound_number = random.randint(1, 8)
+    sound_number = random.randint(1, 22)
     # how many variations of burst_sounds that there are
     if sound_number > 0 and sound_number < 10:
         burst_sound = pygame.mixer.Sound(
@@ -400,27 +400,27 @@ def antivirus_activated():
 
 def antivirus_block():
     """ token aligned"""
-    sound_number = random.randint(9, 20)
+    sound_number = random.randint(1, 24)
     # how many variations of burst_sounds that there are
     if sound_number > 0 and sound_number < 10:
         burst_sound = pygame.mixer.Sound(
-            "sounds/antivirus/antivirus_voice-00" + str(sound_number) + ".wav"
+            "sounds/antivirus/antivirus_errors/antivirus_voice-00" + str(sound_number) + ".wav"
         )
     else:
         burst_sound = pygame.mixer.Sound(
-            "sounds/antivirus/antivirus_voice-0" + str(sound_number) + ".wav"
+            "sounds/antivirus/antivirus_errors/antivirus_voice-0" + str(sound_number) + ".wav"
         )
     burst_sound.play()
 def antivirus_disabled():
     """ token aligned"""
-    sound_number = random.randint(21, 28)
+    sound_number = random.randint(1, 21)
     # how many variations of burst_sounds that there are
     if sound_number > 0 and sound_number < 10:
         burst_sound = pygame.mixer.Sound(
-            "sounds/antivirus/antivirus_voice-00" + str(sound_number) + ".wav"
+            "sounds/antivirus/antivirus_defeat/antivirus_voice-00" + str(sound_number) + ".wav"
         )
     else:
         burst_sound = pygame.mixer.Sound(
-            "sounds/antivirus/antivirus_voice-0" + str(sound_number) + ".wav"
+            "sounds/antivirus/antivirus_defeat/antivirus_voice-0" + str(sound_number) + ".wav"
         )
     burst_sound.play()
