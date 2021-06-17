@@ -354,7 +354,7 @@ class P1:
                         )
                     )
                 )
-                time.sleep(1.75)
+                time.sleep(2)
                 print("PERMISSION GRANTED. REMOVING ENTERED NODE FROM INSERTION POOL...\n")
                 time.sleep(1)
 
