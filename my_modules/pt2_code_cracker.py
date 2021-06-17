@@ -158,6 +158,7 @@ class P2:
                     ascii_prog = pyfiglet.figlet_format("DECRYPTION:\n33% COMPLETE")
                     sfx.gentle_ui()
                     print(ascii_prog)
+                    sfx.antivirus_firewall()
                     print("FIREWALL CHECK ENGAGED: EASY (.5 SECOND RESPONSE)")
                     threshold = 0.5
                 if P2.final_roundcount == 2:
@@ -184,6 +185,7 @@ class P2:
                     ascii_prog = pyfiglet.figlet_format("DECRYPTION:\n66% COMPLETE")
                     sfx.gentle_ui()
                     print(ascii_prog)
+                    sfx.antivirus_firewall()
                     print("FIREWALL CHECK ENGAGED: MEDIUM (.4 SECOND RESPONSE)")
                     threshold = 0.4
                 if P2.final_roundcount == 3:
@@ -212,6 +214,7 @@ class P2:
                     time.sleep(3)
                     sfx.gentle_ui()
                     print(ascii_prog)
+                    sfx.antivirus_firewall()
                     print("FIREWALL CHECK ENGAGED: HARD (.35 SECOND RESPONSE)")
                     threshold = 0.35
                 sfx.sonar.play()
@@ -336,7 +339,7 @@ class P2:
             letters.reverse()
 
         number = "".join(letters)
-        # print(str(number))
+        print(str(number))
         """for playtesting purposes"""
         time.sleep(2)
         sfx.gentle_lofi()
@@ -703,6 +706,7 @@ class P2:
 
                 if counter == 4:
                     time.sleep(2)
+                    sfx.antivirus_firewall()
                     ascii_fw_online = pyfiglet.figlet_format(
                         "FIREWALL   ONLINE", font="bubble"
                     )
@@ -766,6 +770,7 @@ class P2:
                 P2.initial_not_fail = False
                 listener = keyboard.Listener(on_press=initial_on_press)
                 listener.start()
+                sfx.antivirus_firewall()
                 print(
                     "BE CAREFUL: Continuously monitoring keyboard for premature keypresses..."
                 )

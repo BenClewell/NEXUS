@@ -416,7 +416,7 @@ def antivirus_activated():
 
 def antivirus_block():
     """ token aligned"""
-    sound_number = random.randint(1, 24)
+    sound_number = random.randint(1, 30)
     # how many variations of burst_sounds that there are
     if sound_number > 0 and sound_number < 10:
         burst_sound = pygame.mixer.Sound(
@@ -468,6 +468,21 @@ def antivirus_welcome():
     else:
         burst_sound = pygame.mixer.Sound(
             "sounds/antivirus/antivirus_greetings/antivirus_voice-0" + str(sound_number) + ".wav"
+        )
+    burst_sound.set_volume(10.00)
+    burst_sound.play()
+
+def antivirus_firewall():
+    """ token aligned"""
+    sound_number = random.randint(1, 30)
+    # how many variations of burst_sounds that there are
+    if sound_number > 0 and sound_number < 10:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/antivirus/antivirus_firewall/antivirus_voice-00" + str(sound_number) + ".wav"
+        )
+    else:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/antivirus/antivirus_firewall/antivirus_voice-0" + str(sound_number) + ".wav"
         )
     burst_sound.set_volume(10.00)
     burst_sound.play()
