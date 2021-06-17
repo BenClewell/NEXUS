@@ -424,3 +424,17 @@ def antivirus_disabled():
             "sounds/antivirus/antivirus_defeat/antivirus_voice-0" + str(sound_number) + ".wav"
         )
     burst_sound.play()
+
+def antivirus_pass():
+    """ token aligned"""
+    sound_number = random.randint(1, 37)
+    # how many variations of burst_sounds that there are
+    if sound_number > 0 and sound_number < 10:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/antivirus/antivirus_pass/antivirus_voice-00" + str(sound_number) + ".wav"
+        )
+    else:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/antivirus/antivirus_pass/antivirus_voice-0" + str(sound_number) + ".wav"
+        )
+    burst_sound.play()

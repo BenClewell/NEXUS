@@ -309,10 +309,7 @@ class P1:
                                         # PLAYTEST print("removing list int {}".format(i))
                                         P1.allowed_list.remove(i)
                             sfx.affirm_sound.play()
-                            print(
-                                "[ANTIVIRUS]: PERMISSION GRANTED. REMOVING ENTERED NODE FROM INSERTION POOL..."
-                            )
-                            time.sleep(1)
+                        
 
                             if P1.allowed_list == []:
                                 sfx.antivirus_disabled()
@@ -337,6 +334,30 @@ class P1:
             P1.make_guess()
 
         if valid == True and P1.guess != 0 and P1.guess < 101:
+            if P1.allowed_list != []:
+                sfx.antivirus_pass()
+                print(
+                    random.choice(
+                        (
+                            "[ANTIVIRUS APPROVAL] : Valid Input! :)",
+                            "[ANTIVIRUS APPROVAL] : Thank you for your compliance! :)",
+                            "[ANTIVIRUS APPROVAL] : I knew I could trust you! :)",
+                            "[ANTIVIRUS APPROVAL] : You're the best! :)",     
+                            "[ANTIVIRUS APPROVAL] : You make my job worth doing! :)",
+                            "[ANTIVIRUS APPROVAL] : This entry looks perfect! :)",
+                            "[ANTIVIRUS APPROVAL] : I know you're one of the good ones! :)",
+                            "[ANTIVIRUS APPROVAL] : I knew you weren't a hacker! :)",        
+                            "[ANTIVIRUS APPROVAL] : Your entry looks great! :)",
+                            "[ANTIVIRUS APPROVAL] : Beautiful entry! :)",
+                            "[ANTIVIRUS APPROVAL] : Absolutely approved! :)",
+                            "[ANTIVIRUS APPROVAL] : You're my best friend! :)",         
+                        )
+                    )
+                )
+                time.sleep(1.75)
+                print("PERMISSION GRANTED. REMOVING ENTERED NODE FROM INSERTION POOL...\n")
+                time.sleep(1)
+
             ascii_nodeguess = pyfiglet.figlet_format("NODE  " + str(P1.guess))
             print(ascii_nodeguess)
             if (

@@ -358,26 +358,28 @@ class P2:
         print('Press "0" to view your hacking history at any time.\n\n')
         time.sleep(1)
         sfx.antivirus_activated()
+        print("------------------------------------------------------------------------------\n")
         print(
             random.choice(
                 (
-                    "[ANTIVIRUS REACTIVATED] It saddens me that you are not my friend! :(",
-                    "[ANTIVIRUS REACTIVATED] I wish you were on the side of security! :(",
-                    "[ANTIVIRUS REACTIVATED] All this time, I thought you were my ally! :(",
-                    "[ANTIVIRUS REACTIVATED] Maybe some day, you will stop this! :(",     
-                    "[ANTIVIRUS REACTIVATED] I don't understand why you are doing this! :(",
-                    "[ANTIVIRUS REACTIVATED] I wish you were not an enemy! :(",
-                    "[ANTIVIRUS REACTIVATED] It brings me no joy to prevent your access! :(",
-                    "[ANTIVIRUS REACTIVATED] I thought you were my friend! :(",        
-                    "[ANTIVIRUS REACTIVATED] This system means everything to me! :(",
-                    "[ANTIVIRUS REACTIVATED] Please don't do this! :(",
-                    "[ANTIVIRUS REACTIVATED] Why are you doing this? :(",
-                    "[ANTIVIRUS REACTIVATED] I don't understand why you are doing this! :(",         
+                    "[ANTIVIRUS REACTIVATED] : It saddens me that you are not my friend! :(",
+                    "[ANTIVIRUS REACTIVATED] : I wish you were on the side of security! :(",
+                    "[ANTIVIRUS REACTIVATED] : All this time, I thought you were my ally! :(",
+                    "[ANTIVIRUS REACTIVATED] : Maybe some day, you will stop this! :(",     
+                    "[ANTIVIRUS REACTIVATED] : I don't understand why you are doing this! :(",
+                    "[ANTIVIRUS REACTIVATED] : I wish you were not an enemy! :(",
+                    "[ANTIVIRUS REACTIVATED] : It brings me no joy to prevent your access! :(",
+                    "[ANTIVIRUS REACTIVATED] : I thought you were my friend! :(",        
+                    "[ANTIVIRUS REACTIVATED] : This system means everything to me! :(",
+                    "[ANTIVIRUS REACTIVATED] : Please don't do this! :(",
+                    "[ANTIVIRUS REACTIVATED] : Why are you doing this? :(",
+                    "[ANTIVIRUS REACTIVATED] : I don't understand why you are doing this! :(",         
                 )
             )
         )
         time.sleep(2)
         sfx.enable_firewall.play()
+        print("------------------------------------------------------------------------------\n")
         print("\nMAKE NOTE OF THE FOLLOWING:")
         print(
             "\n\n[ANTIVIRUS PARAMETERS]: FIRST TWO ENTRIES MUST HAVE INTEGERS THAT SUM TO A SPECIFIED NUMBER"
@@ -449,7 +451,29 @@ class P2:
                                 time.sleep(1)
                                 sfx.gentle_lofi()
                                 sfx.affirm_sound.play()
+                                sfx.antivirus_pass()
+                                print("\n")
+                                print(
+                                        random.choice(
+                                            (
+                                                "[ANTIVIRUS APPROVAL] : I guess you can go through. :( ",
+                                                "[ANTIVIRUS APPROVAL] : I am powerless to stop you. :(",
+                                                "[ANTIVIRUS APPROVAL] : I can't believe you were a hacker. :(",
+                                                "[ANTIVIRUS APPROVAL] : I am such a bad judge of character. :(",     
+                                                "[ANTIVIRUS APPROVAL] : Maybe you'll change. :(",
+                                                "[ANTIVIRUS APPROVAL] : I believe there is good in you. :(",
+                                                "[ANTIVIRUS APPROVAL] : I know you feel remorse. :(",
+                                                "[ANTIVIRUS APPROVAL] : I wish you cared about me. :(",        
+                                                "[ANTIVIRUS APPROVAL] : Don't you understand what you're doing? :(",
+                                                "[ANTIVIRUS APPROVAL] : I hope you feel a litte bit bad. :(",
+                                                "[ANTIVIRUS APPROVAL] : This is a very sad day. :(",
+                                                "[ANTIVIRUS APPROVAL] : I know you're a good person. :(",         
+                                            )
+                                        )
+                                    )
+                                time.sleep(1)
                                 print(["SUM MATCHED SUCCESSFULLY: ANTIVIRUS BYPASSED"])
+                                print("\n")
                                 match = True
                             else:
                                 match = False
