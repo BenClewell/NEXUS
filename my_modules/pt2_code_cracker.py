@@ -250,23 +250,23 @@ class P2:
                         + ") \nCONTINUING..."
                     )
                     if timeSpent < 0.225:
-                        print("PERFECT RESPONSE: +1000 DATA")
-                        P2.data_score += 1000
+                        print("PERFECT RESPONSE: +2000 DATA")
+                        P2.data_score += 2000
                     elif timeSpent < 0.25:
-                        print("PHENOMENAL RESPONSE: +750 DATA")
-                        P2.data_score += 750
+                        print("PHENOMENAL RESPONSE: +1400 DATA")
+                        P2.data_score += 1400
                     elif timeSpent < 0.3:
-                        print("EXCEPTIONAL RESPONSE: +500 DATA")
-                        P2.data_score += 500
+                        print("EXCEPTIONAL RESPONSE: +1000 DATA")
+                        P2.data_score += 1000
                     elif timeSpent < 0.35:
-                        print("GREAT RESPONSE: +300 DATA")
-                        P2.data_score += 300
+                        print("GREAT RESPONSE: +600 DATA")
+                        P2.data_score += 600
                     elif timeSpent < 0.4:
-                        print("GOOD RESPONSE: +200 DATA")
-                        P2.data_score += 200
+                        print("GOOD RESPONSE: +400 DATA")
+                        P2.data_score += 400
                     elif timeSpent < 0.5:
-                        print("ACCEPTABLE RESPONSE: +100 DATA")
-                        P2.data_score += 100
+                        print("ACCEPTABLE RESPONSE: +200 DATA")
+                        P2.data_score += 200
                     else:
                         pass
                     P2.final_roundcount += (
