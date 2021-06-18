@@ -339,7 +339,7 @@ class P2:
             letters.reverse()
 
         number = "".join(letters)
-        print(str(number))
+        #print(str(number))
         """for playtesting purposes"""
         time.sleep(2)
         sfx.gentle_lofi()

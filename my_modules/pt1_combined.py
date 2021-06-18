@@ -420,6 +420,8 @@ class P1:
                 ""
             )  # pressing enter to hack counts as entering a node, I guess lol
             listener.stop()
+            if P1.node_failed_state == True:
+                sfx.antivirus_jamfail()
             #
             #
             print("\n")  # call after consuming one item
@@ -1066,13 +1068,15 @@ class P1:
 
             if P1.tripwire == True:
                 P1.chances -= 1
+                sfx.antivirus_jamfail()
                 time.sleep(1.5)  # let the other thread finish first
                 sfx.gentle_ui()
-                sfx.voice_node_fail()  # reassure player
+                # reassure player
                 """punishment for landing in defense range"""
                 print("NODE INFORMATION JAMMED\n*******************\n")
                 print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
                 time.sleep(3)
+                sfx.voice_node_fail()
                 if P1.high_keys < P1.low_keys:
                     P1.low_keys -= 1
                     print("HIGH NODE GUESSES REDUCED BY 1")
@@ -1472,8 +1476,8 @@ class P1:
                                 time.sleep(1)
                                 sfx.gentle_lofi()
                                 if P1.jammer_no_wrong ==True:
-                                    print('ALL ANSWERS CORRECT: +50 DATA')
-                                    P1.data_score+=50
+                                    print('ALL ANSWERS CORRECT: +100 DATA')
+                                    P1.data_score+=100
                                 time.sleep(1)
                                 print('DOMINANCE BONUS: +{} DATA\n'.format(P1.distance_bonus*2))
                                 P1.data_score+=(P1.distance_bonus*2)
@@ -1485,14 +1489,16 @@ class P1:
                             P1.data_score +=100
                     if P1.node_failed_state == True:
                         """if the node if failed"""
-                        P1.chances -= 1
+                        P1.chances -= 1    
                         time.sleep(1.5)  # let the other thread finish first
                         sfx.gentle_ui()
-                        sfx.voice_node_fail()  # reassure player
+                          # reassure player
                         """punishment for landing in defense range"""
                         print("NODE INFORMATION JAMMED\n*******************\n")
                         print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
-                        time.sleep(3)
+                        time.sleep(2)
+                        sfx.voice_node_fail() 
+                        time.sleep(2)
                         if P1.high_keys < P1.low_keys:
                             P1.low_keys -= 1
                             print("HIGH NODE GUESSES REDUCED BY 1")
