@@ -1448,10 +1448,12 @@ class P1:
                                 # reduce hack chances by one.
                                 pass
                             else:
+                                sfx.antivirus_jammer()
                                 time.sleep(1)
                                 sfx.gentle_ui()
                                 print("\n")
                                 print('JAMMER EVADED!')
+                                time.sleep(1)
                                 if P1.fw_level == 0:
                                     print('INTERMEDIATE SECURITY DEFEATED: +150 DATA')
                                     P1.data_score+=150
@@ -1472,6 +1474,7 @@ class P1:
                                 if P1.jammer_no_wrong ==True:
                                     print('ALL ANSWERS CORRECT: +50 DATA')
                                     P1.data_score+=50
+                                time.sleep(1)
                                 print('DOMINANCE BONUS: +{} DATA\n'.format(P1.distance_bonus*2))
                                 P1.data_score+=(P1.distance_bonus*2)
                                 P1.fw_level += 1
