@@ -22,7 +22,7 @@ import json  # read score information
 
 class P1:
     jammer_no_wrong = True
-    distance_bonus = 0 # how far from jammer were you?
+    distance_bonus = 0  # how far from jammer were you?
     score_file = open("scores.json", "r")
     scores = json.load(score_file)
     for key in scores["data_scores"]:  # for reagent in reagent list
@@ -48,15 +48,15 @@ class P1:
     node_failed_state = False  # has the user failed the last node hack?
     node_progress_speed = 0.1  # become faster each hack
     insertion_finished = False
-    entered_node = 0 # track what player has entered
+    entered_node = 0  # track what player has entered
     # hacking minigame
     hack_success = True
     hack_chances = 3
     with open("scores.json") as f:
         fw_speed = json.load(f)
         params = fw_speed["parameters"]
-        sp_assign = params[0]['enemy_speed']
-    fw_difficulty = int(sp_assign) # set firewall speed to parameter
+        sp_assign = params[0]["enemy_speed"]
+    fw_difficulty = int(sp_assign)  # set firewall speed to parameter
     # how fast the 'enemy' firewall moves comparative to you, lower is faster
     # PLAYTEST print(fw_difficulty)
     fw_level = 0
@@ -150,7 +150,7 @@ class P1:
         """the area in which you can perform a node hack"""
 
         def on_press(key):
-            insert_middle = start_insert+6
+            insert_middle = start_insert + 6
             if key == keyboard.Key.enter and P1.node_vulnerable == True:
                 sfx.burst_sound()
                 P1.node_failed_state = False  # user hacked node successfully
@@ -159,15 +159,19 @@ class P1:
                 if P1.entered_node == insert_middle:
                     print("[PERFECT INSERTION (+500 DATA)]")
                     P1.data_score += 500
-                elif ((insert_middle + 1) == P1.entered_node) or ((insert_middle - 1) == P1.entered_node):
+                elif ((insert_middle + 1) == P1.entered_node) or (
+                    (insert_middle - 1) == P1.entered_node
+                ):
                     print("[PRECISE INSERTION (+250 DATA)]")
                     P1.data_score += 250
-                elif ((insert_middle + 2) == P1.entered_node) or ((insert_middle - 2) == P1.entered_node):
+                elif ((insert_middle + 2) == P1.entered_node) or (
+                    (insert_middle - 2) == P1.entered_node
+                ):
                     print("[GOOD INSERTION (+150 DATA)]")
                     P1.data_score += 150
                 else:
                     print("[VALID INSERTION (+100 DATA)]")
-                    P1.data_score+=100
+                    P1.data_score += 100
             if key == keyboard.Key.enter and P1.node_vulnerable == False:
                 sfx.burst_sound()
                 P1.node_failed_state = True
@@ -219,8 +223,8 @@ class P1:
                         dupes_caught = False
                         string_guess = str(P1.guess)  # i guess this redundant lol
                         increment_nonrepeat = (
-                                0  # prevent repeat messages, see increment
-                            )
+                            0  # prevent repeat messages, see increment
+                        )
                         for char in P1.guess_string:
                             if (
                                 char in P1.allowed_list
@@ -254,7 +258,7 @@ class P1:
                                 duplicates[char] = 1
                                 #
                                 #
-                
+
                             if (
                                 char not in P1.allowed_list
                                 and dupes_caught == False
@@ -272,11 +276,11 @@ class P1:
                                     )
                                     sfx.antivirus_block()
                                     increment_nonrepeat += (
-                                    1  # prevent message from repeating two times
-                                )
+                                        1  # prevent message from repeating two times
+                                    )
                                 else:
                                     pass
-                
+
                             if len(P1.allowed_list) == 1:
                                 valid = False
                                 charpass = False
@@ -296,7 +300,7 @@ class P1:
                                     if increment_nonrepeat == 0:
                                         sfx.antivirus_block()
                                     increment_nonrepeat += (
-                                    1  # prevent message from repeating two times
+                                        1  # prevent message from repeating two times
                                     )
 
                         if charpass == True and dupes_caught == False:
@@ -312,12 +316,11 @@ class P1:
                                         # PLAYTEST print("removing list int {}".format(i))
                                         P1.allowed_list.remove(i)
                             sfx.affirm_sound.play()
-                        
 
                             if P1.allowed_list == []:
                                 sfx.antivirus_disabled()
                                 time.sleep(0.5)
-                                sfx.gentle_lofi('Quiet')
+                                sfx.gentle_lofi("Quiet")
                                 print("/ INTEGER POOL SATISFIED \\")
                                 time.sleep(0.5)
                                 print("[**[ANTIVIRUS DISABLED]**]")
@@ -337,7 +340,7 @@ class P1:
 
         if valid == True and P1.guess != 0 and P1.guess < 101:
             if P1.allowed_list != []:
-                time.sleep(.5)
+                time.sleep(0.5)
                 sfx.antivirus_pass()
                 print(
                     random.choice(
@@ -345,20 +348,22 @@ class P1:
                             "[ANTIVIRUS APPROVAL] : Valid Input! :)",
                             "[ANTIVIRUS APPROVAL] : Thank you for your compliance! :)",
                             "[ANTIVIRUS APPROVAL] : I knew I could trust you! :)",
-                            "[ANTIVIRUS APPROVAL] : You're the best! :)",     
+                            "[ANTIVIRUS APPROVAL] : You're the best! :)",
                             "[ANTIVIRUS APPROVAL] : You make my job worth doing! :)",
                             "[ANTIVIRUS APPROVAL] : This entry looks perfect! :)",
                             "[ANTIVIRUS APPROVAL] : I know you're one of the good ones! :)",
-                            "[ANTIVIRUS APPROVAL] : Thanks for playing by the rules! :)",        
+                            "[ANTIVIRUS APPROVAL] : Thanks for playing by the rules! :)",
                             "[ANTIVIRUS APPROVAL] : Your entry looks great! :)",
                             "[ANTIVIRUS APPROVAL] : Beautiful entry! :)",
                             "[ANTIVIRUS APPROVAL] : Absolutely approved! :)",
-                            "[ANTIVIRUS APPROVAL] : You're my best friend! :)",         
+                            "[ANTIVIRUS APPROVAL] : You're my best friend! :)",
                         )
                     )
                 )
                 time.sleep(2)
-                print("PERMISSION GRANTED. REMOVING ENTERED NODE FROM INSERTION POOL...\n")
+                print(
+                    "PERMISSION GRANTED. REMOVING ENTERED NODE FROM INSERTION POOL...\n"
+                )
                 time.sleep(1)
 
             ascii_nodeguess = pyfiglet.figlet_format("NODE  " + str(P1.guess))
@@ -381,7 +386,7 @@ class P1:
                 time.sleep(3)
             sfx.burst_sound()
             print("Node security level {}".format(P1.node_progress_rank))
-            print('|| DATA LOCUS: {} ||'.format(end_insert-5))
+            print("|| DATA LOCUS: {} ||".format(end_insert - 5))
             print(
                 "\nPress ENTER between {} and {} to enter node.".format(
                     (start_insert + 1), (end_insert)
@@ -410,7 +415,7 @@ class P1:
                             P1.node_vulnerable = False
                         time.sleep(P1.node_progress_speed)
                         bar()
-                        P1.entered_node = i+1 # know what node the player entered
+                        P1.entered_node = i + 1  # know what node the player entered
             time.sleep(1.5)
             pygame.mixer.stop()
             if P1.node_progress_speed > 0.02:
@@ -480,7 +485,9 @@ class P1:
                 P1.special_sonar_limit -= 1
                 print("SPECIAL SONAR ABILITY REBOOTED. (1500 DATA LOST)")
                 P1.special_sonar = True
-                print("(It has been automatically REACTIVATED. Press '101' to DISABLE.)")
+                print(
+                    "(It has been automatically REACTIVATED. Press '101' to DISABLE.)"
+                )
             if "n" in restore_ss.lower():
                 sfx.gentle_lofi()
                 print("UNDERSTOOD. SPECIAL SONAR WILL REMAIN OFFLINE. (NO DATA LOST)")
@@ -535,10 +542,12 @@ class P1:
                 print(
                     "JAMMER RANGE: "
                     + str(
-                        P1.barrier_low + 1
+                        P1.barrier_low + 2
                     )  # the +1 corrects the jammer range, since the lowest range point is outside jammer
                     + " to "
-                    + str(P1.barrier_high -1 ) # reduce the high end of the jammer to inclusive 
+                    + str(
+                        P1.barrier_high - 1
+                    )  # reduce the high end of the jammer to inclusive
                 )
             if P1.chances <= 2 and P1.barrier_inside == 2:
                 print("The NEXUS KEY is INSIDE the jammer range.")
@@ -750,7 +759,7 @@ class P1:
             """
             Play function
             """
-            P1.jammer_no_wrong = True # no answers wrong
+            P1.jammer_no_wrong = True  # no answers wrong
             stdscr.clear()
             sfx.alarm_loop(6)
             sfx.villian_jammer_active()
@@ -917,7 +926,7 @@ class P1:
                     P1.fw_difficulty -= 500  # can't go to zero
                 # make the enemy move faster
                 # increase the 'level difficulty' by one
-                P1.distance_bonus = (x_finish-enemy_x)
+                P1.distance_bonus = x_finish - enemy_x
                 curses.endwin()
 
             else:
@@ -955,7 +964,6 @@ class P1:
             stdscr.getch()
 
             # curses.wrapper(main)  # back to main function
-
 
         def main(stdscr):
 
@@ -1144,9 +1152,9 @@ class P1:
             P1.jam_reveal = True  # update jammer coordinates in hacker history
             print(
                 "The JAMMER RANGE is covering "
-                + str(P1.barrier_low + 1)
+                + str(P1.barrier_low + 2)
                 + " to "
-                + str(P1.barrier_high -1 )
+                + str(P1.barrier_high - 1)
                 + ".\nThere is a 50% chance that the NEXUS KEY has appeared within this range."
             )
 
@@ -1309,7 +1317,7 @@ class P1:
                         print("NEXUS KEY FURTHER THAN 10 NODES AWAY")
                         P1.sonar_list.append(
                             "KEY MORE THAN 10 NODES FROM " + str(P1.guess)
-            )
+                        )
         if P1.chances == 1:
             if P1.low_keys != 0 and P1.high_keys != 0:
                 print(
@@ -1347,7 +1355,7 @@ class P1:
                     time.sleep(2)
                 P1.barter_complete = True
         if P1.chances == 2:
-            if P1.low_keys != 0 and P1.high_keys != 0 and P1.guess!=P1.entry_key:
+            if P1.low_keys != 0 and P1.high_keys != 0 and P1.guess != P1.entry_key:
                 time.sleep(1)
                 print("\n\nI just confirmed where the NEXUS KEY is situated.")
                 time.sleep(1)
@@ -1364,7 +1372,7 @@ class P1:
 
     def game():
         """the only called function, manages all other methods"""
-        #print(P1.entry_key)  # for playtesting
+        # print(P1.entry_key)  # for playtesting
         print(
             random.choice(
                 (
@@ -1389,10 +1397,10 @@ class P1:
         time.sleep(1.5)
         print("------------------------------------------------------------------")
         time.sleep(1.5)
-        sfx.gentle_lofi('Quiet')
+        sfx.gentle_lofi("Quiet")
         print("------------------------------------------------------------------")
         time.sleep(1.5)
-        sfx.gentle_lofi('Quiet')
+        sfx.gentle_lofi("Quiet")
         print("------------------------------------------------------------------\n")
         sfx.antivirus_activated()
         print(
@@ -1402,15 +1410,15 @@ class P1:
                     "[ANTIVIRUS ONLINE] : I'm so glad I can trust you! :)",
                     "[ANTIVIRUS ONLINE] : I hope you consider us friends! :)",
                     "[ANTIVIRUS ONLINE] : I will perform my job well! :)",
-                    "[ANTIVIRUS ONLINE] : I will protect our systems! :)",     
+                    "[ANTIVIRUS ONLINE] : I will protect our systems! :)",
                     "[ANTIVIRUS ONLINE] : I promise to keep us safe! :)",
                     "[ANTIVIRUS ONLINE] : I will always protect you! :)",
                     "[ANTIVIRUS ONLINE] : Always doing my best to keep us secure! :)",
-                    "[ANTIVIRUS ONLINE] : I love doing my part! :)",        
+                    "[ANTIVIRUS ONLINE] : I love doing my part! :)",
                     "[ANTIVIRUS ONLINE] : A safe system is a happy system! :)",
                     "[ANTIVIRUS ONLINE] : I love keeping our NEXUS in good hands! :)",
                     "[ANTIVIRUS ONLINE] : Hello there! I will keep you safe. :)",
-                    "[ANTIVIRUS ONLINE] : Greetings! I hope you are well! :)",         
+                    "[ANTIVIRUS ONLINE] : Greetings! I hope you are well! :)",
                 )
             )
         )
@@ -1456,48 +1464,54 @@ class P1:
                                 time.sleep(1)
                                 sfx.gentle_ui()
                                 print("\n")
-                                print('JAMMER EVADED!')
+                                print("JAMMER EVADED!")
                                 time.sleep(1)
                                 if P1.fw_level == 0:
-                                    print('INTERMEDIATE SECURITY DEFEATED: +150 DATA')
-                                    P1.data_score+=150
+                                    print("INTERMEDIATE SECURITY DEFEATED: +150 DATA")
+                                    P1.data_score += 150
                                 elif P1.fw_level == 1:
-                                    print('HIGH SECURITY DEFEATED: +200 DATA')
-                                    P1.data_score+=200
+                                    print("HIGH SECURITY DEFEATED: +200 DATA")
+                                    P1.data_score += 200
                                 elif P1.fw_level == 2:
-                                    print('VERY HIGH SECURITY DEFEATED: +250 DATA')
-                                    P1.data_score+=250
+                                    print("VERY HIGH SECURITY DEFEATED: +250 DATA")
+                                    P1.data_score += 250
                                 elif P1.fw_level > 2:
-                                    print('INCREDIBLY HIGH SECURITY DEFEATED: +250 DATA')
-                                    P1.data_score+=300
-                                elif P1.fw_level <0:
-                                    print('LOWER LEVEL SECURITY DEFEATED: +100 DATA')
-                                    P1.data_score+=100
+                                    print(
+                                        "INCREDIBLY HIGH SECURITY DEFEATED: +250 DATA"
+                                    )
+                                    P1.data_score += 300
+                                elif P1.fw_level < 0:
+                                    print("LOWER LEVEL SECURITY DEFEATED: +100 DATA")
+                                    P1.data_score += 100
                                 time.sleep(1)
                                 sfx.gentle_lofi()
-                                if P1.jammer_no_wrong ==True:
-                                    print('ALL ANSWERS CORRECT: +100 DATA')
-                                    P1.data_score+=100
+                                if P1.jammer_no_wrong == True:
+                                    print("ALL ANSWERS CORRECT: +100 DATA")
+                                    P1.data_score += 100
                                 time.sleep(1)
-                                print('DOMINANCE BONUS: +{} DATA\n'.format(P1.distance_bonus*2))
-                                P1.data_score+=(P1.distance_bonus*2)
+                                print(
+                                    "DOMINANCE BONUS: +{} DATA\n".format(
+                                        P1.distance_bonus * 2
+                                    )
+                                )
+                                P1.data_score += P1.distance_bonus * 2
                                 P1.fw_level += 1
                         else:
                             time.sleep(1.5)  # let other threads finish
                             sfx.appear_blip()
                             print("JAMMER NOT ACTIVE ON THIS NODE (+100 DATA)")
-                            P1.data_score +=100
+                            P1.data_score += 100
                     if P1.node_failed_state == True:
                         """if the node if failed"""
-                        P1.chances -= 1    
+                        P1.chances -= 1
                         time.sleep(1.5)  # let the other thread finish first
                         sfx.gentle_ui()
-                          # reassure player
+                        # reassure player
                         """punishment for landing in defense range"""
                         print("NODE INFORMATION JAMMED\n*******************\n")
                         print("REDUCING GUESSES OF THE NODE TYPE YOU HAVE MORE OF")
                         time.sleep(2)
-                        sfx.voice_node_fail() 
+                        sfx.voice_node_fail()
                         time.sleep(2)
                         if P1.high_keys < P1.low_keys:
                             P1.low_keys -= 1
