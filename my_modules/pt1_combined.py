@@ -693,11 +693,25 @@ class P1:
                         "TRIANGULATE",
                         "COMPILE",
                         "PACKAGE",
+                        "REASSEMBLE",
+                        "DEFRAGMENT",
+                        "PROOF-READ",
+                        "PROOOF-READ",
+                        "PROOF-REED",
+                        "REROUTE",
+                        "UNPACK",
+                        "PRIORITIZE",
+                        "MASK",
                     )
                 )
                 hack_noun = random.choice(
                     (
                         "DDOS",
+                        "SPELL-CHECKER",
+                        "SPELL-CHEKER",
+                        "SPEL-CHECKER",
+                        "JAMMER COUNTERMEASURES",
+                        "DRIVERS",
                         "FIREWALL",
                         "VPN",
                         "DOMAIN",

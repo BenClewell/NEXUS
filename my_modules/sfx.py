@@ -332,19 +332,23 @@ def play_p2_bgm():
 
 def villian_jammerland():
     """ token aligned"""
-    sound_number = random.randint(1, 7)
+    sound_number = random.randint(1, 16)
     # how many variations of burst_sounds that there are
-    burst_sound = pygame.mixer.Sound(
-        "sounds/villain/jammer_landed-00" + str(sound_number) + ".wav"
-    )
-    burst_sound.set_volume(.6)
+    if sound_number > 0 and sound_number < 10:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/villain/jammer_landed-00" + str(sound_number) + ".wav"
+        )
+    else:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/villain/jammer_landed-0" + str(sound_number) + ".wav"
+        )
+    burst_sound.set_volume(.7)
     burst_sound.play()
-    #
 
 
 def villian_jammer_active():
     """ token aligned"""
-    sound_number = random.randint(1, 12)
+    sound_number = random.randint(1, 22)
     # how many variations of burst_sounds that there are
     if sound_number > 0 and sound_number < 10:
         burst_sound = pygame.mixer.Sound(
