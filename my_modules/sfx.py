@@ -401,7 +401,7 @@ def villian_system_lock():
 def antivirus_activated():
     # microsoft neerja online natural english indiea voicegenerator.io on microsoft edge
     """ token aligned"""
-    sound_number = random.randint(1, 22)
+    sound_number = random.randint(1, 47)
     # how many variations of burst_sounds that there are
     if sound_number > 0 and sound_number < 10:
         burst_sound = pygame.mixer.Sound(
@@ -459,7 +459,7 @@ def antivirus_pass():
     burst_sound.play()
 def antivirus_welcome():
     """ token aligned"""
-    sound_number = random.randint(1, 27)
+    sound_number = random.randint(1, 47)
     # how many variations of burst_sounds that there are
     if sound_number > 0 and sound_number < 10:
         burst_sound = pygame.mixer.Sound(
