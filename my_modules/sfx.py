@@ -157,15 +157,6 @@ def voice_nodehack():
     burst_sound.play()
 
 
-def voice_node_fail():
-    """ failed to hack"""
-    sound_number = random.randint(2, 9)
-    # how many variation s of burst_sounds that there are
-    burst_sound = pygame.mixer.Sound(
-        "sounds/narration/jammer_fail/node_fail (" + str(sound_number) + ").wav"
-    )
-    burst_sound.set_volume(.6)
-    burst_sound.play()
 
 
 def voice_too_high():
@@ -515,4 +506,20 @@ def antivirus_jamfail():
             "sounds/antivirus/antivirus_jamfail/antivirus_voice-0" + str(sound_number) + ".wav"
         )
     burst_sound.set_volume(10.00)
+    burst_sound.play()
+
+
+def voice_node_fail():
+    """ token aligned"""
+    sound_number = random.randint(1, 14)
+    # how many variations of burst_sounds that there are
+    if sound_number > 0 and sound_number < 10:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/narration/jammer_fail/node_fail (" + str(sound_number) + ").wav"
+        )
+    else:
+        burst_sound = pygame.mixer.Sound(
+            "sounds/narration/jammer_fail/node_fail (" + str(sound_number) + ").wav"
+        )
+    burst_sound.set_volume(.6)
     burst_sound.play()
