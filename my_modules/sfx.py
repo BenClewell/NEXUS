@@ -132,7 +132,7 @@ def fail_corrupt():
 
 
 def voice_introduction():
-    sound_number = random.randint(1, 21)
+    sound_number = random.randint(1, 22)
     # how many variations of burst_sounds that there are
     if sound_number > 0 and sound_number < 10:
         burst_sound = pygame.mixer.Sound(
