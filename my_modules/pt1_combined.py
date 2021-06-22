@@ -992,6 +992,7 @@ class P1:
 
                 # Get window height & width
                 height, width = stdscr.getmaxyx()
+                stdscr.refresh()
 
                 # Decorate main menu
                 title = "FIREWALL DETECTED"
