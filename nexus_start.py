@@ -49,7 +49,7 @@ def run_game():
     ascii_nexus = pyfiglet.figlet_format("THE    NEXUS")
 
     sfx.appear_blip()
-    time.sleep(.5)
+    time.sleep(0.5)
     sfx.antivirus_welcome()
     print(ascii_nexus)
     time.sleep(1.5)
@@ -58,6 +58,7 @@ def run_game():
         temp = champs["champions"]
     champs_sorted = sorted(temp, key=lambda k: k["score"], reverse=True)
     champs_unique = []
+    champs_freq = {}
     for (
         entry
     ) in champs_sorted:  # take list of top-to-bottom scores and look at each entry
@@ -66,50 +67,54 @@ def run_game():
             champs_unique
         ):  # if the player name isn't in the string of sorted players, add them
             champs_unique.append(entry)
+            champs_freq[value] = 1
         else:
+            champs_freq[value] += 1
             pass  # if the player isn't in the string, don't add them. now you only have unique players.
     champ_iterator = 1
     print("\nTOP FIVE SYSTEM ADMINISTRATORS")
     print("********************************")
     for champ in champs_unique[0:5]:
-        sfx.gentle_lofi('Quiet')
+        sfx.gentle_lofi("Quiet")
         if champ_iterator == 1:
             print(
-                "1) NEXUS CHAMPION: {} (DATA: {})".format(champ["name"], champ["score"])
+                "1) NEXUS CHAMPION: {} (DATA: {}) ||| {} COMPLETED HACKS".format(
+                    champ["name"], champ["score"], champs_freq[champ["name"]]
+                )
             )
         elif champ_iterator == 2:
             print(
-                "2) CHIEF OF SECURITY: {} (DATA: {})".format(
-                    champ["name"], champ["score"]
+                "2) CHIEF OF SECURITY: {} (DATA: {}) ||| {} COMPLETED HACKS".format(
+                    champ["name"], champ["score"], champs_freq[champ["name"]]
                 )
             )
         elif champ_iterator == 3:
             print(
-                "3) INTRUSION ANALYST: {} (DATA: {})".format(
-                    champ["name"], champ["score"]
+                "3) INTRUSION ANALYST: {} (DATA: {}) ||| {} COMPLETED HACKS".format(
+                    champ["name"], champ["score"], champs_freq[champ["name"]]
                 )
             )
         elif champ_iterator == 4:
             print(
-                "4) MALWARE ENGINEER: {} (DATA: {})".format(
-                    champ["name"], champ["score"]
+                "4) MALWARE ENGINEER: {} (DATA: {}) ||| {} COMPLETED HACKS".format(
+                    champ["name"], champ["score"], champs_freq[champ["name"]]
                 )
             )
         else:
             print(
-                "5) ENCRYPTION DEVELOPER: {} (DATA: {})".format(
-                    champ["name"], champ["score"]
+                "5) ENCRYPTION DEVELOPER: {} (DATA: {}) ||| {} COMPLETED HACKS".format(
+                    champ["name"], champ["score"], champs_freq[champ["name"]]
                 )
             )
         champ_iterator += 1
-        time.sleep(.5)
+        time.sleep(0.5)
     print("********************************\n\n")
     time.sleep(2)
     sfx.voice_introduction()
     # PLAYTEST
-    #if pt2.P2.decode_key():
+    # if pt2.P2.decode_key():
     #    pass
-    #PLAYTEST
+    # PLAYTEST
     if pt1.P1.game():
         os.system("cls" if os.name == "nt" else "clear")
         # clear the output in the terminal
