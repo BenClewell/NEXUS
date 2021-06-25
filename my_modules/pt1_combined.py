@@ -1216,6 +1216,8 @@ class P1:
                     "KEY WITHIN " + str(input_sonar) + " NODES OF " + str(P1.guess)
                 )
                 time.sleep(1)
+                print('SPECIAL SONAR PRESERVED (+50 DATA)')
+                P1.data_score+=50
                 print("SPECIAL SONAR IN-RANGE, AND CAN STILL BE USED LATER.")
                 sfx.gentle_lofi()
             else:
