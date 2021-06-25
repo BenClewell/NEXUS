@@ -78,31 +78,31 @@ def run_game():
         sfx.gentle_lofi("Quiet")
         if champ_iterator == 1:
             print(
-                "1) NEXUS CHAMPION: {} (DATA: {}) ||| {} COMPLETED HACKS".format(
+                "1) NEXUS CHAMPION: {} (DATA: {}) ||| {} SYSTEMS HACKED".format(
                     champ["name"], champ["score"], champs_freq[champ["name"]]
                 )
             )
         elif champ_iterator == 2:
             print(
-                "2) CHIEF OF SECURITY: {} (DATA: {}) ||| {} COMPLETED HACKS".format(
+                "2) CHIEF OF SECURITY: {} (DATA: {}) ||| {} NETWORKS SECURED".format(
                     champ["name"], champ["score"], champs_freq[champ["name"]]
                 )
             )
         elif champ_iterator == 3:
             print(
-                "3) INTRUSION ANALYST: {} (DATA: {}) ||| {} COMPLETED HACKS".format(
+                "3) INTRUSION ANALYST: {} (DATA: {}) ||| {} BREACHES TRIANGULATED".format(
                     champ["name"], champ["score"], champs_freq[champ["name"]]
                 )
             )
         elif champ_iterator == 4:
             print(
-                "4) MALWARE ENGINEER: {} (DATA: {}) ||| {} COMPLETED HACKS".format(
+                "4) MALWARE ENGINEER: {} (DATA: {}) ||| {} VIRUSES DESIGNED".format(
                     champ["name"], champ["score"], champs_freq[champ["name"]]
                 )
             )
         else:
             print(
-                "5) ENCRYPTION DEVELOPER: {} (DATA: {}) ||| {} COMPLETED HACKS".format(
+                "5) ENCRYPTION DEVELOPER: {} (DATA: {}) ||| {} PERMISSIONS OBFUSCATED".format(
                     champ["name"], champ["score"], champs_freq[champ["name"]]
                 )
             )

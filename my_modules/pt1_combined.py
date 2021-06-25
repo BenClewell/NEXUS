@@ -591,7 +591,7 @@ class P1:
                 else:
                     print("\nTHE NEXUS KEY IS AN ODD NUMBER")
 
-            time.sleep(2)
+            time.sleep(0.5)
             print("\nReturning to hacking interface...")
             time.sleep(1)
             status_splash = False
