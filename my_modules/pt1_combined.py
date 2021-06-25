@@ -1234,8 +1234,9 @@ class P1:
                 )
                 time.sleep(1)
                 print(
-                    "SPECIAL SONAR OUT OF RANGE, AND IS NOW DISABLED. PRESS '101' TO TROUBLESHOOT."
+                    "SPECIAL SONAR OUT OF RANGE, AND IS NOW DISABLED (-50 DATA). PRESS '101' TO TROUBLESHOOT."
                 )
+                P1.data_score+=50
                 sfx.fail_corrupt()
 
                 P1.special_sonar_limit += 1  # make it impossible to resummon
@@ -1374,7 +1375,7 @@ class P1:
         if P1.chances == 2:
             if P1.low_keys != 0 and P1.high_keys != 0 and P1.guess != P1.entry_key:
                 time.sleep(1)
-                print("\n\nI just confirmed where the NEXUS KEY is situated.")
+                print("\n\nNEXUS KEY RANGE POSITION CONFIRMED:")
                 time.sleep(1)
                 if P1.barrier_inside == 2:
                     print("It's inside the JAMMER RANGE!")
