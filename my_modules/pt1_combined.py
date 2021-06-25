@@ -549,7 +549,9 @@ class P1:
                         P1.barrier_high - 1
                     )  # reduce the high end of the jammer to inclusive
                 )
-            if P1.chances <= 2 and P1.barrier_inside == 2:
+            if P1.chances <= 2 and P1.entry_key == P1.barrier_high:
+                print("The NEXUS KEY is OUTSIDE the JAMMER RANGE!")
+            elif P1.chances <= 2 and P1.barrier_inside == 2:
                 print("The NEXUS KEY is INSIDE the jammer range.")
             elif P1.chances <= 2 and P1.barrier_inside == 1:
                 print("The NEXUS KEY is OUTSIDE the jammer range.")
@@ -1216,8 +1218,8 @@ class P1:
                     "KEY WITHIN " + str(input_sonar) + " NODES OF " + str(P1.guess)
                 )
                 time.sleep(1)
-                print('SPECIAL SONAR PRESERVED (+50 DATA)')
-                P1.data_score+=50
+                print("SPECIAL SONAR PRESERVED (+50 DATA)")
+                P1.data_score += 50
                 print("SPECIAL SONAR IN-RANGE, AND CAN STILL BE USED LATER.")
                 sfx.gentle_lofi()
             else:
@@ -1236,7 +1238,7 @@ class P1:
                 print(
                     "SPECIAL SONAR OUT OF RANGE, AND IS NOW DISABLED (-50 DATA). PRESS '101' TO TROUBLESHOOT."
                 )
-                P1.data_score+=50
+                P1.data_score += 50
                 sfx.fail_corrupt()
 
                 P1.special_sonar_limit += 1  # make it impossible to resummon
@@ -1377,10 +1379,12 @@ class P1:
                 time.sleep(1)
                 print("\n\nNEXUS KEY RANGE POSITION CONFIRMED:")
                 time.sleep(1)
-                if P1.barrier_inside == 2:
-                    print("It's inside the JAMMER RANGE!")
-                if P1.barrier_inside == 1:
-                    print("It's outside the JAMMER RANGE!")
+                if P1.entry_key == P1.barrier_high:
+                    print("It's OUTSIDE the JAMMER RANGE!")
+                elif P1.barrier_inside == 2:
+                    print("It's INSIDE the JAMMER RANGE!")
+                elif P1.barrier_inside == 1:
+                    print("It's OUTSIDE the JAMMER RANGE!")
 
         if P1.special_sonar_limit > 0:
             P1.special_sonar = False
