@@ -403,8 +403,7 @@ class P2:
         #
         #
         def countdown():
-            P2.my_timer = 300
-            for i in range(300):
+            for i in range(int(P2.my_timer)):
                 if P2.current_stage_timer == True:  # only punish if in the right part
                     P2.my_timer = P2.my_timer - 1
                     time.sleep(1)
