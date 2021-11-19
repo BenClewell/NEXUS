@@ -483,10 +483,11 @@ class P2:
                                 sfx.fail_corrupt()
                                 sfx.antivirus_block()
                                 print(
-                                    "[ANTIVIRUS]: INCORRECT SUM. ({}) ENSURE ALL ENTRY INTEGERS ADD TO THE PROPER NUMBER. ({})".format(
+                                    "[ANTIVIRUS]: INCORRECT SUM. (-15 SECONDS) ({}) ENSURE ALL ENTRY INTEGERS ADD TO THE PROPER NUMBER. ({})".format(
                                         input_sum, antivirus_sum
                                     )
                                 )
+                                P2.my_timer -= 15  # punish for incorrect sum
                                 continue
                         elif len(input_crack) != digits:
                             time.sleep(1)
