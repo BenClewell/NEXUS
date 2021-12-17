@@ -2,6 +2,22 @@ import time
 import random
 import sys
 import os
+#
+#
+import pkg_resources
+
+
+# BELOW IS THE ATTEMPT TO GET THE GAME TO PACKAGE TO EXE. (Work in progress lol)
+'''
+import PyInstaller
+if getattr(sys, 'frozen', False):
+   pkg_resources.register_loader_type(
+       PyInstaller.loader.pyimod03_importers.FrozenImporter, pkg_resources.DefaultProvider
+   )
+'''
+#
+#
+
 import pyfiglet
 import pyfiglet.fonts
 import json

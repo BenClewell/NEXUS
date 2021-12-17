@@ -20,6 +20,7 @@ import json  # read score information
 # not yet ## from my_modules import help_guide
 
 
+
 class P1:
     jammer_no_wrong = True
     distance_bonus = 0  # how far from jammer were you?
