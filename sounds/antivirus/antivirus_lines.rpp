@@ -1,4 +1,4 @@
-<REAPER_PROJECT 0.1 "6.08/x64" 1623883164
+<REAPER_PROJECT 0.1 "6.29/win64" 1644303841
   RIPPLE 0
   GROUPOVERRIDE 0 0 0
   AUTOXFADE 1
@@ -14,8 +14,8 @@
   TIMEMODE 1 5 -1 30 0 0 -1
   VIDEO_CONFIG 0 0 256
   PANMODE 3
-  CURSOR 153.822110772852
-  ZOOM 35.85960413809064 4293 0
+  CURSOR 137.92678750589667
+  ZOOM 35.85960413809064 4291 0
   VZOOMEX 6 0
   USE_REC_CFG 0
   RECMODE 1
@@ -55,19 +55,20 @@
   GLOBAL_AUTO -1
   TEMPO 120 4 4
   PLAYRATE 1 0 0.25 4
-  SELECTION 0 0
-  SELECTION2 0 0
+  SELECTION 132.99087133352631 131.8754100516347
+  SELECTION2 132.99087133352631 131.8754100516347
   MASTERAUTOMODE 0
   MASTERTRACKHEIGHT 0 0
   MASTERPEAKCOL 16576
   MASTERMUTESOLO 0
-  MASTERTRACKVIEW 0 0.6667 0.5 0.5 0 0 0 0 0 0
+  MASTERTRACKVIEW 0 0.6667 0.5 0.5 0 0 0 0 0 0 -1 -1 0
   MASTERHWOUT 0 0 1 0 0 0 0 -1
   MASTER_NCH 2 2
-  MASTER_VOLUME 0.54156767745055 0 -1 -1 1
+  MASTER_VOLUME 0.41860812813599 0 -1 -1 1
   MASTER_FX 1
   MASTER_SEL 0
   <MASTERPLAYSPEEDENV
+    EGUID {6F1EFE6A-90EC-493D-9FB9-5D0545720309}
     ACT 0 -1
     VIS 0 1 1
     LANEHEIGHT 0 0
@@ -75,6 +76,7 @@
     DEFSHAPE 0 -1 -1
   >
   <TEMPOENVEX
+    EGUID {4FD86185-6C16-4D08-A928-5A9761BF05E7}
     ACT 0 -1
     VIS 1 0 1
     LANEHEIGHT 0 0
@@ -99,7 +101,7 @@
     SEL 0
     REC 1 1024 0 11 0 0 0
     VU 2
-    TRACKHEIGHT 0 0 0
+    TRACKHEIGHT 0 0 0 0 0 0
     INQ 0 0 0 0.5 100 0 0 100
     NCHAN 2
     FX 1
@@ -139,9 +141,9 @@
       LENGTH 3
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {5062BCEA-6E47-4755-B520-E801FBBFD609}
       IID 14
@@ -153,7 +155,7 @@
       GUID {583DE4D4-2930-42B7-A7D5-95EB89D7E19E}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -162,9 +164,9 @@
       LENGTH 3.79877211850713
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {A4256626-B01A-42F2-BBD5-D8D213F24645}
       IID 20
@@ -176,7 +178,7 @@
       GUID {787521B3-36CF-4211-897C-B9E5741F4FB7}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -185,9 +187,9 @@
       LENGTH 2.6659058705232
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {10769C39-5499-47DA-8315-43DE2C6B84C2}
       IID 25
@@ -199,7 +201,7 @@
       GUID {971479E1-2043-4528-8FEF-0EED262FD31E}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -208,9 +210,9 @@
       LENGTH 3.01779418500619
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {CB1B8CBC-E4A5-4541-BD07-68B6F0A936D4}
       IID 30
@@ -222,7 +224,7 @@
       GUID {05F5202D-87DB-4A3B-A819-F79D383797C0}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -231,9 +233,9 @@
       LENGTH 3.32182568871954
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {7D6284E3-B419-45EC-86C0-D01525936CCC}
       IID 36
@@ -245,7 +247,7 @@
       GUID {63C86144-8B73-498D-90F1-C0B7FDF652B4}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -254,9 +256,9 @@
       LENGTH 3.53295867740924
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {1D51F7EC-71AB-4088-83DD-3DB7A287B908}
       IID 42
@@ -268,7 +270,7 @@
       GUID {D5B47E70-4184-4C95-8F13-D52ED10FA77E}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -277,9 +279,9 @@
       LENGTH 3.04031503713313
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {E17EF0C9-84F5-448C-ABDD-CD4EBA80DA58}
       IID 48
@@ -291,7 +293,7 @@
       GUID {2A4A1EAA-6ED4-40E0-B7E7-5FA0E47DB3A5}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -300,9 +302,9 @@
       LENGTH 2.67435119007075
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {0254E4D2-EAC7-4148-B2B5-D9918C04C6F1}
       IID 54
@@ -314,7 +316,7 @@
       GUID {A6ED0814-F913-40FA-9293-8862B1E435B7}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -323,9 +325,9 @@
       LENGTH 1.64683731178039
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {A0FF6624-3A29-414C-8567-8F5E02804B59}
       IID 60
@@ -337,7 +339,7 @@
       GUID {22FF6D72-E04C-40CB-A33A-B3F5CF9AF630}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -346,9 +348,9 @@
       LENGTH 2.37876500590505
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {A7C1C225-9C21-46EF-A29D-1937BFE3EBEE}
       IID 66
@@ -360,7 +362,7 @@
       GUID {1043BED0-4614-419B-B367-107EDD1D4BAE}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -369,9 +371,9 @@
       LENGTH 2.74472885296731
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {975369A1-0E68-4059-9773-C4D11CC140E1}
       IID 72
@@ -383,7 +385,7 @@
       GUID {64F8E3E8-19F0-47DF-8B27-267E9AA8D97F}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -392,9 +394,9 @@
       LENGTH 2.11132988689792
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {04D508F0-5225-44BB-A05A-89CC6385D035}
       IID 78
@@ -406,7 +408,7 @@
       GUID {1DA454C1-AA1C-4CAC-A49D-D1DEE598A74B}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -415,9 +417,9 @@
       LENGTH 3.73001613351968
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {00D56AB0-018E-494B-803C-58772BD13C63}
       IID 84
@@ -429,7 +431,7 @@
       GUID {1E45649B-9C4C-480B-91AF-A0A70EB6DB3F}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -438,9 +440,9 @@
       LENGTH 3.98337571994756
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {E2CA1D26-647A-46D5-ADDE-D8E157E05BF5}
       IID 90
@@ -452,7 +454,7 @@
       GUID {1610EA47-A8CC-4D42-BF2E-B67FF44D5753}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -461,9 +463,9 @@
       LENGTH 2.74472885296746
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {1D5729EE-E3F5-4B0E-8021-93812C47E043}
       IID 96
@@ -475,7 +477,7 @@
       GUID {AD352462-B138-49EB-ADA6-9241675F58A0}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -484,9 +486,9 @@
       LENGTH 2.12540541947737
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {E26295D2-5D1F-44E0-9E27-172DDB852FC4}
       IID 102
@@ -498,7 +500,7 @@
       GUID {3BB10D0D-28AC-4F0F-A4BF-8D3EF993AC39}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -507,9 +509,9 @@
       LENGTH 2.58989799459495
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {EADB1F33-E7D3-46D9-9621-2A7BB8C1F626}
       IID 108
@@ -521,7 +523,7 @@
       GUID {4CAEA880-2063-4BDD-8153-A7018F2C586E}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -530,9 +532,9 @@
       LENGTH 3.12476823260897
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {72BEB244-74DA-42D8-BBFA-6C33B6BAD685}
       IID 114
@@ -544,7 +546,7 @@
       GUID {77387BB6-CD49-4DC0-8F9B-83545F3DE420}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -553,9 +555,9 @@
       LENGTH 2.26616074527047
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {1D1E57BE-AC3B-48FE-BE3F-76CFA1153CA8}
       IID 120
@@ -567,7 +569,7 @@
       GUID {D3303BF5-BA4B-402D-BBA3-A7068305BEBA}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -576,9 +578,9 @@
       LENGTH 2.730653320388
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {CBC004A2-BED3-4D51-9666-7F1DE163F99B}
       IID 126
@@ -590,7 +592,7 @@
       GUID {BD5CDB18-7FA3-46A4-91CD-E33747E510F1}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -599,9 +601,9 @@
       LENGTH 3.47665654709203
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {DC795C0F-4738-4179-B16F-0FE73940E125}
       IID 132
@@ -613,7 +615,7 @@
       GUID {74ED6212-01C2-48D0-B7E6-BE9DC5735609}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -622,9 +624,9 @@
       LENGTH 2.0268766914221
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {2ACB9DEB-4EF6-4A63-BAE0-5F865EDFDDDF}
       IID 138
@@ -636,7 +638,7 @@
       GUID {45134E06-EC3A-478C-B399-2BBCB8BE687F}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -645,9 +647,9 @@
       LENGTH 1.1823447366628
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {C98E838B-7FFB-4D2A-A94F-9B86C282046A}
       IID 144
@@ -659,7 +661,7 @@
       GUID {4F5F0FEF-AFA1-4A05-976A-4D1BD1DD7262}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -668,9 +670,9 @@
       LENGTH 1.26679793213862
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {ABCC6B47-7293-4929-B42B-48A7C723D251}
       IID 150
@@ -682,7 +684,7 @@
       GUID {EFECD7FA-508F-44C6-95B6-87F72AD6484F}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -691,9 +693,9 @@
       LENGTH 2.09725435431859
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {B2A0C585-FD1E-4F75-96EF-1250792D8C15}
       IID 156
@@ -705,7 +707,7 @@
       GUID {14A9CA7B-F35C-499A-B989-4A9B365F7415}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -714,9 +716,9 @@
       LENGTH 1.2808734647183
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {CBF4BF5C-7AC5-4E01-9B08-392A6D524551}
       IID 162
@@ -728,7 +730,7 @@
       GUID {39231616-6FCC-4A70-827B-2A48C6F8734A}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -737,9 +739,9 @@
       LENGTH 1.71721497467693
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {CF7EB1AE-502F-4228-AE56-0B9E5EB87A4C}
       IID 168
@@ -751,7 +753,7 @@
       GUID {0AC7E85F-D097-4468-992F-7BD78D00C3F1}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -760,9 +762,9 @@
       LENGTH 1.16826920408346
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {AFCF355D-E224-49B0-814B-D2864C83026E}
       IID 174
@@ -774,7 +776,7 @@
       GUID {ACD2FE00-6E37-4479-A2C1-44726086F204}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -783,9 +785,9 @@
       LENGTH 2.08064583333333
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {FB7644F3-6DEF-425D-8C1D-62633520B60D}
       IID 231
@@ -806,9 +808,9 @@
       LENGTH 1.43397916666667
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {E4D21461-BFE0-4921-B2EF-6F5A06556468}
       IID 249
@@ -829,9 +831,9 @@
       LENGTH 1.82864583333333
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {BE6827AB-DBBB-4B9A-B593-7A969F67D29A}
       IID 252
@@ -863,7 +865,7 @@
     SEL 1
     REC 1 1024 0 11 0 0 0
     VU 2
-    TRACKHEIGHT 0 0 0
+    TRACKHEIGHT 0 0 0 0 0 0
     INQ 0 0 0 0.5 100 0 0 100
     NCHAN 2
     FX 1
@@ -877,9 +879,9 @@
       LENGTH 3
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {7637A2C5-F28F-4E54-B7AC-8D045B5296F6}
       IID 15
@@ -891,7 +893,7 @@
       GUID {2AB8CDE8-58B0-457C-8609-76AD69BF6715}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -900,9 +902,9 @@
       LENGTH 3.79877211850713
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {B562DC4E-7709-4E8D-A832-1094CFCB4A26}
       IID 21
@@ -914,7 +916,7 @@
       GUID {36EB534E-EBC4-46D5-86A0-0089FCD035F5}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -923,9 +925,9 @@
       LENGTH 2.6659058705232
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {97CDD7C0-522D-48B9-B3EB-7355D1782A96}
       IID 26
@@ -937,7 +939,7 @@
       GUID {3D6A9367-354B-4404-A1CE-0CCADB757BA4}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -946,9 +948,9 @@
       LENGTH 3.01779418500619
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {4BC1305C-EC7B-47BF-8E3F-EEE811F7E803}
       IID 31
@@ -960,7 +962,7 @@
       GUID {D9752CFF-6FBD-4249-81D7-2CF38282E4F9}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -969,9 +971,9 @@
       LENGTH 3.32182568871954
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {1C391465-BCEA-4BBB-89DB-8DCCCDFD1FFC}
       IID 37
@@ -983,7 +985,7 @@
       GUID {EEBF7D40-343C-4C4F-82B4-4D615BF0E7E6}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -992,9 +994,9 @@
       LENGTH 3.53295867740924
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {B2B6BF73-B577-4DCB-8F47-BA0B5F2B77FD}
       IID 43
@@ -1006,7 +1008,7 @@
       GUID {86061055-426F-4B2B-B7A2-2F5A3DB1E7FD}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1015,9 +1017,9 @@
       LENGTH 3.04031503713313
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {620A1EE1-CA93-4978-AD7B-804FC213F9AA}
       IID 49
@@ -1029,7 +1031,7 @@
       GUID {0CD50489-FBB0-4023-8DFC-DB9573EF0E82}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1038,9 +1040,9 @@
       LENGTH 2.67435119007075
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {23218A41-9B2C-437E-8F83-1E27CFA4C096}
       IID 55
@@ -1052,7 +1054,7 @@
       GUID {45CE7BC0-47D3-4350-8EB9-A7CA6ECCAB35}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1061,9 +1063,9 @@
       LENGTH 1.64683731178039
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {EE113EFF-E678-471B-9CBD-3823C574F45F}
       IID 61
@@ -1075,7 +1077,7 @@
       GUID {EB84B6AA-1E45-40DA-AD85-463EA1CA3936}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1084,9 +1086,9 @@
       LENGTH 2.37876500590505
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {506E09ED-9C69-4286-9BB4-470BDC208A13}
       IID 67
@@ -1098,7 +1100,7 @@
       GUID {11719D8B-0418-446A-8527-E992B56D27AD}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1107,9 +1109,9 @@
       LENGTH 2.74472885296731
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {E57BA13F-F407-4100-9279-354CA5C58344}
       IID 73
@@ -1121,7 +1123,7 @@
       GUID {4D4B2BB9-B298-438F-9F99-8FCEB8E7AA09}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1130,9 +1132,9 @@
       LENGTH 2.11132988689792
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {E930FAD2-2215-4CB7-8EBC-A3F8BBEFCAA2}
       IID 79
@@ -1144,7 +1146,7 @@
       GUID {937A127A-063D-4711-9D73-19778FC3A9BD}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1153,9 +1155,9 @@
       LENGTH 3.73001613351968
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {D7D67CFC-6639-4BC6-9DDC-271B9C4095CC}
       IID 85
@@ -1167,7 +1169,7 @@
       GUID {62E8AE3B-D1BF-42FE-AD02-58912270B12C}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1176,9 +1178,9 @@
       LENGTH 3.98337571994756
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {FB001722-4820-4693-979E-846685FA2AA4}
       IID 91
@@ -1190,7 +1192,7 @@
       GUID {B3602F3D-0887-4987-8EC0-437D9BB76E4F}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1199,9 +1201,9 @@
       LENGTH 2.74472885296746
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {60FAD838-F6E2-4028-ABD8-3D9C3CCA4BBB}
       IID 97
@@ -1213,7 +1215,7 @@
       GUID {53B6A8E4-B3D7-48F6-81F1-4C88E1732406}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1222,9 +1224,9 @@
       LENGTH 2.12540541947737
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {9DC59B89-E596-48E6-A05C-98B4EBF7D7F1}
       IID 103
@@ -1236,7 +1238,7 @@
       GUID {ABE0A6B2-547E-4038-9FD3-4ABC8AFD7675}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1245,9 +1247,9 @@
       LENGTH 2.58989799459495
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {7BDFF6FF-5476-4E2F-A5C5-F546E7731456}
       IID 109
@@ -1259,7 +1261,7 @@
       GUID {6364D76F-BE03-495E-9AD2-F7AE5F010F33}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1268,9 +1270,9 @@
       LENGTH 3.12476823260897
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {1C836CB9-CF2C-43E9-87F9-68972C82B4B8}
       IID 115
@@ -1282,7 +1284,7 @@
       GUID {B472C9C6-037B-4154-A269-EF5B7B16E643}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1291,9 +1293,9 @@
       LENGTH 2.26616074527047
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {CD717571-0386-4639-B515-171956B87963}
       IID 121
@@ -1305,7 +1307,7 @@
       GUID {3F72EC9A-C9A0-42FF-A153-54883A96EEB8}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1314,9 +1316,9 @@
       LENGTH 2.730653320388
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {D88EB763-7236-4190-BEE3-E05022F755F0}
       IID 127
@@ -1328,7 +1330,7 @@
       GUID {DD6C5878-60D1-4EBB-A27D-A63FBA04009B}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1337,9 +1339,9 @@
       LENGTH 3.47665654709203
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {81E18DF7-DE13-480C-803A-74BE7A12E7EB}
       IID 133
@@ -1351,7 +1353,7 @@
       GUID {CB0A3B5F-D0C1-4127-8115-83C623237344}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1360,9 +1362,9 @@
       LENGTH 2.0268766914221
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {9B905DE0-D3DF-4F60-AF0C-4866EF7768B1}
       IID 139
@@ -1374,7 +1376,7 @@
       GUID {ECBB5BAE-2E7D-487C-BF40-40FBBB6BBB27}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1383,9 +1385,9 @@
       LENGTH 1.1823447366628
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {E85F28AA-5140-4A17-A506-8EA90A4F1AF0}
       IID 145
@@ -1397,7 +1399,7 @@
       GUID {775732A7-6A27-408F-B3A4-847A61A67BB6}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1406,9 +1408,9 @@
       LENGTH 1.26679793213862
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {D4DFFFF9-91B3-4B1D-A9A2-FEA980A21451}
       IID 151
@@ -1420,7 +1422,7 @@
       GUID {805BC744-15B2-4B20-BEC6-EE348BDA65B1}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1429,9 +1431,9 @@
       LENGTH 2.09725435431859
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {D4F27074-9EFC-4F70-A0D4-7F62DBB1BBB0}
       IID 157
@@ -1443,7 +1445,7 @@
       GUID {F24EEF3C-7DE5-4CC6-BBFC-16BC9F813AF2}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1452,9 +1454,9 @@
       LENGTH 1.2808734647183
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {E90976DE-03A0-4E75-B1D7-62E2987EB4E5}
       IID 163
@@ -1466,7 +1468,7 @@
       GUID {043EEEE4-1FB8-4706-98A9-1E73E6678C72}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1475,9 +1477,9 @@
       LENGTH 1.71721497467693
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {BEEA8A37-7882-479F-862A-EE0C4C032851}
       IID 169
@@ -1489,7 +1491,7 @@
       GUID {3B31126E-0E6D-4676-8296-A5AACB4725D3}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1498,9 +1500,9 @@
       LENGTH 1.16826920408346
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {CD362E66-1C0F-47DD-8C75-8BD99B0096D2}
       IID 175
@@ -1512,7 +1514,7 @@
       GUID {AEC1EDD6-3407-4E11-8868-356C5567370E}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1521,9 +1523,9 @@
       LENGTH 2.08064583333333
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {7CDC9EAF-5EAF-44BD-A680-7815385C0094}
       IID 232
@@ -1544,9 +1546,9 @@
       LENGTH 1.43397916666667
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {1BA4A31E-6BC9-4DF4-8CC3-C12BF2A85692}
       IID 250
@@ -1567,9 +1569,9 @@
       LENGTH 1.82864583333333
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {9C800C6A-C898-4BE9-884B-E390AC7B5A9B}
       IID 253
@@ -1601,7 +1603,7 @@
     SEL 0
     REC 1 1024 0 11 0 0 0
     VU 2
-    TRACKHEIGHT 0 0 0
+    TRACKHEIGHT 0 0 0 0 0 0
     INQ 0 0 0 0.5 100 0 0 100
     NCHAN 2
     FX 1
@@ -1630,9 +1632,9 @@
       LENGTH 3
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {CF9D88C1-8C16-44B2-89B3-739DE61B7003}
       IID 16
@@ -1644,7 +1646,7 @@
       GUID {01FD92BB-D2FD-4A6F-AF62-A618D9E637AA}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1653,9 +1655,9 @@
       LENGTH 3.79877211850713
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {09B1FACD-31F2-4EFE-BDEF-2EFF6E5860AD}
       IID 22
@@ -1667,7 +1669,7 @@
       GUID {E3E304FD-DF6C-42BB-937D-75202936E410}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1676,9 +1678,9 @@
       LENGTH 2.6659058705232
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {E6933CE5-4261-40C6-A5A0-414DE84A99AA}
       IID 23
@@ -1690,7 +1692,7 @@
       GUID {D43829A2-A55E-4954-9670-C5295D06370B}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1699,9 +1701,9 @@
       LENGTH 3.01779418500619
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {49166E94-EA2E-4D5E-B053-D23650B7FBA5}
       IID 32
@@ -1713,7 +1715,7 @@
       GUID {96DC80B2-AA4B-4D38-AA9C-CD9D46D1C460}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1722,9 +1724,9 @@
       LENGTH 3.32182568871954
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {4D4D8E5A-DB67-46BC-AF50-A694CDF84D61}
       IID 38
@@ -1736,7 +1738,7 @@
       GUID {842EB0C8-0918-48C9-96C2-CFEEBED6EF47}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1745,9 +1747,9 @@
       LENGTH 3.53295867740924
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {66EC7A6A-391C-4D1B-BB93-4FF0575976A4}
       IID 44
@@ -1759,7 +1761,7 @@
       GUID {497CDE01-828E-4F8E-B1A5-A5B6739BBE63}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1768,9 +1770,9 @@
       LENGTH 3.04031503713313
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {3DB73E7E-FF08-44A8-9013-AD0C8A07A919}
       IID 50
@@ -1782,7 +1784,7 @@
       GUID {D955807B-9AD0-4289-B6FC-C880F520B617}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1791,9 +1793,9 @@
       LENGTH 2.67435119007075
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {95189810-E0BA-4923-80A7-B663FA290EA9}
       IID 56
@@ -1805,7 +1807,7 @@
       GUID {4F59A56D-D3DE-497A-896E-5CE6E6ED139F}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1814,9 +1816,9 @@
       LENGTH 1.64683731178039
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {BB732DD1-441E-4F67-AA9D-2AFCA16835F6}
       IID 62
@@ -1828,7 +1830,7 @@
       GUID {55784F3F-7E8E-46F4-BDC2-7B1DE2A69DCC}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1837,9 +1839,9 @@
       LENGTH 2.37876500590505
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {136770D3-628E-4BD6-9A8F-F68530738F60}
       IID 68
@@ -1851,7 +1853,7 @@
       GUID {B19120DB-BFC9-465C-936A-246110A001A9}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1860,9 +1862,9 @@
       LENGTH 2.74472885296731
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {7BD69536-567D-4028-B037-EECE5A61AB04}
       IID 74
@@ -1874,7 +1876,7 @@
       GUID {A7E4CDE9-30C5-41AD-8C1A-D6A6DDCBD646}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1883,9 +1885,9 @@
       LENGTH 2.11132988689792
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {B63CA832-5592-4878-94FF-34FA112028C1}
       IID 80
@@ -1897,7 +1899,7 @@
       GUID {C2F51C67-C197-448A-A15F-9AF419F3C6E5}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1906,9 +1908,9 @@
       LENGTH 3.73001613351968
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {6100CAE8-9C54-494D-A0E4-29938E59EC92}
       IID 86
@@ -1920,7 +1922,7 @@
       GUID {835F46B1-22B2-4075-9709-2CA09806435E}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1929,9 +1931,9 @@
       LENGTH 3.98337571994756
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {4C276E9D-4EFE-4E95-918E-B3FE6544DE50}
       IID 92
@@ -1943,7 +1945,7 @@
       GUID {480405E9-EA12-4F24-98B0-456D73EA5DC8}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1952,9 +1954,9 @@
       LENGTH 2.74472885296746
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {6E162A05-19E2-4277-B52D-9EA9CA81ED59}
       IID 98
@@ -1966,7 +1968,7 @@
       GUID {AFB72824-D7A5-4106-B779-4755642140C7}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1975,9 +1977,9 @@
       LENGTH 2.12540541947737
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {594C5FC1-490C-45E5-9961-79FDDB13324D}
       IID 104
@@ -1989,7 +1991,7 @@
       GUID {37B3C8C5-6933-40BC-97B3-5BBBCFFF6704}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -1998,9 +2000,9 @@
       LENGTH 2.58989799459495
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {7E2F0CF7-B1DD-49B8-A1C3-2B047C2AA10A}
       IID 110
@@ -2012,7 +2014,7 @@
       GUID {638B0887-ACFF-4156-8D3C-EC2CD5281700}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2021,9 +2023,9 @@
       LENGTH 3.12476823260897
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {2461A8CA-743C-4C25-92AF-C7C70AA448F4}
       IID 116
@@ -2035,7 +2037,7 @@
       GUID {7B535B5E-8CAD-4695-A879-2579DDAEBB5B}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2044,9 +2046,9 @@
       LENGTH 2.26616074527047
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {B3140DAB-C74D-4474-BF7C-4DDE3680AB8E}
       IID 122
@@ -2058,7 +2060,7 @@
       GUID {7B282843-259A-4C37-9F38-9F6029251BFA}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2067,9 +2069,9 @@
       LENGTH 2.730653320388
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {872A33A4-378D-4892-9434-0366C0606E21}
       IID 128
@@ -2081,7 +2083,7 @@
       GUID {82DEBF07-9E34-4D64-B8E8-175317BEB355}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2090,9 +2092,9 @@
       LENGTH 3.47665654709203
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {29803D21-E809-4605-914B-11D4A5DDC2CC}
       IID 134
@@ -2104,7 +2106,7 @@
       GUID {987A1E66-D35D-4C28-8C7C-87142954A440}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2113,9 +2115,9 @@
       LENGTH 2.0268766914221
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {EE305954-E4D8-45F6-9E12-0D4E0AC3B89D}
       IID 140
@@ -2127,7 +2129,7 @@
       GUID {5F384D2C-7313-4310-89FB-1A6DFFFC4C70}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2136,9 +2138,9 @@
       LENGTH 1.1823447366628
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {1B2D17D5-2572-4725-97D8-36E14232BD23}
       IID 146
@@ -2150,7 +2152,7 @@
       GUID {37082CE7-4BAA-4394-819C-A89B968589B1}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2159,9 +2161,9 @@
       LENGTH 1.26679793213862
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {DAF16B04-D099-4EE5-85DB-80EAC6CBF033}
       IID 152
@@ -2173,7 +2175,7 @@
       GUID {FD0DBB4B-ECA5-479E-86D6-3DDEA426A87F}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2182,9 +2184,9 @@
       LENGTH 2.09725435431859
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {64C84927-FF4B-4BA9-B344-FCB3495FDE81}
       IID 158
@@ -2196,7 +2198,7 @@
       GUID {C9E93769-3752-4DB3-93FC-09018F84CEE1}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2205,9 +2207,9 @@
       LENGTH 1.2808734647183
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {D23395A1-211E-4EFE-B25B-251E915D5CE2}
       IID 164
@@ -2219,7 +2221,7 @@
       GUID {B833DABA-4605-42AB-99FC-158F6D4290EB}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2228,9 +2230,9 @@
       LENGTH 1.71721497467693
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {1B0D64E2-BB06-49F7-B20E-A330C27DA6F2}
       IID 170
@@ -2242,7 +2244,7 @@
       GUID {A2BA2827-A48F-425D-8CCA-F401EA006043}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2251,9 +2253,9 @@
       LENGTH 1.16826920408346
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {62CD5BA8-B97F-4E46-907E-B89426524FE0}
       IID 176
@@ -2265,7 +2267,7 @@
       GUID {9F6395CF-3BA3-4CEA-AC26-B456AC680FCB}
       RECPASS 6
       <SOURCE WAVE
-        FILE "C:\Users\bencl\Documents\REAPER Media\02-210616_1359-01.wav"
+        FILE "antivirusrecord\antivirus_lines\02-210616_1359-01.wav"
       >
     >
     <ITEM
@@ -2274,9 +2276,9 @@
       LENGTH 2.08064583333333
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {0AADA8FA-A5AB-46A0-828B-EBBFAED8CB09}
       IID 233
@@ -2297,9 +2299,9 @@
       LENGTH 1.43397916666667
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {3C2FADC0-4265-4198-BABE-63F667F643B9}
       IID 251
@@ -2320,9 +2322,9 @@
       LENGTH 1.82864583333333
       LOOP 1
       ALLTAKES 0
-      FADEIN 1 0.01 0 1 0 0
-      FADEOUT 1 0.01 0 1 0 0
-      MUTE 0
+      FADEIN 1 0.01 0 1 0 0 0
+      FADEOUT 1 0.01 0 1 0 0 0
+      MUTE 0 0
       SEL 0
       IGUID {68C119D3-7C0C-4555-A4D9-487C66049447}
       IID 254
