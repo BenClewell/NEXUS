@@ -196,7 +196,7 @@ class P3:
                     print('it is over: {}'.format(P3.bosshealth))
                     time.sleep(100)
                 else:
-                    P3.bosshealth = P3.bosshealth - P3.ddamage_value
+                    P3.bosshealth = P3.bosshealth - P3.damage_value
                     print('\nBOSS HEALTH: {}'.format(P3.bosshealth))
                     if P3.bosshealth <=0:
                         print('You have won.')

@@ -10,7 +10,7 @@ class A:             # ~~ASTEROID BELT~~
   def m(_):     # github.com/bombadil444
     _.x+=_.z;_.w+=1  # WASD=move P=shoot
     try:      # Don't Panic! Have Fun :D])
-      for i in 1,2: p(_.x,_.w+i,"O"*4)
+      for i in 1,1: p(_.x,_.w+i,"O"*4)
     except: o.remove(_)
   def __init__(_): _.x=r(t);_.z=r(-1,2)
 class Z: #                       OOOO 0
@@ -33,7 +33,7 @@ z.keypad(1);z.nodelay(1);o=u=[];x=10
 # addscr text in top-right of screen
 found_the_node = False
 while 48 not in u and found_the_node == False:
-    goalpost = z.addstr(20,t-100,"HERE")
+    goalpost = z.addstr(8,t-20,"HERE")
     # if player touches (8,t-20) then end the game
     u=[];U=0;r(7)<5 and o.append(A())
     while U!=-1: U=z.getch();u+=U,
@@ -41,11 +41,12 @@ while 48 not in u and found_the_node == False:
     k(115,0,1);k(119,0,-1);z.erase()
     x+=d;y+=a;y-=(0,a)[y<0 or y+3>q]
     x-=(0,d)[x<=0 or x+7>t];m and m.m()
-    print(str(x)+"X + Y"+str(y) )
-    print('t-100 = {}'.format(t-100))
-    if (y == 17 or y == 17) and (x == (t-98 ) or x == (t-99) or x == (t-100) or x == (t-101) or x == (t-102)):
+    #print(str(x)+"X + Y"+str(y) )
+    #print('t-100 = {}'.format(t-100))
+    # make the y value 3 below the value of the goalpost, and a two-character leeway for the x value of t-100
+    if (y == 5 or y == 5) and (x == (t-18 ) or x == (t-19) or x == (t-20) or x == (t-21) or x == (t-22)):
         curses.napms(0);z.keypad(0);curses.endwin()
-        print('COOL')
+        #print('COOL')
         found_the_node = True
 
     for i in 0,1,2:
@@ -65,4 +66,4 @@ if found_the_node == True:
     print('YOU FOUND THE NODE!')
 else:
     print('YOU DID NOT FIND THE NODE!')
-sleep(25)
+sleep(2)
